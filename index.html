@@ -13,7 +13,7 @@
             const redirect = sessionStorage.redirect;
             delete sessionStorage.redirect;
             // Convert clean URL to hash URL: /foam/nitroshot-data -> /#/foam/nitroshot-data
-            window.location.replace('/#' + redirect);
+            window.location.hash = redirect;
         }
     </script>
 </head>
