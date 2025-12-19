@@ -5,6 +5,45 @@ class Router {
         this.currentPage = null;
         this.appContainer = document.getElementById('app');
         
+        // Subpage configurations
+        this.foamSubpages = {
+            'fps-energy': {
+                title: 'Donutcat\'s Big FPS/Energy Spreadsheet',
+                url: 'https://docs.google.com/spreadsheets/d/1DErHXWYYJuS1pZFZlOpyJIYQS39zQhJ5nn0zu4-AnlA/edit?rm=minimal'
+            },
+            'mcmaster-spring': {
+                title: 'McMaster Spring Table',
+                url: 'https://script.google.com/macros/s/AKfycbx5RCkEBQsj3u9jzkDO-mnqEV70YN-3Z_NaL2-SiYDT-pEBMJGHaqeJ5YH9AfzexZZu/exec'
+            },
+            'nitroshot-submission': {
+                title: 'Nitroshot+ Submission Form',
+                url: 'https://script.google.com/macros/s/AKfycbxUvnbUlDjXvIs5TcWAJ2eNWMXn0kHwKB0N_0mlNPCgTouZZfvJfZTziR5XpQluMlbaug/exec'
+            },
+            'nitroshot-data': {
+                title: 'Nitroshot+ Data',
+                url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTAL-uhq1_0OfB4gSbzI_Xmdhm72Z_v14m7t7xX7aw0rFvyMxo4xZAOC6KMWmSkfhtqXIPd4Rl7HEqT/pubhtml'
+            },
+            'brushless-speed': {
+                title: 'Simple Brushless Surface Speed Calculator',
+                url: 'https://docs.google.com/spreadsheets/d/1CmWjp6ToFWR_Ew89xegV-4a4I6XCkudw1rTVfP3noWs/edit?rm=minimal'
+            }
+        };
+
+        this.beySubpages = {
+            'tournament-guide': {
+                title: 'Tournament Guide',
+                url: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml'
+            },
+            'collection': {
+                title: 'My Collection',
+                url: 'https://script.google.com/macros/d/YOUR_DEPLOYMENT_ID/userweb'
+            },
+            'tips-tricks': {
+                title: 'Tips & Tricks',
+                url: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml'
+            }
+        };
+        
         // Listen for hash changes
         window.addEventListener('hashchange', () => this.handleRoute());
         
@@ -53,6 +92,8 @@ class Router {
         // Handle sub-pages
         if (fullHash.startsWith('/foam/')) {
             this.loadFoamSubpage(fullHash);
+        } else if (fullHash.startsWith('/bey/')) {
+            this.loadBeySubpage(fullHash);
         }
     }
 
@@ -61,43 +102,50 @@ class Router {
         const header = this.appContainer.querySelector('#foam-main-header');
         const content = this.appContainer.querySelector('.page-content');
         
-        // Hide the main foam page header on subpages
+        // Remove the main foam page header on subpages
         if (header) {
-            header.style.display = 'none';
+            header.remove();
         }
         
-        if (!content) return;
-
-        switch(subpage) {
-            case 'fps-energy':
-                content.innerHTML = `
-                    <h3>Donutcat's Big FPS/Energy Spreadsheet</h3>
-                    <p>Click the link below to view the spreadsheet:</p>
-                    <p><a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit?usp=sharing" target="_blank">Open Spreadsheet</a></p>
-                `;
-                break;
-            case 'mcmaster-spring':
-                content.innerHTML = `
-                    <h3>McMaster Spring Spreadsheet</h3>
-                    <p>Click the link below to view the spreadsheet:</p>
-                    <p><a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit?usp=sharing" target="_blank">Open Spreadsheet</a></p>
-                `;
-                break;
-            case 'nitroshot-submission':
-                content.innerHTML = `
-                    <h3>Nitroshot+ Submission Form</h3>
-                    <p>Click the link below to submit data:</p>
-                    <p><a href="https://forms.gle/YOUR_FORM_ID" target="_blank">Open Form</a></p>
-                `;
-                break;
-            case 'nitroshot-data':
-                content.innerHTML = `
-                    <h3>Nitroshot+ Data</h3>
-                    <p>Click the link below to view the data:</p>
-                    <p><a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit?usp=sharing" target="_blank">Open Data</a></p>
-                `;
-                break;
+        if (!content || !this.foamSubpages[subpage]) {
+            if (content) content.innerHTML = '<p>Page not found</p>';
+            return;
         }
+
+        this.renderEmbeddedContent(content, this.foamSubpages[subpage]);
+    }
+
+    loadBeySubpage(hash) {
+        const subpage = hash.replace('/bey/', '');
+        const header = this.appContainer.querySelector('#bey-main-header');
+        const content = this.appContainer.querySelector('.page-content');
+        
+        // Remove the main bey page header on subpages
+        if (header) {
+            header.remove();
+        }
+        
+        if (!content || !this.beySubpages[subpage]) {
+            if (content) content.innerHTML = '<p>Page not found</p>';
+            return;
+        }
+
+        this.renderEmbeddedContent(content, this.beySubpages[subpage]);
+    }
+
+    renderEmbeddedContent(container, data) {
+        container.innerHTML = `
+            <div class="embedded-content">
+                <h3>${data.title}</h3>
+                <div class="iframe-container">
+                    <iframe 
+                        src="${data.url}"
+                        frameborder="0"
+                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                    ></iframe>
+                </div>
+            </div>
+        `;
     }
 }
 
