@@ -157,4 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
     router.register('/', 'home-page');
     router.register('/bey', 'bey-page');
     router.register('/foam', 'foam-page');
+    
+    // If no hash, redirect to home page
+    if (!window.location.hash) {
+        window.location.hash = '/';
+    }
 });
