@@ -233,15 +233,14 @@ body.home-page-bg {
 .embedded-content h3 {
     color: var(--primary-color);
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .iframe-container {
     position: relative;
     width: 100%;
-    padding-bottom: 75%;
-    height: 0;
+    height: 85vh;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -260,9 +259,10 @@ body.home-page-bg {
     width: 100%;
     flex: 1;
     overflow: auto;
-    padding: 20px;
+    padding: 0;
     border-radius: 8px;
     background: var(--bg-color);
+    box-sizing: border-box;
 }
 
 /* Footer */

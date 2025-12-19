@@ -24,11 +24,6 @@
     const rocketSheetsHtml = `
         <!DOCTYPE html>
         <html>
-        <head>
-            <style>
-                body { margin: 0; padding: 0; font-family: Roboto, Arial, sans-serif; }
-            </style>
-        </head>
         <body>
             <script 
                 src="https://embed.rocketalumnisolutions.com/rocket-sheets-embed.js"
@@ -99,13 +94,13 @@
     
     // Create iframe with the embedded HTML
     const iframe = document.createElement('iframe');
-    iframe.style.width = '100%';
-    iframe.style.height = '600px';
-    iframe.style.border = 'none';
-    iframe.style.borderRadius = '4px';
     iframe.sandbox.add('allow-same-origin', 'allow-scripts', 'allow-forms', 'allow-popups');
     
-    container.appendChild(iframe);
+    // Wrap in container to use existing CSS styling
+    const iframeContainer = document.createElement('div');
+    iframeContainer.className = 'iframe-container';
+    iframeContainer.appendChild(iframe);
+    container.appendChild(iframeContainer);
     
     // Write the HTML content to the iframe
     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
