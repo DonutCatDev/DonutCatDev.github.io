@@ -182,15 +182,24 @@ class Router {
             // Load and execute the script
             const script = document.createElement('script');
             script.src = data.src;
+            script.async = true;
+            
             script.onload = () => {
+                console.log('Script loaded successfully:', data.src);
                 // Script will handle its own initialization
                 if (data.initFunction && window[data.initFunction]) {
                     window[data.initFunction](document.getElementById('script-container'));
                 }
             };
+            
             script.onerror = () => {
-                document.getElementById('script-container').innerHTML = `<p style="color: red;">Error loading script: ${data.src}</p>`;
+                console.error('Error loading script:', data.src);
+                const scriptContainer = document.getElementById('script-container');
+                if (scriptContainer) {
+                    scriptContainer.innerHTML = `<p style="color: red;">Error loading script: ${data.src}</p>`;
+                }
             };
+            
             // Append to head or document
             document.head.appendChild(script);
         }
