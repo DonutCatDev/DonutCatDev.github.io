@@ -8,11 +8,11 @@
     <link rel="icon" type="image/png" href="content/pictures/donutcat.png">
     <link rel="stylesheet" href="styles/main.css">
     <script>
-        // Handle redirect from 404.html
+        // Handle redirect from 404.html immediately
         if (sessionStorage.redirect) {
             const redirect = sessionStorage.redirect;
             delete sessionStorage.redirect;
-            // Convert clean URL to hash URL: /foam/nitroshot-data -> /#/foam/nitroshot-data
+            // Set hash directly - this will be picked up by router
             window.location.hash = redirect;
         }
     </script>
