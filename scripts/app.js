@@ -9,37 +9,59 @@ class Router {
         this.foamSubpages = {
             'fps-energy': {
                 title: 'Donutcat\'s Big FPS/Energy Spreadsheet',
+                type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/1DErHXWYYJuS1pZFZlOpyJIYQS39zQhJ5nn0zu4-AnlA/edit?rm=minimal'
             },
             'mcmaster-spring': {
                 title: 'McMaster Spring Table',
+                type: 'embed',
                 url: 'https://script.google.com/macros/s/AKfycbx5RCkEBQsj3u9jzkDO-mnqEV70YN-3Z_NaL2-SiYDT-pEBMJGHaqeJ5YH9AfzexZZu/exec'
             },
             'nitroshot-submission': {
                 title: 'Nitroshot+ Submission Form',
+                type: 'embed',
                 url: 'https://script.google.com/macros/s/AKfycbxUvnbUlDjXvIs5TcWAJ2eNWMXn0kHwKB0N_0mlNPCgTouZZfvJfZTziR5XpQluMlbaug/exec'
             },
             'nitroshot-data': {
                 title: 'Nitroshot+ Data',
+                type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTAL-uhq1_0OfB4gSbzI_Xmdhm72Z_v14m7t7xX7aw0rFvyMxo4xZAOC6KMWmSkfhtqXIPd4Rl7HEqT/pubhtml'
             },
             'brushless-speed': {
                 title: 'Simple Brushless Surface Speed Calculator',
+                type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/1CmWjp6ToFWR_Ew89xegV-4a4I6XCkudw1rTVfP3noWs/edit?rm=minimal'
             }
+            /*
+            'my-sheet': {
+                title: 'My Sheet',
+                type: 'embed',
+                url: 'https://docs.google.com/spreadsheets/d/...'
+            },
+            'my-tool': {
+                title: 'My Custom Tool',
+                type: 'script',
+                src: 'scripts/my-tool.js',
+                initFunction: 'initMyTool'  // Optional: function name to call when script loads
+            }
+            */
         };
 
         this.beySubpages = {
-            'tournament-guide': {
-                title: 'Tournament Guide',
-                url: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml'
+            'dmvbxl-topcut-data': {
+                title: 'DMV Beyblade X League Top Cut Data',
+                type: 'script',
+                src: 'scripts/dmvbxl-topcut.js',
+                //initFunction: 'initMyTool'  // Optional: function name to call when script loads
             },
             'collection': {
                 title: 'My Collection',
+                type: 'embed',
                 url: 'https://script.google.com/macros/d/YOUR_DEPLOYMENT_ID/userweb'
             },
             'tips-tricks': {
                 title: 'Tips & Tricks',
+                type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml'
             }
         };
@@ -134,18 +156,44 @@ class Router {
     }
 
     renderEmbeddedContent(container, data) {
-        container.innerHTML = `
-            <div class="embedded-content">
-                <h3>${data.title}</h3>
-                <div class="iframe-container">
-                    <iframe 
-                        src="${data.url}"
-                        frameborder="0"
-                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
-                    ></iframe>
+        if (data.type === 'embed') {
+            // Render Google Sheets/Apps Script iframe
+            container.innerHTML = `
+                <div class="embedded-content">
+                    <h3>${data.title}</h3>
+                    <div class="iframe-container">
+                        <iframe 
+                            src="${data.url}"
+                            frameborder="0"
+                            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                        ></iframe>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        } else if (data.type === 'script') {
+            // Render custom script in a container
+            container.innerHTML = `
+                <div class="embedded-content">
+                    <h3>${data.title}</h3>
+                    <div id="script-container" class="script-container"></div>
+                </div>
+            `;
+            
+            // Load and execute the script
+            const script = document.createElement('script');
+            script.src = data.src;
+            script.onload = () => {
+                // Script will handle its own initialization
+                if (data.initFunction && window[data.initFunction]) {
+                    window[data.initFunction](document.getElementById('script-container'));
+                }
+            };
+            script.onerror = () => {
+                document.getElementById('script-container').innerHTML = `<p style="color: red;">Error loading script: ${data.src}</p>`;
+            };
+            // Append to head or document
+            document.head.appendChild(script);
+        }
     }
 }
 

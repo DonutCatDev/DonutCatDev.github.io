@@ -256,6 +256,15 @@ body.home-page-bg {
     border: none;
 }
 
+.script-container {
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: var(--bg-color);
+}
+
 /* Footer */
 .footer {
     background-color: var(--primary-color);
