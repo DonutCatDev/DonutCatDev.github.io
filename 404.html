@@ -9,8 +9,8 @@
     <script>
         // Store the path the user tried to visit
         sessionStorage.redirect = window.location.pathname + window.location.search;
-        // Redirect to index.html
-        window.location.replace(window.location.pathname.split('/').slice(0, -1).join('/') + '/index.html');
+        // Redirect to root (GitHub Pages will serve index.html)
+        window.location.replace(window.location.pathname.split('/').slice(0, -1).join('/') + '/');
     </script>
 </body>
 </html>
