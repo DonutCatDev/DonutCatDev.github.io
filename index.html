@@ -1,1 +1,97 @@
-:3
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="content/pictures/donutcat.png">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1 class="site-title">
+                    <a href="#/" class="title-link">
+                        <img src="content/pictures/donutcat.png" alt="DonutCat" class="title-icon">
+                        <span>:3</span>
+                    </a>
+                </h1>
+                
+            </div>
+            <p class="header-tagline">DonutCat's nonsense and sometimes useful info emporium</p>
+            <nav class="navigation">
+                <ul class="nav-list">
+                    <li><a href="#/" class="nav-link">Home</a></li>
+                    <li><a href="#/bey" class="nav-link">Bey</a></li>
+                    <li><a href="#/foam" class="nav-link">Foam</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="app" class="app-container">
+        <!-- Pages will be dynamically loaded here -->
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <p>Image credit to Lunko, thanks for enabling my shitposting</p>
+        </div>
+    </footer>
+
+    <!-- Page Templates -->
+    <template id="home-page">
+        <div class="page home-page">
+            <div class="page-content">
+                <img src="content/pictures/donutcat.png" alt="DonutCat" class="page-image">
+            </div>
+        </div>
+    </template>
+
+    <template id="bey-page">
+        <div class="page bey-page">
+            <div class="page-header">
+                <h2>Landing page for my Beyblade related activities and resources</h2>
+            </div>
+            <div class="page-content id="foam-main-header"">
+                <!-- Beyblade content will go here -->
+            </div>
+        </div>
+    </template>
+
+    <template id="foam-page">
+        <div class="page foam-page">
+            <div class="page-header">
+                <h2>Landing page for my foam-adjacent notable feats</h2>
+            </div>
+            <div class="page-content">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3><a href="#/foam/fps-energy">Donutcat's Big FPS/Energy Spreadsheet</a></h3>
+                        <img src="content/pictures/donutcat.png" alt="FPS/Energy Spreadsheet">
+                    </div>
+                    <div class="project-card">
+                        <h3><a href="#/foam/mcmaster-spring">McMaster Spring Spreadsheet</a></h3>
+                        <img src="content/pictures/donutcat.png" alt="McMaster Spring">
+                    </div>
+                    <div class="project-card">
+                        <h3><a href="#/foam/nitroshot-submission">Nitroshot+ Submission Form</a></h3>
+                        <img src="content/pictures/donutcat.png" alt="Nitroshot+ Submission">
+                    </div>
+                    <div class="project-card">
+                        <h3><a href="#/foam/nitroshot-data">Nitroshot+ Data</a></h3>
+                        <img src="content/pictures/donutcat.png" alt="Nitroshot+ Data">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
