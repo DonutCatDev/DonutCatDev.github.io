@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
+    <script>
+        // Get the path that was attempted (minus /DonutCatDev.github.io part if present)
+        let path = window.location.pathname;
+        // Remove repository name if this is a project site (adjust if needed for your repo)
+        path = path.replace(/\/DonutCatDev\.github\.io/, '');
+        
+        // Redirect to hash URL
+        if (path && path !== '/') {
+            window.location.replace('/#' + path);
+        } else {
+            window.location.replace('/');
+        }
+    </script>
 </head>
 <body>
-    <script>
-        // Store the path the user tried to visit
-        sessionStorage.redirect = window.location.pathname + window.location.search;
-        // Redirect to root (GitHub Pages will serve index.html)
-        window.location.replace(window.location.pathname.split('/').slice(0, -1).join('/') + '/');
-    </script>
 </body>
 </html>
