@@ -31,6 +31,15 @@ class Router {
                 title: 'Simple Brushless Surface Speed Calculator',
                 type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/1CmWjp6ToFWR_Ew89xegV-4a4I6XCkudw1rTVfP3noWs/edit?rm=minimal'
+            }            
+        };
+
+        this.beySubpages = {
+            'dmvbxl-topcut-data': {
+                title: 'DMV Beyblade X League Top Cut Data',
+                type: 'script',
+                src: 'scripts/dmvbxl-topcut.js',
+                //initFunction: 'initMyTool'  // Optional: function name to call when script loads
             }
             /*
             'my-sheet': {
@@ -45,25 +54,6 @@ class Router {
                 initFunction: 'initMyTool'  // Optional: function name to call when script loads
             }
             */
-        };
-
-        this.beySubpages = {
-            'dmvbxl-topcut-data': {
-                title: 'DMV Beyblade X League Top Cut Data',
-                type: 'script',
-                src: 'scripts/dmvbxl-topcut.js',
-                //initFunction: 'initMyTool'  // Optional: function name to call when script loads
-            },
-            'collection': {
-                title: 'My Collection',
-                type: 'embed',
-                url: 'https://script.google.com/macros/d/YOUR_DEPLOYMENT_ID/userweb'
-            },
-            'tips-tricks': {
-                title: 'Tips & Tricks',
-                type: 'embed',
-                url: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml'
-            }
         };
         
         // Listen for hash changes
@@ -98,6 +88,40 @@ class Router {
         const template = document.getElementById(templateId);
         if (template) {
             const clone = template.content.cloneNode(true);
+            
+            // Auto-populate project grid for foam page
+            if (templateId === 'foam-page') {
+                const projectGrid = clone.querySelector('.project-grid');
+                if (projectGrid) {
+                    projectGrid.innerHTML = '';
+                    Object.entries(this.foamSubpages).forEach(([key, data]) => {
+                        const card = document.createElement('div');
+                        card.className = 'project-card';
+                        card.innerHTML = `
+                            <h3><a href="#/foam/${key}">${data.title}</a></h3>
+                            <img src="content/pictures/donutcat.png" alt="${data.title}">
+                        `;
+                        projectGrid.appendChild(card);
+                    });
+                }
+            }
+            
+            // Auto-populate project grid for bey page
+            if (templateId === 'bey-page') {
+                const projectGrid = clone.querySelector('.project-grid');
+                if (projectGrid) {
+                    projectGrid.innerHTML = '';
+                    Object.entries(this.beySubpages).forEach(([key, data]) => {
+                        const card = document.createElement('div');
+                        card.className = 'project-card';
+                        card.innerHTML = `
+                            <h3><a href="#/bey/${key}">${data.title}</a></h3>
+                            <img src="content/pictures/donutcat.png" alt="${data.title}">
+                        `;
+                        projectGrid.appendChild(card);
+                    });
+                }
+            }
             this.appContainer.appendChild(clone);
             
             // Add home page background class if on home page
@@ -214,6 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
     router.register('/', 'home-page');
     router.register('/bey', 'bey-page');
     router.register('/foam', 'foam-page');
+    
+    // Populate navigation dropdowns
+    const beyDropdown = document.getElementById('bey-dropdown');
+    Object.entries(router.beySubpages).forEach(([key, data]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#/bey/${key}">${data.title}</a>`;
+        beyDropdown.appendChild(li);
+    });
+    
+    const foamDropdown = document.getElementById('foam-dropdown');
+    Object.entries(router.foamSubpages).forEach(([key, data]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#/foam/${key}">${data.title}</a>`;
+        foamDropdown.appendChild(li);
+    });
     
     // If no hash, redirect to home page
     if (!window.location.hash) {
