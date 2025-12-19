@@ -151,15 +151,18 @@ class Router {
 
 // Initialize router when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const router = new Router();
-    
-    // Register all routes
-    router.register('/', 'home-page');
-    router.register('/bey', 'bey-page');
-    router.register('/foam', 'foam-page');
-    
-    // If no hash, redirect to home page
-    if (!window.location.hash) {
-        window.location.hash = '/';
-    }
+    // Delay router initialization to allow 404.html redirect to set hash
+    setTimeout(() => {
+        const router = new Router();
+        
+        // Register all routes
+        router.register('/', 'home-page');
+        router.register('/bey', 'bey-page');
+        router.register('/foam', 'foam-page');
+        
+        // If no hash, redirect to home page
+        if (!window.location.hash) {
+            window.location.hash = '/';
+        }
+    }, 10);
 });
