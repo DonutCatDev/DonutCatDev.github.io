@@ -35,10 +35,10 @@ class Router {
         };
 
         this.beySubpages = {
-            'dmvbxl-topcut-data': {
-                title: 'DMV Beyblade X League Top Cut Data',
+            'dmvbx-topcut-data': {
+                title: 'DMV Beyblade X Top Cut Data',
                 type: 'script',
-                src: 'scripts/dmvbxl-topcut.js',
+                src: 'scripts/dmvbx-topcut.js',
                 //initFunction: 'initMyTool'  // Optional: function name to call when script loads
             }
             /*
