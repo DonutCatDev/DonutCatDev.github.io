@@ -40,6 +40,12 @@ class Router {
                 type: 'script',
                 src: 'scripts/dmvbx-topcut.js',
                 //initFunction: 'initMyTool'  // Optional: function name to call when script loads
+            },
+            'dmvbx-topcut-data-2': {
+                title: 'DMV Beyblade X Top Cut Data 2',
+                type: 'script',
+                src: 'scripts/dmvbx-topcut-2.js',
+                //initFunction: 'initMyTool'  // Optional: function name to call when script loads
             }
             /*
             'my-sheet': {
