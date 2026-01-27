@@ -10,6 +10,9 @@
     --text-color: #fcfcfc;
     --bg-color: #003366;
     --accent-color: #999999;
+    --bg-hover-color: rgba(255, 255, 255, 0.1);
+    --box-shadow-color: rgba(0, 0, 0, 0.2);
+    --bg-hover-fallback-color: #32517a;
 }
 
 /* Reset */
@@ -40,7 +43,7 @@ body.home-page-bg {
     background-position: center;
     color: var(--accent-color);
     padding: 20px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px var(--box-shadow-color);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -144,7 +147,7 @@ body.home-page-bg {
     border: 1px solid var(--accent-color);
     border-radius: 4px;
     min-width: 200px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px var(--box-shadow-color);
     z-index: 1000;
 }
 
@@ -168,7 +171,7 @@ body.home-page-bg {
 }
 
 .dropdown-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-hover-color);
 }
 
 /* Main Content */
@@ -216,7 +219,7 @@ body.home-page-bg {
     height: 100vh;
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--box-shadow-color);
     margin-top: 20px;
 }
 
@@ -242,7 +245,7 @@ body.home-page-bg {
 
 .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 16px var(--box-shadow-color);
 }
 
 .project-card h3 {
@@ -287,7 +290,7 @@ body.home-page-bg {
     height: 85vh;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px var(--box-shadow-color);
 }
 
 .iframe-container iframe {
@@ -320,7 +323,7 @@ body.home-page-bg {
     padding: 20px;
     text-align: center;
     margin-top: 40px;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 8px var(--box-shadow-color);
 }
 
 .footer-content {
