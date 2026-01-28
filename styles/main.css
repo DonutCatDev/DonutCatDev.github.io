@@ -10,9 +10,9 @@
     --text-color: #fcfcfc;
     --bg-color: #003366;
     --accent-color: #999999;
-    --bg-hover-color: rgba(255, 255, 255, 0.1);
-    --box-shadow-color: rgba(0, 0, 0, 0.2);
-    --bg-hover-fallback-color: #32517a;
+    --bg-hover-color: rgb(8, 42, 83);
+    --box-shadow-color: #00000033;
+    --bg-hover-fallback-color: #082a53;
 }
 
 /* Reset */

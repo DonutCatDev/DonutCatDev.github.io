@@ -245,7 +245,7 @@
             }
             
             .dmvbx-datatable tbody tr:hover {
-                background-color: rgba(0, 51, 102, 0.1);
+                background-color: var(--bg-hover-fallback-color);
             }
             
             .dmvbx-datatable tbody td {
@@ -255,7 +255,7 @@
             }
             
             .dmvbx-datatable tbody tr:hover td {
-                background-color: rgba(0, 51, 102, 0.5);
+                background-color: var(--bg-hover-fallback-color);
             }
             
             .dataTables_wrapper {
@@ -295,7 +295,7 @@
             }
             
             .dt-button:hover {
-                background-color: #00509d;
+                background-color: var(--bg-hover-fallback-color);
             }
             
             .dt-button.active {
@@ -307,7 +307,7 @@
                 background-color: var(--bg-color) !important;
                 border: 1px solid var(--accent-color) !important;
                 border-radius: 4px !important;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+                box-shadow: 0 4px 12px var(--box-shadow-color) !important;
             }
             
             .dt-button-collection button.dt-button {
@@ -326,7 +326,7 @@
             }
             
             .dt-button-collection button.dt-button:hover {
-                background-color: #00509d !important;
+                background-color: var(--bg-hover-fallback-color) !important;
             }
             
             .dt-button-collection .dt-button-active {
@@ -334,21 +334,21 @@
             }
             
             tr.dtrg-group {
-                background-color: rgba(0, 51, 102, 0.3) !important;
+                background-color: var(--bg-hover-color) !important;
             }
             
             tr.dtrg-group td {
-                background-color: rgba(0, 51, 102, 0.3) !important;
+                background-color: var(--bg-hover-color) !important;
                 color: var(--text-color);
                 font-weight: 600;
             }
             
             tr.dtrg-group:hover {
-                background-color: rgba(0, 51, 102, 0.5) !important;
+                background-color: var(--bg-hover-fallback-color) !important;
             }
             
             tr.dtrg-group:hover td {
-                background-color: rgba(0, 51, 102, 0.5) !important;
+                background-color: var(--bg-hover-fallback-color) !important;
             }
             
             .dt-buttons {

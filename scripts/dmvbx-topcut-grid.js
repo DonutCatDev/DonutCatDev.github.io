@@ -475,10 +475,6 @@
                 font-size: 13px;
             }
             
-            .ag-header-cell-move-indicator {
-                background-color: #fb4883;
-            }
-            
             /* Sorting and filter icons */
             .ag-sort-ascending-icon::after,
             .ag-sort-descending-icon::after,
@@ -587,10 +583,6 @@
                 background-color: var(--bg-hover-color);
             }
             
-            .ag-filter-filter-button.ag-selected {
-                background-color: #fb4883;
-            }
-            
             /* Input fields in filter */
             .ag-floating-filter-input,
             .ag-filter-filter input {
@@ -609,7 +601,7 @@
             
             .ag-body-horizontal-scroll::-webkit-scrollbar-track,
             .ag-body-vertical-scroll::-webkit-scrollbar-track {
-                background: rgba(252, 252, 252, 0.1);
+                background: var(--bg-hover-color);
             }
             
             .ag-body-horizontal-scroll::-webkit-scrollbar-thumb,
