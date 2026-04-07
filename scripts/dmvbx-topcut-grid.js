@@ -93,9 +93,26 @@
                     throw new Error('Invalid response format: missing table.cols');
                 }
                 
-                headers = parsed.table.cols.map(col => col.label);
+                // Google Sheets gviz API returns col.label as empty for custom sheets
+                // Extract headers from first row if labels are empty
+                let headerRow = parsed.table.cols.map(col => col.label);
+                let headersFromFirstRow = false;
                 
-                data = parsed.table.rows.map((row, rowIndex) => {
+                if (headerRow.every(h => h === '' || h === null)) {
+                    // Headers are empty, extract from first data row
+                    if (parsed.table.rows.length > 0) {
+                        headerRow = parsed.table.rows[0].c.map(cell => cell?.v ?? '');
+                        headersFromFirstRow = true;
+                    } else {
+                        headerRow = parsed.table.cols.map((col, idx) => `Column ${idx + 1}`);
+                    }
+                }
+                headers = headerRow;
+                
+                // Skip first row if we extracted headers from it
+                const startIndex = headersFromFirstRow ? 1 : 0;
+                
+                data = parsed.table.rows.slice(startIndex).map((row, rowIndex) => {
                     const rowObj = {};
                     headers.forEach((header, index) => {
                         let value = row.c[index]?.v ?? null;
@@ -122,7 +139,6 @@
                         hash = hash & hash; // Convert to 32bit integer
                     }
                     rowObj.__contentHash = Math.abs(hash).toString(36);
-                    rowObj.__sourceRowIndex = rowIndex; // Track original position for stable ID generation
                     return rowObj;
                 });
                 
@@ -151,6 +167,22 @@
         container.style.boxSizing = 'border-box';
         container.style.border = 'none';
         
+        // Cell renderer for URLs
+        const urlCellRenderer = (params) => {
+            const value = params.value;
+            if (!value) return '';
+            
+            // Check if value is a URL
+            const urlPattern = /^(https?:\/\/|www\.)/i;
+            if (urlPattern.test(value)) {
+                // Ensure URL has protocol
+                const url = value.startsWith('http') ? value : 'https://' + value;
+                return `<a href="${url}" target="_blank" style="color: #fcfcfc; text-decoration: underline; cursor: pointer;">${value}</a>`;
+            }
+            
+            return value;
+        };
+        
         const columnDefs = headers.map(header => ({
             field: header,
             headerName: header,
@@ -158,7 +190,8 @@
             filter: true,
             resizable: true,
             minWidth: 120,
-            flex: 1
+            flex: 1,
+            cellRenderer: urlCellRenderer
         }));
         
         const gridOptions = {
