@@ -71,7 +71,7 @@ class Router {
             'print-filament-grid': {
                 title: 'Donut\'s Filaments',
                 type: 'script',
-                src: 'scripts/dmvbx-filament-grid.js'
+                src: 'scripts/donut-filament-grid.js'
             }
         };
 
