@@ -150,7 +150,7 @@
             if (urlPattern.test(value)) {
                 // Ensure URL has protocol
                 const url = value.startsWith('http') ? value : 'https://' + value;
-                return `<a href="${url}" target="_blank" style="color: #fcfcfc; text-decoration: underline; cursor: pointer;">${value}</a>`;
+                return `<a href="${url}" target="_blank" title="${url}" style="color: #fcfcfc; text-decoration: underline; cursor: pointer;">${value}</a>`;
             }
             
             return value;
