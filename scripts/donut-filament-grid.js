@@ -129,10 +129,24 @@
     
     function initializeGrid() {
         const tableHtml = `
-            <div style="display: flex; gap: 10px; margin-bottom: 0; align-items: center; background-color: #003366; padding: 12px 15px; border-radius: 3px 3px 0 0; border: none;">
+            <div style="
+                padding: 15px;
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 3px 3px 0 0;
+                font-family: 'Roboto', sans-serif;
+                font-size: 13px;
+                line-height: 1.5;
+                color: #333;
+            ">
+                <p style="margin: 0 0 5px 0;">This is the comprehensive list of my available filaments. If it's listed here, I can <em>probably</em> print you something with it. Each filament has a link attached - either a 3DFilamentProfiles link that shows basic colors, pictures, and manufacturer info, or a direct link.
+                <br>PLA and PETG are rigid materials (deckbox, launcher grips). TPU is flexible (case inserts, ripcord pulls). PLA has the most visual options but is more likely to break from drops or heat. PETG is more durable. TPU is nearly indestructible.
+                <br>I don't have good swatches for most colors, but can grab pics of specific ones you're interested in before printing.</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 0; align-items: center; background-color: #003366; padding: 12px 15px; border-radius: 0; border: none;">
                 <div id="columnVisibilityContainer"></div>
             </div>
-            <div id="dmvbx-grid" class="ag-theme-quartz" style="width: 100%; height: 600px; border: none; border-radius: 0 0 3px 3px; box-sizing: border-box;"></div>
+            <div id="dmvbx-grid" class="ag-theme-quartz" style="width: 100%; height: 600px; border: none; border-radius: 0 0 2px 2px; box-sizing: border-box;"></div>
         `;
         
         container.innerHTML = tableHtml;
