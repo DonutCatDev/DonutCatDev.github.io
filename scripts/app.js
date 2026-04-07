@@ -63,12 +63,16 @@ class Router {
         };
 
         this.printSubpages = {
-            'print-filament-table': {
+            /*'print-filament-table': {
                 title: 'Donut\'s Filaments Spreadsheet',
                 type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/1wD9QWOZ9bjPsQA7PNZ8lyzKiw7dCpNNtzyJWtKr45dw/edit?rm=minimal'
-            },
-        
+            },*/
+            'print-filament-grid': {
+                title: 'Donut\'s Filaments',
+                type: 'script',
+                src: 'scripts/dmvbx-filament-grid.js'
+            }
         };
 
         // Listen for hash changes
