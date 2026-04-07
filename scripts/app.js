@@ -61,7 +61,16 @@ class Router {
             }
             */
         };
+
+        this.printSubpages = {
+            'print-filament-table': {
+                title: 'Donut\'s Filaments Spreadsheet',
+                type: 'embed',
+                url: 'https://docs.google.com/spreadsheets/d/1wD9QWOZ9bjPsQA7PNZ8lyzKiw7dCpNNtzyJWtKr45dw/edit?rm=minimal'
+            },
         
+        };
+
         // Listen for hash changes
         window.addEventListener('hashchange', () => this.handleRoute());
         
@@ -128,6 +137,23 @@ class Router {
                     });
                 }
             }
+            
+            // Auto-populate project grid for printing page
+            if (templateId === 'printing-page') {
+                const projectGrid = clone.querySelector('.project-grid');
+                if (projectGrid) {
+                    projectGrid.innerHTML = '';
+                    Object.entries(this.printSubpages).forEach(([key, data]) => {
+                        const card = document.createElement('div');
+                        card.className = 'project-card';
+                        card.innerHTML = `
+                            <h3><a href="#/printing/${key}">${data.title}</a></h3>
+                            <img src="content/pictures/donutcat.png" alt="${data.title}">
+                        `;
+                        projectGrid.appendChild(card);
+                    });
+                }
+            }
             this.appContainer.appendChild(clone);
             
             // Add home page background class if on home page
@@ -146,6 +172,8 @@ class Router {
             this.loadFoamSubpage(fullHash);
         } else if (fullHash.startsWith('/bey/')) {
             this.loadBeySubpage(fullHash);
+        } else if (fullHash.startsWith('/printing/')) {
+            this.loadPrintingSubpage(fullHash);
         }
     }
 
@@ -183,6 +211,24 @@ class Router {
         }
 
         this.renderEmbeddedContent(content, this.beySubpages[subpage]);
+    }
+
+    loadPrintingSubpage(hash) {
+        const subpage = hash.replace('/printing/', '');
+        const header = this.appContainer.querySelector('#printing-main-header');
+        const content = this.appContainer.querySelector('.page-content');
+        
+        // Remove the main printing page header on subpages
+        if (header) {
+            header.remove();
+        }
+        
+        if (!content || !this.printSubpages[subpage]) {
+            if (content) content.innerHTML = '<p>Page not found</p>';
+            return;
+        }
+
+        this.renderEmbeddedContent(content, this.printSubpages[subpage]);
     }
 
     renderEmbeddedContent(container, data) {
@@ -244,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     router.register('/', 'home-page');
     router.register('/bey', 'bey-page');
     router.register('/foam', 'foam-page');
+    router.register('/printing', 'printing-page');
     
     // Populate navigation dropdowns
     const beyDropdown = document.getElementById('bey-dropdown');
@@ -258,6 +305,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.innerHTML = `<a href="#/foam/${key}">${data.title}</a>`;
         foamDropdown.appendChild(li);
+    });
+    
+    const printingDropdown = document.getElementById('printing-dropdown');
+    Object.entries(router.printSubpages).forEach(([key, data]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#/printing/${key}">${data.title}</a>`;
+        printingDropdown.appendChild(li);
     });
     
     // If no hash, redirect to home page
