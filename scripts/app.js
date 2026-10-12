@@ -2,9 +2,8 @@
 class Router {
     constructor() {
         this.routes = {};
-        this.currentPage = null;
         this.appContainer = document.getElementById('app');
-        
+
         // Subpage configurations
         this.foamSubpages = {
             'fps-energy': {
@@ -31,37 +30,18 @@ class Router {
                 title: 'Simple Brushless Surface Speed Calculator',
                 type: 'embed',
                 url: 'https://docs.google.com/spreadsheets/d/1CmWjp6ToFWR_Ew89xegV-4a4I6XCkudw1rTVfP3noWs/edit?rm=minimal'
-            }            
+            }
         };
 
         this.beySubpages = {
             'dmvbx-topcut-data': {
                 title: 'DMV Beyblade X Top Cut Data',
                 type: 'script',
-                src: 'scripts/dmvbx-topcut-grid.js',
-                //initFunction: 'initMyTool'  // Optional: function name to call when script loads
-            },
-            /*
-            'my-sheet': {
-                title: 'My Sheet',
-                type: 'embed',
-                url: 'https://docs.google.com/spreadsheets/d/...'
-            },
-            'my-tool': {
-                title: 'My Custom Tool',
-                type: 'script',
-                src: 'scripts/my-tool.js',
-                initFunction: 'initMyTool'  // Optional: function name to call when script loads
+                src: 'scripts/dmvbx-topcut-grid.js'
             }
-            */
         };
 
         this.printSubpages = {
-            /*'print-filament-table': {
-                title: 'Donut\'s Filaments Spreadsheet',
-                type: 'embed',
-                url: 'https://docs.google.com/spreadsheets/d/1wD9QWOZ9bjPsQA7PNZ8lyzKiw7dCpNNtzyJWtKr45dw/edit?rm=minimal'
-            },*/
             'print-filament-grid': {
                 title: 'Donut\'s Filaments',
                 type: 'script',
@@ -69,10 +49,45 @@ class Router {
             }
         };
 
-        // Listen for hash changes
-        window.addEventListener('hashchange', () => this.handleRoute());
-        
-        // Initial route
+        // Preserve legacy route links while keeping one canonical path.
+        this.pathAliases = {
+            '/bey/dmvbx-topcut-data-2': '/bey/dmvbx-topcut-data'
+        };
+
+        this.sectionConfig = {
+            bey: {
+                route: '/bey',
+                templateId: 'bey-page',
+                headerId: 'bey-main-header',
+                subpages: this.beySubpages,
+                dropdownId: 'bey-dropdown'
+            },
+            foam: {
+                route: '/foam',
+                templateId: 'foam-page',
+                headerId: 'foam-main-header',
+                subpages: this.foamSubpages,
+                dropdownId: 'foam-dropdown'
+            },
+            printing: {
+                route: '/printing',
+                templateId: 'printing-page',
+                headerId: 'printing-main-header',
+                subpages: this.printSubpages,
+                dropdownId: 'printing-dropdown'
+            }
+        };
+    }
+
+    init() {
+        this.register('/', 'home-page');
+        this.register('/bey', 'bey-page');
+        this.register('/foam', 'foam-page');
+        this.register('/printing', 'printing-page');
+
+        this.populateDropdowns();
+        this.bindNavigationEvents();
+        this.prepareInitialUrl();
         this.handleRoute();
     }
 
@@ -80,158 +95,281 @@ class Router {
         this.routes[route] = templateId;
     }
 
-    async handleRoute() {
-        const hash = window.location.hash.slice(1) || '/';
-        const route = hash.split('/').slice(0, 2).join('/') || '/';
-        
-        const templateId = this.routes[route] || this.routes['/'];
-        
+    normalizePath(pathname) {
+        if (!pathname) {
+            return '/';
+        }
+
+        let normalized = pathname.split('?')[0].split('#')[0].trim();
+        if (!normalized.startsWith('/')) {
+            normalized = `/${normalized}`;
+        }
+
+        normalized = normalized.replace(/\/+/g, '/');
+        if (normalized.length > 1 && normalized.endsWith('/')) {
+            normalized = normalized.slice(0, -1);
+        }
+
+        return normalized || '/';
+    }
+
+    getCanonicalPath(pathname) {
+        const normalizedPath = this.normalizePath(pathname);
+        return this.pathAliases[normalizedPath] || normalizedPath;
+    }
+
+    buildSubpagePath(sectionKey, subpageKey) {
+        return `/${sectionKey}/${subpageKey}`;
+    }
+
+    getLegacyHashPath() {
+        const hash = window.location.hash || '';
+        if (!hash.startsWith('#/')) {
+            return null;
+        }
+
+        return this.getCanonicalPath(this.normalizePath(hash.slice(1)));
+    }
+
+    getFallbackRouteFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const fallbackRoute = params.get('__route');
+
+        if (!fallbackRoute) {
+            return null;
+        }
+
+        let fallbackUrl;
+        try {
+            fallbackUrl = new URL(fallbackRoute, window.location.origin);
+        } catch (error) {
+            return null;
+        }
+
+        if (fallbackUrl.hash && fallbackUrl.hash.startsWith('#/')) {
+            const hashPath = this.getCanonicalPath(this.normalizePath(fallbackUrl.hash.slice(1)));
+            return `${hashPath}${fallbackUrl.search}`;
+        }
+
+        const cleanPath = this.getCanonicalPath(this.normalizePath(fallbackUrl.pathname));
+        return `${cleanPath}${fallbackUrl.search}`;
+    }
+
+    prepareInitialUrl() {
+        const fallbackRoute = this.getFallbackRouteFromQuery();
+        if (fallbackRoute) {
+            window.history.replaceState({}, '', fallbackRoute);
+        }
+
+        const legacyHashPath = this.getLegacyHashPath();
+        if (legacyHashPath) {
+            window.history.replaceState({}, '', legacyHashPath);
+        }
+
+        const currentPath = this.normalizePath(window.location.pathname);
+        const canonicalPath = this.getCanonicalPath(currentPath);
+        if (canonicalPath !== currentPath) {
+            window.history.replaceState({}, '', `${canonicalPath}${window.location.search}`);
+        }
+    }
+
+    bindNavigationEvents() {
+        window.addEventListener('popstate', () => this.handleRoute());
+
+        document.addEventListener('click', (event) => {
+            this.handleInternalNavigation(event);
+        });
+    }
+
+    handleInternalNavigation(event) {
+        if (event.defaultPrevented || event.button !== 0) {
+            return;
+        }
+
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            return;
+        }
+
+        const link = event.target.closest('a');
+        if (!link) {
+            return;
+        }
+
+        if (link.target && link.target !== '_self') {
+            return;
+        }
+
+        if (link.hasAttribute('download')) {
+            return;
+        }
+
+        const rawHref = link.getAttribute('href');
+        if (!rawHref) {
+            return;
+        }
+
+        if (rawHref.startsWith('#/')) {
+            event.preventDefault();
+            this.navigate(rawHref.slice(1));
+            return;
+        }
+
+        if (
+            rawHref.startsWith('#') ||
+            rawHref.startsWith('mailto:') ||
+            rawHref.startsWith('tel:') ||
+            rawHref.startsWith('javascript:')
+        ) {
+            return;
+        }
+
+        let targetUrl;
+        try {
+            targetUrl = new URL(link.href, window.location.origin);
+        } catch (error) {
+            return;
+        }
+
+        if (targetUrl.origin !== window.location.origin) {
+            return;
+        }
+
+        if (targetUrl.hash && !targetUrl.hash.startsWith('#/')) {
+            return;
+        }
+
+        event.preventDefault();
+        this.navigate(`${targetUrl.pathname}${targetUrl.search}`);
+    }
+
+    navigate(pathWithSearch, replace = false) {
+        const url = new URL(pathWithSearch, window.location.origin);
+        const cleanPath = this.getCanonicalPath(this.normalizePath(url.pathname));
+        const nextUrl = `${cleanPath}${url.search}`;
+        const currentUrl = `${this.normalizePath(window.location.pathname)}${window.location.search}`;
+
+        if (replace) {
+            window.history.replaceState({}, '', nextUrl);
+        } else if (nextUrl !== currentUrl) {
+            window.history.pushState({}, '', nextUrl);
+        }
+
+        this.handleRoute(cleanPath);
+    }
+
+    handleRoute(pathname = window.location.pathname) {
+        const normalizedPath = this.normalizePath(pathname);
+        const canonicalPath = this.getCanonicalPath(normalizedPath);
+        if (canonicalPath !== normalizedPath) {
+            window.history.replaceState({}, '', `${canonicalPath}${window.location.search}`);
+        }
+
+        const pathSegments = canonicalPath.split('/').filter(Boolean);
+        const route = pathSegments.length > 0 ? `/${pathSegments[0]}` : '/';
+        const templateId = this.routes[route];
+
         if (!templateId) {
-            this.appContainer.innerHTML = '<p>Page not found</p>';
+            this.renderNotFound();
             return;
         }
 
-        // Clear current page
-        this.appContainer.innerHTML = '';
-        
-        // Remove home page background class from body
-        document.body.classList.remove('home-page-bg');
-        
-        // Clone and insert template
         const template = document.getElementById(templateId);
-        if (template) {
-            const clone = template.content.cloneNode(true);
-            
-            // Auto-populate project grid for foam page
-            if (templateId === 'foam-page') {
-                const projectGrid = clone.querySelector('.project-grid');
-                if (projectGrid) {
-                    projectGrid.innerHTML = '';
-                    Object.entries(this.foamSubpages).forEach(([key, data]) => {
-                        const card = document.createElement('div');
-                        card.className = 'project-card';
-                        card.innerHTML = `
-                            <h3><a href="#/foam/${key}">${data.title}</a></h3>
-                            <img src="content/pictures/donutcat.png" alt="${data.title}">
-                        `;
-                        projectGrid.appendChild(card);
-                    });
-                }
-            }
-            
-            // Auto-populate project grid for bey page
-            if (templateId === 'bey-page') {
-                const projectGrid = clone.querySelector('.project-grid');
-                if (projectGrid) {
-                    projectGrid.innerHTML = '';
-                    Object.entries(this.beySubpages).forEach(([key, data]) => {
-                        const card = document.createElement('div');
-                        card.className = 'project-card';
-                        card.innerHTML = `
-                            <h3><a href="#/bey/${key}">${data.title}</a></h3>
-                            <img src="content/pictures/donutcat.png" alt="${data.title}">
-                        `;
-                        projectGrid.appendChild(card);
-                    });
-                }
-            }
-            
-            // Auto-populate project grid for printing page
-            if (templateId === 'printing-page') {
-                const projectGrid = clone.querySelector('.project-grid');
-                if (projectGrid) {
-                    projectGrid.innerHTML = '';
-                    Object.entries(this.printSubpages).forEach(([key, data]) => {
-                        const card = document.createElement('div');
-                        card.className = 'project-card';
-                        card.innerHTML = `
-                            <h3><a href="#/printing/${key}">${data.title}</a></h3>
-                            <img src="content/pictures/donutcat.png" alt="${data.title}">
-                        `;
-                        projectGrid.appendChild(card);
-                    });
-                }
-            }
-            this.appContainer.appendChild(clone);
-            
-            // Add home page background class if on home page
-            if (route === '/') {
-                document.body.classList.add('home-page-bg');
-            }
-            
-            // Load page-specific content
-            this.loadPageContent(route, hash);
-        }
-    }
-
-    loadPageContent(route, fullHash) {
-        // Handle sub-pages
-        if (fullHash.startsWith('/foam/')) {
-            this.loadFoamSubpage(fullHash);
-        } else if (fullHash.startsWith('/bey/')) {
-            this.loadBeySubpage(fullHash);
-        } else if (fullHash.startsWith('/printing/')) {
-            this.loadPrintingSubpage(fullHash);
-        }
-    }
-
-    loadFoamSubpage(hash) {
-        const subpage = hash.replace('/foam/', '');
-        const header = this.appContainer.querySelector('#foam-main-header');
-        const content = this.appContainer.querySelector('.page-content');
-        
-        // Remove the main foam page header on subpages
-        if (header) {
-            header.remove();
-        }
-        
-        if (!content || !this.foamSubpages[subpage]) {
-            if (content) content.innerHTML = '<p>Page not found</p>';
+        if (!template) {
+            this.renderNotFound();
             return;
         }
 
-        this.renderEmbeddedContent(content, this.foamSubpages[subpage]);
+        this.appContainer.innerHTML = '';
+        document.body.classList.remove('home-page-bg');
+
+        const clone = template.content.cloneNode(true);
+        const sectionKey = pathSegments[0];
+        if (sectionKey && this.sectionConfig[sectionKey]) {
+            this.populateProjectGrid(clone, sectionKey);
+        }
+
+        this.appContainer.appendChild(clone);
+
+        if (route === '/') {
+            document.body.classList.add('home-page-bg');
+        }
+
+        if (pathSegments.length > 1) {
+            const subpage = pathSegments.slice(1).join('/');
+            this.loadSectionSubpage(sectionKey, subpage);
+        }
     }
 
-    loadBeySubpage(hash) {
-        const subpage = hash.replace('/bey/', '');
-        const header = this.appContainer.querySelector('#bey-main-header');
-        const content = this.appContainer.querySelector('.page-content');
-        
-        // Remove the main bey page header on subpages
-        if (header) {
-            header.remove();
-        }
-        
-        if (!content || !this.beySubpages[subpage]) {
-            if (content) content.innerHTML = '<p>Page not found</p>';
+    renderNotFound() {
+        document.body.classList.remove('home-page-bg');
+        this.appContainer.innerHTML = '<p>Page not found</p>';
+    }
+
+    populateProjectGrid(clone, sectionKey) {
+        const config = this.sectionConfig[sectionKey];
+        if (!config) {
             return;
         }
 
-        this.renderEmbeddedContent(content, this.beySubpages[subpage]);
-    }
-
-    loadPrintingSubpage(hash) {
-        const subpage = hash.replace('/printing/', '');
-        const header = this.appContainer.querySelector('#printing-main-header');
-        const content = this.appContainer.querySelector('.page-content');
-        
-        // Remove the main printing page header on subpages
-        if (header) {
-            header.remove();
-        }
-        
-        if (!content || !this.printSubpages[subpage]) {
-            if (content) content.innerHTML = '<p>Page not found</p>';
+        const projectGrid = clone.querySelector('.project-grid');
+        if (!projectGrid) {
             return;
         }
 
-        this.renderEmbeddedContent(content, this.printSubpages[subpage]);
+        projectGrid.innerHTML = '';
+        Object.entries(config.subpages).forEach(([key, data]) => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+                <h3><a href="${this.buildSubpagePath(sectionKey, key)}">${data.title}</a></h3>
+                <img src="content/pictures/donutcat.png" alt="${data.title}">
+            `;
+            projectGrid.appendChild(card);
+        });
+    }
+
+    populateDropdowns() {
+        Object.entries(this.sectionConfig).forEach(([sectionKey, config]) => {
+            const dropdown = document.getElementById(config.dropdownId);
+            if (!dropdown) {
+                return;
+            }
+
+            dropdown.innerHTML = '';
+            Object.entries(config.subpages).forEach(([key, data]) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${this.buildSubpagePath(sectionKey, key)}">${data.title}</a>`;
+                dropdown.appendChild(li);
+            });
+        });
+    }
+
+    loadSectionSubpage(sectionKey, subpageKey) {
+        const config = this.sectionConfig[sectionKey];
+        if (!config) {
+            this.renderNotFound();
+            return;
+        }
+
+        const header = this.appContainer.querySelector(`#${config.headerId}`);
+        const content = this.appContainer.querySelector('.page-content');
+
+        if (header) {
+            header.remove();
+        }
+
+        if (!content || !config.subpages[subpageKey]) {
+            if (content) {
+                content.innerHTML = '<p>Page not found</p>';
+            }
+            return;
+        }
+
+        this.renderEmbeddedContent(content, config.subpages[subpageKey]);
     }
 
     renderEmbeddedContent(container, data) {
         if (data.type === 'embed') {
-            // Render Google Sheets/Apps Script iframe
             container.innerHTML = `
                 <div class="embedded-content">
                     <h3>${data.title}</h3>
@@ -244,37 +382,34 @@ class Router {
                     </div>
                 </div>
             `;
-        } else if (data.type === 'script') {
-            // Render custom script in a container
+            return;
+        }
+
+        if (data.type === 'script') {
             container.innerHTML = `
                 <div class="embedded-content">
                     <h3>${data.title}</h3>
                     <div id="script-container" class="script-container"></div>
                 </div>
             `;
-            
-            // Load and execute the script
+
             const script = document.createElement('script');
             script.src = data.src;
             script.async = true;
-            
+
             script.onload = () => {
-                console.log('Script loaded successfully:', data.src);
-                // Script will handle its own initialization
                 if (data.initFunction && window[data.initFunction]) {
                     window[data.initFunction](document.getElementById('script-container'));
                 }
             };
-            
+
             script.onerror = () => {
-                console.error('Error loading script:', data.src);
                 const scriptContainer = document.getElementById('script-container');
                 if (scriptContainer) {
                     scriptContainer.innerHTML = `<p style="color: red;">Error loading script: ${data.src}</p>`;
                 }
             };
-            
-            // Append to head or document
+
             document.head.appendChild(script);
         }
     }
@@ -283,40 +418,5 @@ class Router {
 // Initialize router when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     const router = new Router();
-    
-    // Register all routes
-    router.register('/', 'home-page');
-    router.register('/bey', 'bey-page');
-    router.register('/foam', 'foam-page');
-    router.register('/printing', 'printing-page');
-    
-    // Populate navigation dropdowns
-    const beyDropdown = document.getElementById('bey-dropdown');
-    Object.entries(router.beySubpages).forEach(([key, data]) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="#/bey/${key}">${data.title}</a>`;
-        beyDropdown.appendChild(li);
-    });
-    
-    const foamDropdown = document.getElementById('foam-dropdown');
-    Object.entries(router.foamSubpages).forEach(([key, data]) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="#/foam/${key}">${data.title}</a>`;
-        foamDropdown.appendChild(li);
-    });
-    
-    const printingDropdown = document.getElementById('printing-dropdown');
-    Object.entries(router.printSubpages).forEach(([key, data]) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="#/printing/${key}">${data.title}</a>`;
-        printingDropdown.appendChild(li);
-    });
-    
-    // If no hash, redirect to home page
-    if (!window.location.hash) {
-        window.location.hash = '/';
-    }
-    
-    // Trigger initial route in case it was already set
-    router.handleRoute();
+    router.init();
 });
