@@ -37,7 +37,7 @@ class Router {
             'dmvbx-topcut-data': {
                 title: 'DMV Beyblade X Top Cut Data',
                 type: 'script',
-                src: 'scripts/dmvbx-topcut-grid.js'
+                src: '/scripts/dmvbx-topcut-grid.js'
             }
         };
 
@@ -45,7 +45,7 @@ class Router {
             'print-filament-grid': {
                 title: 'Donut\'s Filaments',
                 type: 'script',
-                src: 'scripts/donut-filament-grid.js'
+                src: '/scripts/donut-filament-grid.js'
             }
         };
 
@@ -120,6 +120,14 @@ class Router {
 
     buildSubpagePath(sectionKey, subpageKey) {
         return `/${sectionKey}/${subpageKey}`;
+    }
+
+    toSitePath(path) {
+        if (!path) {
+            return '/';
+        }
+
+        return path.startsWith('/') ? path : `/${path}`;
     }
 
     getLegacyHashPath() {
@@ -322,7 +330,7 @@ class Router {
             card.className = 'project-card';
             card.innerHTML = `
                 <h3><a href="${this.buildSubpagePath(sectionKey, key)}">${data.title}</a></h3>
-                <img src="content/pictures/donutcat.png" alt="${data.title}">
+                <img src="${this.toSitePath('content/pictures/donutcat.png')}" alt="${data.title}">
             `;
             projectGrid.appendChild(card);
         });
@@ -394,7 +402,7 @@ class Router {
             `;
 
             const script = document.createElement('script');
-            script.src = data.src;
+            script.src = this.toSitePath(data.src);
             script.async = true;
 
             script.onload = () => {
