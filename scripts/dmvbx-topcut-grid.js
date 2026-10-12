@@ -11,10 +11,8 @@
     const SHEET_NAME = 'RawData';
     
     let gridApi;
-    let gridColumnApi;
     let data;
     let headers;
-    let dataRefreshCounter = 0;
     
     // Load dependencies
     function loadDependencies() {
@@ -143,8 +141,6 @@
                 });
                 
                 console.log('Data loaded:', headers.length, 'columns,', data.length, 'rows');
-                // Keep backup of original data
-                originalData = JSON.parse(JSON.stringify(data));
                 initializeGrid();
             })
             .catch(error => {
@@ -279,7 +275,6 @@
             console.log('gridApi.setRowData:', typeof gridApi?.setRowData);
             console.log('gridApi.applyTransaction:', typeof gridApi?.applyTransaction);
             console.log('gridApi keys:', Object.keys(gridApi || {}));
-            gridColumnApi = gridApi;
             console.log('Grid created successfully');
         } catch (error) {
             console.error('Error creating grid:', error);
@@ -394,79 +389,6 @@
             menu.remove();
             document.removeEventListener('click', closeMenu);
         });
-    }
-    
-    // Helper function to safely set row data with fallbacks
-    function setGridRowData(rowData) {
-        if (!gridApi) {
-            console.error('ERROR: gridApi is not initialized!');
-            return false;
-        }
-        
-        // Increment refresh counter to ensure IDs are unique across all data updates
-        dataRefreshCounter++;
-        
-        // Assign unique internal IDs that include both position and refresh version
-        // This ensures no collisions even if the same row appears in different states
-        rowData.forEach((row, index) => {
-            row.__dataVersion = dataRefreshCounter;
-            row.__arrayPosition = index;
-        });
-        
-        console.log('Attempting to set row data with', rowData.length, 'rows, version:', dataRefreshCounter);
-        const headerCount = rowData.filter(r => r.__isGroupHeader).length;
-        console.log(`📊 Data includes ${headerCount} group headers`);
-        
-        try {
-            // Try different method names in order of preference
-            if (typeof gridApi.setRowData === 'function') {
-                console.log('Using gridApi.setRowData()');
-                gridApi.setRowData(rowData);
-                
-                // Debug: Check what ag-Grid actually received
-                setTimeout(() => {
-                    const displayedRows = gridApi.getDisplayedRowCount?.();
-                    console.log(`✓ Grid now has ${displayedRows} displayed rows`);
-                }, 100);
-                
-                // After setting data, refresh to ensure clean render
-                if (typeof gridApi.refreshCells === 'function') {
-                    gridApi.refreshCells({ force: true });
-                }
-                return true;
-            } else if (typeof gridApi.setData === 'function') {
-                console.log('Using gridApi.setData()');
-                gridApi.setData(rowData);
-                return true;
-            } else if (typeof gridApi.applyTransaction === 'function') {
-                console.log('Using gridApi.applyTransaction()');
-                // First, get all existing row IDs and remove them
-                const rowsToRemove = [];
-                gridApi.forEachNode((node) => {
-                    rowsToRemove.push(node.data);
-                });
-                console.log(`Removing ${rowsToRemove.length} old rows before adding ${rowData.length} new rows`);
-                gridApi.applyTransaction({ remove: rowsToRemove, add: rowData });
-                return true;
-            } else if (typeof gridApi.rowData === 'object' && gridApi.rowData !== null) {
-                console.log('Assigning directly to gridApi.rowData');
-                gridApi.rowData = rowData;
-                return true;
-            } else {
-                console.error('ERROR: No method found to set row data!');
-                console.error('Available methods:', Object.keys(gridApi || {}).filter(k => typeof gridApi[k] === 'function').slice(0, 20));
-                return false;
-            }
-        } catch (error) {
-            console.error('Error in setGridRowData:', error);
-            console.error('Error message:', error.message);
-            // Ignore ag-Grid internal errors about row matching, data was still set
-            if (error.message && error.message.includes('Could not find data item')) {
-                console.warn('Ignoring ag-Grid row matching warning - data has been updated');
-                return true;
-            }
-            return false;
-        }
     }
     
     function applyGridStyling() {
