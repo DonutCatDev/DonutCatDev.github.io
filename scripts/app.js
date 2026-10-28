@@ -38,6 +38,11 @@ class Router {
                 title: 'DMV Beyblade X Top Cut Data',
                 type: 'script',
                 src: '/scripts/dmvbx-topcut-grid.js'
+            },
+            'prizing-calculator': {
+                title: 'DMV Beyblade X League Prizing Calculator',
+                type: 'script',
+                src: '/scripts/prizing-calculator.js'
             }
         };
 
