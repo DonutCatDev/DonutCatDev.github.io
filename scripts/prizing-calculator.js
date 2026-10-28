@@ -17,14 +17,14 @@
                     <div class="calculator-inputs">
                         <div class="calculator-field">
                             <label for="total-players">Total Players</label>
-                            <input id="total-players" name="totalPlayers" type="number" min="0" step="1" value="16" inputmode="numeric">
+                            <input id="total-players" name="totalPlayers" type="number" min="0" step="1" value="32" inputmode="numeric">
                         </div>
                         <div class="calculator-field">
                             <label for="tos">TOs</label>
                             <select id="tos" name="tos">
                                 <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2" selected>2</option>
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
