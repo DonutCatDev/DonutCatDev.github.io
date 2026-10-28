@@ -128,4 +128,3 @@ When browser or network verification is unavailable, run every remaining static/
 - Keep commits focused and describe user-visible or architectural effects.
 - Avoid destructive Git operations.
 - Do not push, deploy, publish, or alter remote settings unless explicitly requested.
-

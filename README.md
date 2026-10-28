@@ -35,4 +35,3 @@ npm run lint
 - `docs/development/`: engineering plans and audits.
 
 See [AGENTS.md](AGENTS.md) for detailed architecture, safety rules, change recipes, and the definition of done.
-

@@ -55,4 +55,3 @@ if (failures.length > 0) {
 } else {
     console.log(`Checked ${javascriptFiles.length} JavaScript files and repository invariants.`);
 }
-
