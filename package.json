@@ -1,0 +1,15 @@
+{
+  "name": "donutcat-org",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node scripts/dev/check-project.js",
+    "preview": "node scripts/dev/serve.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
+
