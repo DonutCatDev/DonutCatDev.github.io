@@ -1,5 +1,7 @@
 # Implementation roadmap
 
+Status as of 2026-10-27: phases 0, 1, 2, 3, and 5 are implemented. Detailed plans for phases 4, 6, and 7 are linked from `remaining-phases.md`.
+
 ## Phase 0: repository foundation
 
 - Add root agent instructions and contributor-facing project documentation.
@@ -37,5 +39,4 @@
 
 ## Deferred phases
 
-Phases 4, 6, and 7 will receive detailed standalone plans after the implementation phases are complete so their assumptions reflect the new architecture.
-
+Phases 4, 6, and 7 are documented in detailed standalone plans based on the implemented architecture. See `remaining-phases.md` for sequencing.
