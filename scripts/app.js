@@ -40,19 +40,10 @@ class Router {
             const expanded = this.navToggle.getAttribute('aria-expanded') === 'true';
             this.setMobileNavigation(!expanded);
         });
-        document.querySelectorAll('.submenu-toggle').forEach((button) => {
-            button.addEventListener('click', () => {
-                const expanded = button.getAttribute('aria-expanded') === 'true';
-                this.closeSubmenus(button);
-                button.setAttribute('aria-expanded', String(!expanded));
-            });
-        });
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                const openSubmenu = document.querySelector('.submenu-toggle[aria-expanded="true"]');
-                this.closeSubmenus();
+            if (event.key === 'Escape' && this.navToggle.getAttribute('aria-expanded') === 'true') {
                 this.setMobileNavigation(false);
-                openSubmenu?.focus();
+                this.navToggle.focus();
             }
         });
     }
@@ -126,7 +117,6 @@ class Router {
         }
         if (version !== this.renderVersion) return;
         this.updateActiveNavigation(canonicalPath);
-        this.closeSubmenus();
         this.setMobileNavigation(false);
         if (moveFocus && version === this.renderVersion) {
             const heading = this.app.querySelector('h1');
@@ -274,12 +264,6 @@ class Router {
         const exact = candidates.find((link) => normalizePath(new URL(link.href).pathname) === path);
         const section = candidates.find((link) => path !== '/' && normalizePath(new URL(link.href).pathname) === `/${path.split('/')[1]}`);
         (exact || section)?.setAttribute('aria-current', 'page');
-    }
-
-    closeSubmenus(except = null) {
-        document.querySelectorAll('.submenu-toggle').forEach((button) => {
-            if (button !== except) button.setAttribute('aria-expanded', 'false');
-        });
     }
 
     setMobileNavigation(expanded) {

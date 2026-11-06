@@ -181,13 +181,6 @@ body.home-page-bg {
     position: relative;
 }
 
-.nav-section-link {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.submenu-toggle,
 .nav-toggle {
     min-width: 36px;
     min-height: 36px;
@@ -198,7 +191,6 @@ body.home-page-bg {
     cursor: pointer;
 }
 
-.submenu-toggle:focus-visible,
 .nav-toggle:focus-visible,
 .button:focus-visible,
 .column-disclosure summary:focus-visible {
@@ -227,11 +219,6 @@ body.home-page-bg {
 }
 
 .nav-dropdown:focus-within .dropdown-menu {
-    display: block;
-}
-
-.submenu-toggle[aria-expanded="true"] + .dropdown-menu,
-.nav-dropdown:has(.submenu-toggle[aria-expanded="true"]) .dropdown-menu {
     display: block;
 }
 
@@ -455,7 +442,7 @@ body.home-page-bg {
 .data-grid-toolbar {
     display: flex;
     padding: 12px 15px;
-    background: var(--bg-hover-fallback-color);
+    background: var(--bg-color);
 }
 
 .column-disclosure {
@@ -464,11 +451,27 @@ body.home-page-bg {
 }
 
 .column-disclosure summary {
+    display: block;
     padding: 9px 14px;
     border: 1px solid var(--primary-color);
     border-radius: 4px;
+    background: var(--bg-color);
     color: var(--primary-color);
     cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.column-disclosure summary::-webkit-details-marker {
+    display: none;
+}
+
+.column-disclosure summary::marker {
+    content: '';
+}
+
+.column-disclosure summary:hover {
+    background: #00509d;
 }
 
 .column-menu {
@@ -484,11 +487,8 @@ body.home-page-bg {
     border: 1px solid var(--accent-color);
     border-radius: 5px;
     background: var(--bg-color);
+    color: var(--text-color);
     box-shadow: 0 4px 12px var(--box-shadow-color);
-}
-
-.column-menu legend {
-    padding: 0 4px;
 }
 
 .column-menu label {
@@ -496,12 +496,59 @@ body.home-page-bg {
     gap: 8px;
     align-items: center;
     padding: 6px 0;
+    color: var(--text-color);
+    cursor: pointer;
 }
 
 .data-grid {
     width: 100%;
     height: 600px;
-    color-scheme: light;
+    color-scheme: dark;
+    --ag-background-color: var(--bg-color);
+    --ag-foreground-color: var(--text-color);
+    --ag-header-background-color: var(--bg-color);
+    --ag-header-text-color: var(--primary-color);
+    --ag-odd-row-background-color: var(--bg-color);
+    --ag-row-hover-color: var(--bg-hover-fallback-color);
+    --ag-border-color: var(--accent-color);
+    --ag-secondary-border-color: var(--bg-hover-color);
+    --ag-input-background-color: var(--bg-color);
+    --ag-input-border-color: var(--accent-color);
+    --ag-input-focus-border-color: var(--primary-color);
+    --ag-font-family: 'Roboto', sans-serif;
+}
+
+.data-grid .ag-root-wrapper,
+.data-grid .ag-root,
+.data-grid .ag-row,
+.data-grid .ag-cell {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.data-grid .ag-header,
+.data-grid .ag-header-cell,
+.data-grid .ag-header-cell-text {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+}
+
+.data-grid .ag-row:hover,
+.data-grid .ag-row:hover .ag-cell {
+    background-color: var(--bg-hover-fallback-color);
+    color: var(--text-color);
+}
+
+.data-grid .ag-icon,
+.data-grid .ag-header-icon {
+    color: var(--primary-color);
+}
+
+.data-grid .ag-menu,
+.data-grid .ag-popup-child,
+.data-grid .ag-filter {
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .data-grid-link {
@@ -711,22 +758,13 @@ body.home-page-bg {
         gap: 8px;
     }
 
-    .nav-section-link {
-        justify-content: space-between;
-    }
-
     .dropdown-menu {
         position: static;
         width: 100%;
         margin-top: 6px;
     }
 
-    .nav-dropdown:hover .dropdown-menu,
-    .nav-dropdown:focus-within .dropdown-menu {
-        display: none;
-    }
-
-    .nav-dropdown:has(.submenu-toggle[aria-expanded="true"]) .dropdown-menu {
+    .navigation.is-open .nav-dropdown .dropdown-menu {
         display: block;
     }
 

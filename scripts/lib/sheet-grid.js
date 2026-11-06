@@ -185,12 +185,11 @@ export function mountSheetGrid(container, options) {
             const disclosure = document.createElement('details');
             disclosure.className = 'column-disclosure';
             const summary = document.createElement('summary');
-            summary.textContent = 'Choose columns';
-            const menu = document.createElement('fieldset');
+            summary.textContent = 'Column Visibility';
+            const menu = document.createElement('div');
             menu.className = 'column-menu';
-            const legend = document.createElement('legend');
-            legend.textContent = 'Visible columns';
-            menu.append(legend);
+            menu.setAttribute('role', 'group');
+            menu.setAttribute('aria-label', 'Column visibility');
             disclosure.append(summary, menu);
             toolbar.append(disclosure);
 
