@@ -53,7 +53,7 @@ class Router {
             return;
         }
         const link = event.target.closest('a');
-        if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) {
+        if (!link || link.dataset.fullNavigation === 'true' || link.hasAttribute('download') || (link.target && link.target !== '_self')) {
             return;
         }
         const rawHref = link.getAttribute('href');
@@ -138,6 +138,7 @@ class Router {
                 const link = document.createElement('a');
                 link.href = `/${sectionKey}/${subpageKey}`;
                 link.textContent = subpage.title;
+                if (subpage.type === 'static') link.dataset.fullNavigation = 'true';
                 item.append(link);
                 dropdown.append(item);
             });
@@ -155,6 +156,7 @@ class Router {
             const link = document.createElement('a');
             link.href = `/${sectionKey}/${key}`;
             link.textContent = page.title;
+            if (page.type === 'static') link.dataset.fullNavigation = 'true';
             heading.append(link);
             const description = document.createElement('p');
             description.textContent = page.description;
@@ -184,6 +186,18 @@ class Router {
         content.append(feature);
         if (route.subpage.type === 'embed') {
             this.mountEmbed(mountPoint, route.subpage);
+            return;
+        }
+        if (route.subpage.type === 'static') {
+            const message = document.createElement('p');
+            message.className = 'feature-status';
+            message.textContent = 'This standalone resource is served as its own page.';
+            const link = document.createElement('a');
+            link.className = 'button';
+            link.href = route.path;
+            link.dataset.fullNavigation = 'true';
+            link.textContent = 'Open the Bakugan Card Archive';
+            mountPoint.append(message, link);
             return;
         }
         const loading = document.createElement('p');

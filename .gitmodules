@@ -1,0 +1,3 @@
+[submodule "vendor/bakugan_card_archive"]
+	path = vendor/bakugan_card_archive
+	url = https://github.com/DonutCatDev/Bakugan_Card_Archive.git

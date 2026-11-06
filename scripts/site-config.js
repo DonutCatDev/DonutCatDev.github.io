@@ -2,7 +2,7 @@ export const SITE_ORIGIN = 'https://donutcat.org';
 
 export const siteDefaults = {
     title: "DonutCat's Emporium",
-    description: "DonutCat's collection of Beyblade resources, foam-adjacent tools, and 3D-printing references.",
+    description: "DonutCat's collection of Beyblade, foam-blaster, 3D-printing, and Bakugan resources.",
     image: '/content/pictures/donutcat.png'
 };
 
@@ -86,6 +86,21 @@ export const sections = {
                 description: "Browse DonutCat's available 3D-printing filaments by material, color, and manufacturer.",
                 type: 'module',
                 module: '/scripts/features/donut-filament-grid.js'
+            }
+        }
+    },
+    baku: {
+        route: '/baku',
+        label: 'Baku',
+        title: 'Bakugan resources',
+        description: "DonutCat's Bakugan card research tools and references.",
+        templateId: 'baku-page',
+        dropdownId: 'baku-dropdown',
+        subpages: {
+            bakugan_card_archive: {
+                title: 'Bakugan Card Archive',
+                description: 'Search and filter Bakugan cards across generations, sets, card types, factions, stats, effects, and source details.',
+                type: 'static'
             }
         }
     }

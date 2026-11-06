@@ -4,7 +4,7 @@ import { extname, join, relative, resolve } from 'node:path';
 import process from 'node:process';
 
 const root = resolve(import.meta.dirname, '..', '..');
-const ignoredDirectories = new Set(['.git', 'node_modules', 'coverage', 'playwright-report', 'test-results']);
+const ignoredDirectories = new Set(['.git', '_site', 'node_modules', 'coverage', 'playwright-report', 'test-results']);
 const failures = [];
 
 function walk(directory) {

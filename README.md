@@ -1,6 +1,6 @@
 # donutcat.org
 
-The source for DonutCat's nonsense and sometimes useful information emporium: Beyblade resources, foam-adjacent tools, and 3D-printing references.
+The source for DonutCat's nonsense and sometimes useful information emporium: Beyblade, foam-blaster, 3D-printing, and Bakugan resources.
 
 The production site is a static, framework-free GitHub Pages application served from `https://donutcat.org`.
 
@@ -33,5 +33,10 @@ npm run lint
 - `styles/main.css`: shared visual system.
 - `tests/`: unit tests using `node:test`.
 - `docs/development/`: engineering plans and audits.
+- `vendor/bakugan_card_archive/`: private submodule used to assemble the public Bakugan Card Archive.
+
+## Pages deployment
+
+GitHub Actions validates the main site, checks out the private archive submodule, and builds a public-only artifact. The archive repository's `public/` directory is copied to `/baku/bakugan_card_archive/`; its development tools, imports, and repository history are not published. The workflow requires a `BAKUGAN_ARCHIVE_TOKEN` Actions secret with read-only Contents access to both repositories.
 
 See [AGENTS.md](AGENTS.md) for detailed architecture, safety rules, change recipes, and the definition of done.
