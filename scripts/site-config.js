@@ -93,10 +93,16 @@ export const sections = {
         route: '/baku',
         label: 'Baku',
         title: 'Bakugan resources',
-        description: "DonutCat's Bakugan card research tools and references.",
+        description: "DonutCat's Bakugan card and physical toy research tools and references.",
         templateId: 'baku-page',
         dropdownId: 'baku-dropdown',
         subpages: {
+            'bakugan-archive': {
+                title: 'Bakugan Toy Archive',
+                description: 'Explore a pilot catalog of physical Bakugan molds, attributes, treatments, and documented G1 and G2 variants.',
+                type: 'static',
+                indexable: false
+            },
             bakugan_card_archive: {
                 title: 'Bakugan Card Archive',
                 description: 'Search and filter Bakugan cards across generations, sets, card types, factions, stats, effects, and source details.',
@@ -149,6 +155,7 @@ export function getRouteDetails(pathname) {
         templateId: section.templateId,
         title: `${subpage.title} | DonutCat`,
         description: subpage.description,
+        indexable: subpage.indexable !== false,
         sectionKey,
         subpageKey,
         subpage

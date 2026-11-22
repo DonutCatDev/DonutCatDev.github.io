@@ -10,6 +10,9 @@ This directory is the durable home for engineering plans, audits, decision recor
 
 ## Current planning set
 
+- [Bakugan suite styling](decisions/2026-11-22-bakugan-suite-styling.md): match the current Card Archive across related services before a coordinated redesign.
+- [Toy archive pilot boundary](decisions/2026-11-21-toy-archive-pilot.md): implementation, source ownership, data review status, and checksummed local distribution.
+- [Bakugan platform expansion](plans/2026-11-21-bakugan-platform-expansion.md): physical Bakugan catalog first, followed by shared collection tools, accounts/sharing, and G1/G2 deckbuilding across separate repositories.
 - `audits/2026-10-27-baseline.md`: the pre-implementation audit.
 - `audits/2026-10-27-post-implementation.md`: the fresh audit after phases 0, 1, 2, 3, and 5.
 - `plans/implementation-roadmap.md`: the original phased roadmap.

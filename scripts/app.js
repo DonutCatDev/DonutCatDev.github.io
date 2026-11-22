@@ -196,7 +196,7 @@ class Router {
             link.className = 'button';
             link.href = route.path;
             link.dataset.fullNavigation = 'true';
-            link.textContent = 'Open the Bakugan Card Archive';
+            link.textContent = `Open ${route.subpage.title}`;
             mountPoint.append(message, link);
             return;
         }
@@ -269,7 +269,7 @@ class Router {
         document.getElementById('og-title').content = route.title;
         document.getElementById('og-description').content = route.description;
         document.getElementById('og-url').content = canonical;
-        document.getElementById('robots-meta').content = route.title.startsWith('Page not found') ? 'noindex' : 'index,follow';
+        document.getElementById('robots-meta').content = route.indexable === false || route.title.startsWith('Page not found') ? 'noindex,follow' : 'index,follow';
     }
 
     updateActiveNavigation(path) {

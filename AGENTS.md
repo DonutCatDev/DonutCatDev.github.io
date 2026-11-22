@@ -126,5 +126,7 @@ When browser or network verification is unavailable, run every remaining static/
 
 - Inspect `git status` before editing and preserve unrelated user changes.
 - Keep commits focused and describe user-visible or architectural effects.
+- After completing authorized work and required validation, create focused local commits in every affected repository by default. Do not ask again whether to commit. Report the commit hashes and leave pushing to the user.
+- For changes spanning sibling repositories, commit dependencies first, then update and commit the main site's release pins or public snapshots. Include the required manual push order in the handoff.
 - Avoid destructive Git operations.
 - Do not push, deploy, publish, or alter remote settings unless explicitly requested.

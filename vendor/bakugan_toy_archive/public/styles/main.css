@@ -1,0 +1,37 @@
+/* Toy layouts only. The assembled site supplies the unchanged Card Archive baseline.
+   Keep theme tokens, typography, and shared component styling in that baseline. */
+.search-panel { margin-bottom: 1.25rem; }
+.search-row { grid-template-columns: auto minmax(0, 1fr) auto; }
+.search-row input { width: 100%; }
+.search-row .primary-button { padding: .45rem .8rem; }
+.filter-details { margin-block: .65rem; }
+.filter-details summary, .coverage summary { width: fit-content; padding-block: .4rem; color: var(--cyan); cursor: pointer; font-weight: 750; }
+.search-panel > .secondary { margin-top: .25rem; }
+.coverage, .notice { padding: .8rem 1rem; margin-block: 1rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--navy); }
+.coverage strong { color: var(--gold); }
+.coverage p, .detail-note { color: var(--muted); font-size: .9375rem; }
+.coverage p { margin: .4rem 0 0; }
+.result-summary { margin: 1.5rem 0 1rem; color: var(--cyan); font-weight: 800; }
+.results { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); align-items: start; gap: 1rem; padding-bottom: 2rem; }
+.toy-tile { gap: .7rem; }
+.tile-body { min-width: 0; }
+.tile-body h2 { margin: .4rem 0; font-size: 1.35rem; line-height: 1.1; letter-spacing: -.03em; }
+.edition { margin: .35rem 0; color: var(--gold); font-weight: 800; }
+.variant-list { list-style: none; padding: 0; margin: 0; }
+.variant-list li + li { border-top: 1px solid var(--line); }
+.variant-link { display: block; width: 100%; min-height: 2.75rem; padding: .65rem .25rem; color: var(--cyan); border: 0; border-radius: .35rem; background: transparent; text-align: left; text-decoration: underline; text-underline-offset: .2rem; font-size: .9375rem; font-weight: 700; }
+.variant-link:hover { color: var(--gold); }
+.toy-tile img { display: block; width: 100%; height: 12rem; object-fit: contain; }
+.results > .empty-state { grid-column: 1 / -1; }
+.paging { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem; margin: 1rem 0 2rem; }
+.facts { min-width: 0; }
+.facts dd { overflow-wrap: anywhere; }
+.dialog-body > img { display: block; width: 100%; max-height: 20rem; object-fit: contain; }
+.dialog-body > .image-placeholder { max-height: 14rem; aspect-ratio: auto; min-height: 7rem; }
+@media (max-width: 25rem) {
+  .search-row { grid-template-columns: auto minmax(0, 1fr); }
+  .search-row .primary-button { grid-column: 1 / -1; }
+}
+@media (forced-colors: active) {
+  .coverage, .notice, .variant-link { border: 1px solid CanvasText; }
+}

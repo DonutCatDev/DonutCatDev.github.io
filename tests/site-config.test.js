@@ -21,16 +21,20 @@ test('every configured route has complete unique metadata', () => {
         assert.ok(route.description, `${path} should have a description`);
     });
 });
-test('the sitemap includes every configured canonical route', async () => {
+test('the sitemap includes every indexable canonical route and omits the pilot', async () => {
     const sitemap = await readFile(new URL('../sitemap.xml', import.meta.url), 'utf8');
     const expected = ['/'];
     for (const [sectionKey, section] of Object.entries(sections)) {
         expected.push(section.route);
-        Object.keys(section.subpages).forEach((key) => expected.push(`/${sectionKey}/${key}`));
+        Object.entries(section.subpages).forEach(([key, page]) => {
+            if (page.indexable !== false) expected.push(`/${sectionKey}/${key}`);
+        });
     }
 
     expected.forEach((path) => {
         const url = `https://donutcat.org${path}`;
         assert.match(sitemap, new RegExp(`<loc>${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</loc>`));
     });
+    assert.equal(getRouteDetails('/baku/bakugan-archive').indexable, false);
+    assert.doesNotMatch(sitemap, /<loc>https:\/\/donutcat\.org\/baku\/bakugan-archive\/?<\/loc>/);
 });

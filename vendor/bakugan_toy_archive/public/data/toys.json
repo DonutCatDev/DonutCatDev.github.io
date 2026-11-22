@@ -1,0 +1,1125 @@
+{
+  "schemaVersion": 1,
+  "catalogRelease": "2026-11-21-pilot.1",
+  "status": "pilot",
+  "coverage": {
+    "complete": false,
+    "description": "Selected Delta Dragonoid B1/B2 variants and standard Battle Planet Dragonoid, Pegatrix, and Hydorous Core/Ultra variants. Other variants are not yet cataloged."
+  },
+  "sources": [
+    {
+      "id": "source-delta",
+      "title": "Delta Dragonoid",
+      "url": "https://bakugan.wiki/wiki/Delta_Dragonoid",
+      "section": "Physical Game / Availability",
+      "checkedAt": "2026-11-21",
+      "revision": null
+    },
+    {
+      "id": "source-dragonoid",
+      "title": "Dragonoid (Generation 2)",
+      "url": "https://bakugan.wiki/wiki/Dragonoid_(Generation_2)",
+      "section": "Physical Game / Bakugan Battle Planet / Bakulog",
+      "checkedAt": "2026-11-21",
+      "revision": null
+    },
+    {
+      "id": "source-pegatrix",
+      "title": "Pegatrix",
+      "url": "https://bakugan.wiki/wiki/Pegatrix",
+      "section": "Physical Game / Battle Planet / Bakulog",
+      "checkedAt": "2026-11-21",
+      "revision": null
+    },
+    {
+      "id": "source-hydorous",
+      "title": "Hydorous",
+      "url": "https://bakugan.wiki/wiki/Hydorous",
+      "section": "Physical Game / Battle Planet / BakuLog",
+      "checkedAt": "2026-11-21",
+      "revision": null
+    }
+  ],
+  "models": [
+    {
+      "id": "model-0001",
+      "name": "Delta Dragonoid",
+      "aliases": [
+        "Meteor Dragonoid"
+      ],
+      "generation": "G1",
+      "series": "Legacy",
+      "edition": "28 mm (B1)",
+      "sourceId": "source-delta"
+    },
+    {
+      "id": "model-0002",
+      "name": "Delta Dragonoid",
+      "aliases": [
+        "Meteor Dragonoid"
+      ],
+      "generation": "G1",
+      "series": "Legacy",
+      "edition": "B2",
+      "sourceId": "source-delta"
+    },
+    {
+      "id": "model-0003",
+      "name": "Dragonoid",
+      "aliases": [],
+      "generation": "G2",
+      "series": "Battle Planet",
+      "edition": "Core",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "model-0004",
+      "name": "Dragonoid",
+      "aliases": [],
+      "generation": "G2",
+      "series": "Battle Planet",
+      "edition": "Ultra",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "model-0005",
+      "name": "Pegatrix",
+      "aliases": [],
+      "generation": "G2",
+      "series": "Battle Planet",
+      "edition": "Core",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "model-0006",
+      "name": "Pegatrix",
+      "aliases": [],
+      "generation": "G2",
+      "series": "Battle Planet",
+      "edition": "Ultra",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "model-0007",
+      "name": "Hydorous",
+      "aliases": [],
+      "generation": "G2",
+      "series": "Battle Planet",
+      "edition": "Core",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "model-0008",
+      "name": "Hydorous",
+      "aliases": [],
+      "generation": "G2",
+      "series": "Battle Planet",
+      "edition": "Ultra",
+      "sourceId": "source-hydorous"
+    }
+  ],
+  "variants": [
+    {
+      "id": "toy-0001",
+      "modelId": "model-0001",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 290,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0002",
+      "modelId": "model-0001",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 380,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0003",
+      "modelId": "model-0001",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 400,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0004",
+      "modelId": "model-0001",
+      "faction": "Pyrus",
+      "treatment": "Pearl",
+      "gPower": 560,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Pyrus / Pearl",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0005",
+      "modelId": "model-0001",
+      "faction": "Pyrus",
+      "treatment": "Flip",
+      "gPower": 560,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Pyrus / Flip",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0006",
+      "modelId": "model-0001",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": 350,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0007",
+      "modelId": "model-0001",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": 370,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0008",
+      "modelId": "model-0001",
+      "faction": "Aquos",
+      "treatment": "Flip",
+      "gPower": 550,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Aquos / Flip",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0009",
+      "modelId": "model-0001",
+      "faction": "Ventus",
+      "treatment": "Standard",
+      "gPower": 400,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Ventus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0010",
+      "modelId": "model-0001",
+      "faction": "Haos",
+      "treatment": "Pearl",
+      "gPower": 530,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Haos / Pearl",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0011",
+      "modelId": "model-0001",
+      "faction": "Haos",
+      "treatment": "Flip",
+      "gPower": 530,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Haos / Flip",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0012",
+      "modelId": "model-0001",
+      "faction": "Darkus",
+      "treatment": "Standard",
+      "gPower": 350,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Darkus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0013",
+      "modelId": "model-0001",
+      "faction": "Darkus",
+      "treatment": "Standard",
+      "gPower": 370,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "28 mm (B1) / Darkus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0014",
+      "modelId": "model-0002",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 460,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "B2 / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0015",
+      "modelId": "model-0002",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 480,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "B2 / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0016",
+      "modelId": "model-0002",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 500,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "B2 / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0017",
+      "modelId": "model-0002",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": 670,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "B2 / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0018",
+      "modelId": "model-0002",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": 650,
+      "profileIds": [],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-delta",
+        "locator": "B2 / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0019",
+      "modelId": "model-0003",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0019"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Core / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0020",
+      "modelId": "model-0003",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0020"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Core / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0021",
+      "modelId": "model-0003",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0021"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Core / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0022",
+      "modelId": "model-0003",
+      "faction": "Ventus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0022"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Core / Ventus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0023",
+      "modelId": "model-0003",
+      "faction": "Darkus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0023"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Core / Darkus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0024",
+      "modelId": "model-0003",
+      "faction": "Aurelus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0024"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Core / Aurelus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0025",
+      "modelId": "model-0004",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0025"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Ultra / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0026",
+      "modelId": "model-0004",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0026"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Ultra / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0027",
+      "modelId": "model-0004",
+      "faction": "Aurelus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0027"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-dragonoid",
+        "locator": "Ultra / Aurelus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0028",
+      "modelId": "model-0005",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0028"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Core / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0029",
+      "modelId": "model-0005",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0029"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Core / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0030",
+      "modelId": "model-0005",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0030"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Core / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0031",
+      "modelId": "model-0005",
+      "faction": "Ventus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0031"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Core / Ventus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0032",
+      "modelId": "model-0005",
+      "faction": "Darkus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0032"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Core / Darkus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0033",
+      "modelId": "model-0005",
+      "faction": "Aurelus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0033"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Core / Aurelus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0034",
+      "modelId": "model-0006",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0034"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Ultra / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0035",
+      "modelId": "model-0006",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0035"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-pegatrix",
+        "locator": "Ultra / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0036",
+      "modelId": "model-0007",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0036"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Core / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0037",
+      "modelId": "model-0007",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0037"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Core / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0038",
+      "modelId": "model-0007",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0038"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Core / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0039",
+      "modelId": "model-0007",
+      "faction": "Ventus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0039"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Core / Ventus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0040",
+      "modelId": "model-0007",
+      "faction": "Darkus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0040"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Core / Darkus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0041",
+      "modelId": "model-0007",
+      "faction": "Aurelus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0041"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Core / Aurelus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0042",
+      "modelId": "model-0008",
+      "faction": "Pyrus",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0042"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Ultra / Pyrus / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0043",
+      "modelId": "model-0008",
+      "faction": "Aquos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0043"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Ultra / Aquos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    },
+    {
+      "id": "toy-0044",
+      "modelId": "model-0008",
+      "faction": "Haos",
+      "treatment": "Standard",
+      "gPower": null,
+      "profileIds": [
+        "profile-0044"
+      ],
+      "releaseIds": [],
+      "image": null,
+      "evidence": {
+        "sourceId": "source-hydorous",
+        "locator": "Ultra / Haos / Standard",
+        "reviewStatus": "source-transcribed"
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "profile-0019",
+      "modelId": "model-0003",
+      "faction": "Pyrus",
+      "bPower": 200,
+      "damage": 5,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0020",
+      "modelId": "model-0003",
+      "faction": "Aquos",
+      "bPower": 400,
+      "damage": 3,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0021",
+      "modelId": "model-0003",
+      "faction": "Haos",
+      "bPower": 400,
+      "damage": 3,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0022",
+      "modelId": "model-0003",
+      "faction": "Ventus",
+      "bPower": 200,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0023",
+      "modelId": "model-0003",
+      "faction": "Darkus",
+      "bPower": 400,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0024",
+      "modelId": "model-0003",
+      "faction": "Aurelus",
+      "bPower": 400,
+      "damage": 6,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0025",
+      "modelId": "model-0004",
+      "faction": "Pyrus",
+      "bPower": 500,
+      "damage": 5,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0026",
+      "modelId": "model-0004",
+      "faction": "Haos",
+      "bPower": 500,
+      "damage": 3,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0027",
+      "modelId": "model-0004",
+      "faction": "Aurelus",
+      "bPower": 500,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-dragonoid"
+    },
+    {
+      "id": "profile-0028",
+      "modelId": "model-0005",
+      "faction": "Pyrus",
+      "bPower": 300,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0029",
+      "modelId": "model-0005",
+      "faction": "Aquos",
+      "bPower": 500,
+      "damage": 2,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0030",
+      "modelId": "model-0005",
+      "faction": "Haos",
+      "bPower": 500,
+      "damage": 2,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0031",
+      "modelId": "model-0005",
+      "faction": "Ventus",
+      "bPower": 300,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0032",
+      "modelId": "model-0005",
+      "faction": "Darkus",
+      "bPower": 200,
+      "damage": 5,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0033",
+      "modelId": "model-0005",
+      "faction": "Aurelus",
+      "bPower": 600,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0034",
+      "modelId": "model-0006",
+      "faction": "Aquos",
+      "bPower": 600,
+      "damage": 1,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0035",
+      "modelId": "model-0006",
+      "faction": "Haos",
+      "bPower": 300,
+      "damage": 5,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-pegatrix"
+    },
+    {
+      "id": "profile-0036",
+      "modelId": "model-0007",
+      "faction": "Pyrus",
+      "bPower": 400,
+      "damage": 3,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0037",
+      "modelId": "model-0007",
+      "faction": "Aquos",
+      "bPower": 200,
+      "damage": 6,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0038",
+      "modelId": "model-0007",
+      "faction": "Haos",
+      "bPower": 200,
+      "damage": 3,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0039",
+      "modelId": "model-0007",
+      "faction": "Ventus",
+      "bPower": 500,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0040",
+      "modelId": "model-0007",
+      "faction": "Darkus",
+      "bPower": 300,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0041",
+      "modelId": "model-0007",
+      "faction": "Aurelus",
+      "bPower": 400,
+      "damage": 5,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0042",
+      "modelId": "model-0008",
+      "faction": "Pyrus",
+      "bPower": 300,
+      "damage": 5,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0043",
+      "modelId": "model-0008",
+      "faction": "Aquos",
+      "bPower": 400,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    },
+    {
+      "id": "profile-0044",
+      "modelId": "model-0008",
+      "faction": "Haos",
+      "bPower": 200,
+      "damage": 4,
+      "bakuCores": null,
+      "cardPrintingIds": [],
+      "compatibility": "unverified",
+      "sourceId": "source-hydorous"
+    }
+  ],
+  "releases": [],
+  "aliases": {}
+}
