@@ -188,6 +188,40 @@ try {
     await call('Fetch.disable'); intercept = null;
     passed('valid empty catalog state');
 
+    // Synthetic metadata/photos exercise future reviewed entries without publishing them.
+    const evidenceFixture = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
+    const sourceFixture = evidenceFixture.sources.find((source) => source.id === 'source-delta');
+    Object.assign(sourceFixture, { revision: 202, pageId: 101, sourceTimestamp: '2026-11-20T12:00:00Z', capturedAt: '2026-11-22T12:00:00Z', captureMethod: 'browser-api', sourceSha256: 'a'.repeat(64) });
+    Object.assign(evidenceFixture.variants[0].evidence, { reviewStatus: 'revision-reviewed', sourceRevision: 202, sourceSha256: 'a'.repeat(64), reviewer: 'Synthetic browser fixture', reviewedAt: '2026-11-22' });
+    evidenceFixture.variants[0].image = { url: `${origin}/smoke-photo.svg`, sourceUrl: `${origin}/photo-source`, rightsUrl: `${origin}/photo-rights`, credit: 'Synthetic photographer', rights: 'Test fixture only', view: 'open', width: 80, height: 60 };
+    let failPhoto = false;
+    await call('Fetch.enable', { patterns: [{ urlPattern: '*data/toys.json*', requestStage: 'Request' }, { urlPattern: '*smoke-photo.svg*', requestStage: 'Request' }] });
+    intercept = ({ requestId, request }) => {
+        if (request.url.includes('/smoke-photo.svg')) return failPhoto
+            ? call('Fetch.failRequest', { requestId, errorReason: 'Failed' })
+            : call('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'image/svg+xml' }], body: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="80" height="60"><rect width="80" height="60" fill="navy"/></svg>').toString('base64') });
+        return call('Fetch.fulfillRequest', { requestId, responseCode: 200, body: Buffer.from(JSON.stringify(evidenceFixture)).toString('base64') });
+    };
+    await navigate('/baku/bakugan-archive/?item=toy-0001', "Boolean(document.querySelector('dialog')?.open)");
+    await until(() => evaluate("Boolean(document.querySelector('dialog img')?.naturalWidth)"), 'reviewed photo loaded');
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Catalog facts reviewed against the captured revision/);
+    assert.equal(await evaluate("document.querySelector('dialog a[href*=oldid]').href.includes('oldid=202')"), true);
+    assert.match(await evaluate("document.querySelector('dialog figcaption').textContent"), /Synthetic photographer/);
+    assert.ok(await evaluate("[...document.querySelectorAll('dialog a[target=_blank]')].every(link => link.rel === 'noopener noreferrer')"));
+    passed('captured-revision status, photo dimensions, credit and safe source/rights links');
+    await navigate('/baku/bakugan-archive/'); await readyCatalog();
+    assert.match(await evaluate("document.querySelector('.toy-photo figcaption').textContent"), /Example variant: Pyrus Delta Dragonoid/);
+    await choose('faction', 'Aquos');
+    assert.equal(await evaluate("document.querySelectorAll('.toy-photo').length"), 0);
+    passed('mold photos identify an example variant and respect faction filters');
+    failPhoto = true;
+    evidenceFixture.variants[0].image.url += '?broken=1';
+    await navigate('/baku/bakugan-archive/?item=toy-0001', "Boolean(document.querySelector('dialog')?.open)");
+    await until(() => evaluate("Boolean(document.querySelector('dialog .toy-photo .image-placeholder'))"), 'failed photo fallback');
+    assert.match(await evaluate("document.querySelector('dialog figcaption').textContent"), /Synthetic photographer/);
+    await call('Fetch.disable'); intercept = null;
+    passed('failed identification photo keeps its fallback and attribution');
+
     await navigate('/baku/bakugan-archive/'); await readyCatalog();
     await evaluate("window.dispatchEvent(new PageTransitionEvent('pagehide'))");
     for (let index = 0; index < 3; index++) {

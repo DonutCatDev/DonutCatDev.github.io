@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "catalogRelease": "2026-11-21-pilot.1",
+  "catalogRelease": "2026-11-22-pilot.2",
   "sourceProject": "Bakugan_Toy_Archive",
   "files": {
-    "data/toys.json": "901cb39614b8b76d9b7fd14a21a67645d1b799695b067cae9526e5ec6c3a6fea",
-    "index.html": "939b20e8449d30550ca6dc22d2dd0b3a0e421e12489711a0982f8e28f0c9837e",
-    "scripts/app.js": "2ccab36629ffc1691f1188c6e69fcf27d83ee77a0c811ba982f6bbb1cfc6f1f9",
+    "data/toys.json": "ed41543f9723a1a7d8fa16354dcf4aac0ca6d05b89eab714591361dd8f396cec",
+    "index.html": "c444d06e4dcb723c6d9faa29e996f2b1f090121ab909c23fb857e904fb928910",
+    "scripts/app.js": "0a388d966e663e3e6890291ebd9044748b986d607afc3545fb47d5ea85c7533c",
     "scripts/bootstrap.js": "597ea27db272fa279c4ee1aa19affb77c5ea65c3d2368ee356a8a8b2ee12d551",
-    "scripts/lib/catalog.js": "ba2e74bc963c74f56972feecbffc321a336a5af617d2bc816840240e4acef62d",
-    "styles/main.css": "e19de58f2c1bddcc612dc6e779f96e0add137bdbd163c8a56addd50ebca517e3"
+    "scripts/lib/catalog.js": "780dff2b44bda7a4083ac3bbf6bb1f0b08fb48306cbc2dd637c6da1f5cf087a9",
+    "styles/main.css": "501583f8aa3ed4cac403e62b7f1711a969723aa38778c7384260c36db3dbdd23"
   }
 }

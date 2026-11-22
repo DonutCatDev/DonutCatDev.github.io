@@ -29,8 +29,23 @@ function numeric(value, label) {
   if (value !== null && (!Number.isSafeInteger(value) || value < 0 || value > 100000)) throw new Error(`Invalid ${label}.`);
 }
 
+export function revisionUrl(source, revision = source?.revision) {
+  if (!Number.isSafeInteger(revision) || revision < 1 || !safeUrl(source?.url)) return null;
+  const url = new URL('/index.php', safeUrl(source.url));
+  url.search = new URLSearchParams({ title: source.title, oldid: String(revision) }).toString();
+  return url.href;
+}
+
+export function validateImage(image) {
+  if (!image || !safeUrl(image.url)) throw new Error('Invalid image URL.');
+  for (const field of ['sourceUrl', 'rightsUrl']) if (!/^https?:\/\//i.test(image[field] || '') || !safeUrl(image[field])) throw new Error('Images need safe source and rights URLs.');
+  for (const field of ['credit', 'rights']) text(image[field], `image ${field}`);
+  if (!['open', 'closed'].includes(image.view) || !Number.isSafeInteger(image.width) || !Number.isSafeInteger(image.height) || image.width < 1 || image.height < 1 || image.width > 20000 || image.height > 20000) throw new Error('Images need an identification view and intrinsic dimensions.');
+  return image;
+}
+
 export function validateCatalog(data) {
-  if (!data || data.schemaVersion !== 1 || data.status !== 'pilot') throw new Error('Unsupported catalog format.');
+  if (!data || data.schemaVersion !== 2 || data.status !== 'pilot') throw new Error('Unsupported catalog format.');
   text(data.catalogRelease, 'catalog release', 80);
   if (data.coverage?.complete !== false) throw new Error('Pilot coverage must be incomplete.');
   text(data.coverage.description, 'coverage description', 1000);
@@ -42,7 +57,10 @@ export function validateCatalog(data) {
   for (const source of sources.values()) {
     for (const field of ['title', 'section', 'checkedAt']) text(source[field], `source ${field}`);
     if (!safeUrl(source.url) || !/^https?:\/\//i.test(source.url)) throw new Error('Invalid source URL.');
-    if (source.revision !== null && !Number.isSafeInteger(source.revision)) throw new Error('Invalid source revision.');
+    if (source.revision !== null) {
+      if (!Number.isSafeInteger(source.revision) || source.revision < 1 || !Number.isSafeInteger(source.pageId) || source.pageId < 1 || !/^[a-f0-9]{64}$/.test(source.sourceSha256 || '') || !['browser-api', 'mediawiki-export'].includes(source.captureMethod) || !Number.isFinite(Date.parse(source.sourceTimestamp)) || !Number.isFinite(Date.parse(source.capturedAt))) throw new Error('Invalid captured source revision.');
+    }
+    if (source.observedRevision && (!Number.isSafeInteger(source.observedRevision.revision) || source.observedRevision.revision < 1 || source.observedRevision.method !== 'indexed-page' || !Number.isFinite(Date.parse(source.observedRevision.observedAt)))) throw new Error('Invalid indexed revision observation.');
   }
   for (const model of models.values()) {
     for (const field of ['name', 'series', 'edition']) text(model[field], `model ${field}`);
@@ -63,11 +81,15 @@ export function validateCatalog(data) {
     if (model.generation === 'G2' && variant.gPower !== null) throw new Error('G2 toys cannot have G-Power.');
     if (!Array.isArray(variant.profileIds) || new Set(variant.profileIds).size !== variant.profileIds.length || variant.profileIds.some((id) => !profiles.has(id) || profiles.get(id).modelId !== model.id || profiles.get(id).faction !== variant.faction)) throw new Error('Invalid variant profile link.');
     if (!Array.isArray(variant.releaseIds) || variant.releaseIds.some((id) => !releases.has(id))) throw new Error('Invalid release link.');
-    if (!sources.has(variant.evidence?.sourceId) || variant.evidence.sourceId !== model.sourceId || variant.evidence.reviewStatus !== 'source-transcribed') throw new Error('Invalid variant evidence.');
+    if (!sources.has(variant.evidence?.sourceId) || variant.evidence.sourceId !== model.sourceId || !['source-transcribed', 'revision-reviewed'].includes(variant.evidence.reviewStatus)) throw new Error('Invalid variant evidence.');
+    if (variant.evidence.reviewStatus === 'revision-reviewed') {
+      const source = sources.get(variant.evidence.sourceId);
+      if (!source.revision || variant.evidence.sourceRevision !== source.revision || variant.evidence.sourceSha256 !== source.sourceSha256 || !Number.isFinite(Date.parse(variant.evidence.reviewedAt))) throw new Error('Reviewed facts must match a captured source revision.');
+      text(variant.evidence.reviewer, 'reviewer', 120);
+    }
     text(variant.evidence.locator, 'evidence locator');
     if (variant.image !== null) {
-      if (!safeUrl(variant.image?.url)) throw new Error('Invalid image URL.');
-      text(variant.image.credit, 'image credit');
+      validateImage(variant.image);
     }
   }
   if (!data.aliases || typeof data.aliases !== 'object' || Array.isArray(data.aliases)) throw new Error('Invalid aliases.');

@@ -1,4 +1,4 @@
-import { FACTIONS, groupModels, prepareCatalog, readState, safeUrl, selectVariants, writeState } from './lib/catalog.js';
+import { FACTIONS, groupModels, prepareCatalog, readState, revisionUrl, safeUrl, selectVariants, writeState } from './lib/catalog.js';
 
 const PAGE_SIZE = 12;
 function el(tag, properties = {}, children = []) {
@@ -81,12 +81,18 @@ export function mount(container) {
     render();
   }
 
-  function picture(image, label) {
+  function picture(image, label, { detail = false, representative = false } = {}) {
     const url = safeUrl(image?.url, document.baseURI);
     if (!url) return el('div', { className: 'image-placeholder', text: 'Toy image not available' });
-    const img = el('img', { src: url, alt: label, loading: 'lazy', width: 320, height: 240 });
+    const img = el('img', { src: url, alt: `${label}, ${image.view} view`, loading: detail ? 'eager' : 'lazy', width: image.width, height: image.height });
     img.addEventListener('error', () => img.replaceWith(el('div', { className: 'image-placeholder', text: 'Toy image unavailable' })), { ...options, once: true });
-    return img;
+    const caption = el('figcaption', { className: 'detail-note' }, [
+      document.createTextNode(`${representative ? `Example variant: ${label}. ` : ''}${image.credit}. `),
+      el('a', { href: safeUrl(image.sourceUrl), target: '_blank', rel: 'noopener noreferrer', text: 'Photo source' }),
+      document.createTextNode(' · '),
+      el('a', { href: safeUrl(image.rightsUrl), target: '_blank', rel: 'noopener noreferrer', text: image.rights })
+    ]);
+    return el('figure', { className: 'toy-photo' }, [img, caption]);
   }
 
   function variantButton(variant) {
@@ -116,7 +122,7 @@ export function mount(container) {
     fact('Mold / edition', variant.model.edition);
     fact('Attribute / faction', variant.faction);
     fact('Treatment', variant.treatment);
-    fact('Printed G-Power', variant.gPower === null ? 'Not applicable' : `${variant.gPower} G`);
+    fact('Printed G-Power', variant.model.generation !== 'G1' ? 'Not applicable' : variant.gPower === null ? 'Unknown' : `${variant.gPower} G`);
     const profiles = data.profiles.filter((profile) => variant.profileIds.includes(profile.id));
     for (const profile of profiles) {
       fact('Source-listed B-Power', profile.bPower === null ? 'Unknown' : String(profile.bPower));
@@ -132,9 +138,18 @@ export function mount(container) {
     direct.search = new URLSearchParams({ item: variant.id }).toString();
     direct.hash = '';
     const permalink = el('a', { href: direct.href, text: 'Direct link to this variant' });
-    dialogBody.replaceChildren(heading, picture(variant.image, variant.label), details,
-      el('p', { className: 'detail-note', text: 'Pilot entry transcribed from a source table. This is a catalog reference, not a deck-legality ruling.' }),
-      sourceLink, el('p', { className: 'detail-note', text: `${source.section} / ${variant.evidence.locator}. Source checked ${source.checkedAt}; revision not captured.` }),
+    const provenance = el('p', { className: 'detail-note' });
+    if (source.revision) {
+      provenance.append(document.createTextNode(`Captured ${source.capturedAt.slice(0, 10)}. `), el('a', { href: revisionUrl(source), target: '_blank', rel: 'noopener noreferrer', text: `Source revision ${source.revision}` }));
+    } else if (source.observedRevision) {
+      provenance.append(el('a', { href: revisionUrl(source, source.observedRevision.revision), target: '_blank', rel: 'noopener noreferrer', text: `Indexed revision ${source.observedRevision.revision}` }), document.createTextNode(` observed ${source.observedRevision.observedAt}. A revision snapshot has not been imported.`));
+    } else provenance.textContent = `Source checked ${source.checkedAt}; a revision snapshot has not been imported.`;
+    const reviewText = variant.evidence.reviewStatus === 'revision-reviewed'
+      ? `Catalog facts reviewed against the captured revision on ${variant.evidence.reviewedAt.slice(0, 10)}. This is not a deck-legality ruling.`
+      : 'Pilot entry transcribed from a source table; its facts have not yet been reviewed against a captured revision. This is not a deck-legality ruling.';
+    dialogBody.replaceChildren(heading, picture(variant.image, variant.label, { detail: true }), details,
+      el('p', { className: 'detail-note', text: reviewText }),
+      sourceLink, el('p', { className: 'detail-note', text: `${source.section} / ${variant.evidence.locator}.` }), provenance,
       el('p', {}, [permalink]));
     document.title = `${variant.label} | Bakugan Toy Archive`;
     if (!dialog.open) { dialog.showModal(); heading.focus(); }
@@ -157,7 +172,8 @@ export function mount(container) {
       const isGroup = state.view === 'models';
       const model = entry.model;
       const tile = el('article', { className: 'toy-tile card-result' });
-      tile.append(picture(isGroup ? null : entry.image, model.name),
+      const example = isGroup ? entry.variants.find((variant) => variant.image) : entry;
+      tile.append(picture(example?.image, example?.label || model.name, { representative: isGroup }),
         el('div', { className: 'tile-body' }, [
           el('p', { className: 'eyebrow', text: `${model.generation} · ${model.series}` }),
           el('h2', { text: model.name }), el('p', { className: 'edition', text: model.edition })
@@ -202,8 +218,10 @@ export function mount(container) {
         controls[key].replaceChildren(el('option', { value: '', text: key === 'edition' ? 'All molds / editions' : 'All treatments' }));
         [...new Set(values)].sort().forEach((value) => controls[key].append(el('option', { value, text: value })));
       }
+      const reviewedCount = data.variants.filter((variant) => variant.evidence.reviewStatus === 'revision-reviewed').length;
+      const imageCount = data.variants.filter((variant) => variant.image).length;
       coverage.replaceChildren(el('strong', { text: 'A pilot, with plenty left to find.' }),
-        el('p', { text: `${data.variants.length} source-transcribed variants. Images and card links are pending review.` }),
+        el('p', { text: `${data.variants.length} variants · ${reviewedCount} reviewed against captured revisions · ${imageCount} with identification photos. Card links are pending review.` }),
         el('details', {}, [el('summary', { text: 'What this pilot covers' }), el('p', { text: data.coverage.description }),
           el('p', { text: 'Missing entries do not mean a variant was never released. Product-release details and source revisions are still being reviewed.' })]));
       coverage.hidden = false; form.hidden = false; status.hidden = true;

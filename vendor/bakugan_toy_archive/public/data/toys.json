@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "catalogRelease": "2026-11-21-pilot.1",
+  "schemaVersion": 2,
+  "catalogRelease": "2026-11-22-pilot.2",
   "status": "pilot",
   "coverage": {
     "complete": false,
@@ -13,7 +13,12 @@
       "url": "https://bakugan.wiki/wiki/Delta_Dragonoid",
       "section": "Physical Game / Availability",
       "checkedAt": "2026-11-21",
-      "revision": null
+      "revision": null,
+      "observedRevision": {
+        "revision": 858181,
+        "observedAt": "2026-11-22",
+        "method": "indexed-page"
+      }
     },
     {
       "id": "source-dragonoid",
