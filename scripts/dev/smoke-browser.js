@@ -141,6 +141,9 @@ try {
     assert.equal(await evaluate('document.activeElement.id'), 'toy-detail-heading');
     assert.match(await evaluate("document.querySelector('#toy-detail-heading').textContent"), /560 G/);
     assert.equal(await evaluate("document.querySelector('dialog a[target=_blank]').rel"), 'noopener noreferrer');
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /facts have not yet been reviewed/);
+    assert.equal(await evaluate("document.querySelector('dialog a[href*=\"Template\"]').href.includes('B1_Delta_Dragonoid_Bakulog')"), true);
+    assert.equal(await evaluate("document.querySelector('dialog a[href*=oldid]').href.includes('oldid=858181')"), true);
     await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await until(() => evaluate("!document.querySelector('dialog').open"), 'Escape closes details');
@@ -190,7 +193,7 @@ try {
 
     // Synthetic metadata/photos exercise future reviewed entries without publishing them.
     const evidenceFixture = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
-    const sourceFixture = evidenceFixture.sources.find((source) => source.id === 'source-delta');
+    const sourceFixture = evidenceFixture.sources.find((source) => source.id === evidenceFixture.variants[0].evidence.sourceId);
     Object.assign(sourceFixture, { revision: 202, pageId: 101, sourceTimestamp: '2026-11-20T12:00:00Z', capturedAt: '2026-11-22T12:00:00Z', captureMethod: 'browser-api', sourceSha256: 'a'.repeat(64) });
     Object.assign(evidenceFixture.variants[0].evidence, { reviewStatus: 'revision-reviewed', sourceRevision: 202, sourceSha256: 'a'.repeat(64), reviewer: 'Synthetic browser fixture', reviewedAt: '2026-11-22' });
     evidenceFixture.variants[0].image = { url: `${origin}/smoke-photo.svg`, sourceUrl: `${origin}/photo-source`, rightsUrl: `${origin}/photo-rights`, credit: 'Synthetic photographer', rights: 'Test fixture only', view: 'open', width: 80, height: 60 };

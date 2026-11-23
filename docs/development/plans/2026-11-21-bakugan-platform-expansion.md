@@ -212,7 +212,9 @@ Run each affected repository's tests/lint and the main site's `npm test` and `np
 
 Phase 1 implementation has begun: a separate local toy repository, 44 source-transcribed variants across eight molds, a searchable standalone pilot, and a checksummed public snapshot integrated into the site build/preview. See the [pilot decision](../decisions/2026-11-21-toy-archive-pilot.md). Revision-backed source review, images, product releases, and remote repository setup remain pending; Phase 1 is not yet a completed public release. Accounts and deployment remain later work.
 
-The schema 2 follow-up adds browser/XML source intake, hash-bound variant reviews, and reviewed identification-photo mappings. An indexed Delta Dragonoid revision is recorded separately from imported snapshots; all 44 variants still await revision review and approved photos. See the [source-review decision](../decisions/2026-11-22-toy-source-review.md). The next evidence task is obtaining the four permitted source captures, followed by record-by-record review and photo permissions/matching.
+The schema 2 follow-up adds browser/XML source intake, hash-bound variant reviews, and reviewed identification-photo mappings. An indexed Delta Dragonoid revision is recorded separately from imported snapshots; all 44 variants still await revision review and approved photos. See the [source-review decision](../decisions/2026-11-22-toy-source-review.md).
+
+The user's first browser export has now supplied all four article revisions. Their availability/base-stat rows are transcluded from eight separate Bakulog templates, so the updated helper captures those tables too. Models retain article provenance while variant/profile evidence now binds to explicit table sources. The next evidence task is running the updated capture helper, importing its twelve-page replacement file, and checking each actual table row before completing reviews. See the [table-provenance decision](../decisions/2026-11-23-toy-table-provenance.md).
 
 ## Research and verification notes
 

@@ -134,6 +134,12 @@ export function mount(container) {
     }
     const source = data.sources.find((item) => item.id === variant.evidence.sourceId);
     const sourceLink = el('a', { href: safeUrl(source.url), target: '_blank', rel: 'noopener noreferrer', text: `Source: ${source.title}` });
+    const article = data.sources.find((item) => item.id === variant.model.sourceId);
+    const articleNote = el('p', { className: 'detail-note' });
+    if (article.id !== source.id) {
+      articleNote.append(el('a', { href: article.revision ? revisionUrl(article) : safeUrl(article.url), target: '_blank', rel: 'noopener noreferrer', text: `Mold article: ${article.title}${article.revision ? ` (revision ${article.revision})` : ''}` }),
+        document.createTextNode(' — article and table revisions are captured separately.'));
+    }
     const direct = new URL(location.href);
     direct.search = new URLSearchParams({ item: variant.id }).toString();
     direct.hash = '';
@@ -149,7 +155,7 @@ export function mount(container) {
       : 'Pilot entry transcribed from a source table; its facts have not yet been reviewed against a captured revision. This is not a deck-legality ruling.';
     dialogBody.replaceChildren(heading, picture(variant.image, variant.label, { detail: true }), details,
       el('p', { className: 'detail-note', text: reviewText }),
-      sourceLink, el('p', { className: 'detail-note', text: `${source.section} / ${variant.evidence.locator}.` }), provenance,
+      sourceLink, el('p', { className: 'detail-note', text: `${source.section} / ${variant.evidence.locator}.` }), provenance, ...(articleNote.childNodes.length ? [articleNote] : []),
       el('p', {}, [permalink]));
     document.title = `${variant.label} | Bakugan Toy Archive`;
     if (!dialog.open) { dialog.showModal(); heading.focus(); }

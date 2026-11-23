@@ -65,11 +65,14 @@ export function validateCatalog(data) {
   for (const model of models.values()) {
     for (const field of ['name', 'series', 'edition']) text(model[field], `model ${field}`);
     if (!['G1', 'G2'].includes(model.generation) || !sources.has(model.sourceId)) throw new Error('Invalid model reference or generation.');
+    if (model.tableSourceId !== undefined && !sources.has(model.tableSourceId)) throw new Error('Invalid model table source.');
     if (!Array.isArray(model.aliases) || model.aliases.length > 20) throw new Error('Invalid model aliases.');
     model.aliases.forEach((alias) => text(alias, 'model alias'));
   }
   for (const profile of profiles.values()) {
     if (!models.has(profile.modelId) || models.get(profile.modelId).generation !== 'G2' || !sources.has(profile.sourceId) || !FACTIONS.includes(profile.faction)) throw new Error('Invalid profile reference.');
+    const model = models.get(profile.modelId);
+    if (profile.sourceId !== (model.tableSourceId || model.sourceId)) throw new Error('Profile must use its model table source.');
     numeric(profile.bPower, 'B-Power'); numeric(profile.damage, 'damage');
     if (profile.bakuCores !== null || profile.compatibility !== 'unverified' || !Array.isArray(profile.cardPrintingIds) || profile.cardPrintingIds.length) throw new Error('Pilot profiles must retain unverified compatibility.');
   }
@@ -81,7 +84,7 @@ export function validateCatalog(data) {
     if (model.generation === 'G2' && variant.gPower !== null) throw new Error('G2 toys cannot have G-Power.');
     if (!Array.isArray(variant.profileIds) || new Set(variant.profileIds).size !== variant.profileIds.length || variant.profileIds.some((id) => !profiles.has(id) || profiles.get(id).modelId !== model.id || profiles.get(id).faction !== variant.faction)) throw new Error('Invalid variant profile link.');
     if (!Array.isArray(variant.releaseIds) || variant.releaseIds.some((id) => !releases.has(id))) throw new Error('Invalid release link.');
-    if (!sources.has(variant.evidence?.sourceId) || variant.evidence.sourceId !== model.sourceId || !['source-transcribed', 'revision-reviewed'].includes(variant.evidence.reviewStatus)) throw new Error('Invalid variant evidence.');
+    if (!sources.has(variant.evidence?.sourceId) || variant.evidence.sourceId !== (model.tableSourceId || model.sourceId) || !['source-transcribed', 'revision-reviewed'].includes(variant.evidence.reviewStatus)) throw new Error('Invalid variant evidence.');
     if (variant.evidence.reviewStatus === 'revision-reviewed') {
       const source = sources.get(variant.evidence.sourceId);
       if (!source.revision || variant.evidence.sourceRevision !== source.revision || variant.evidence.sourceSha256 !== source.sourceSha256 || !Number.isFinite(Date.parse(variant.evidence.reviewedAt))) throw new Error('Reviewed facts must match a captured source revision.');

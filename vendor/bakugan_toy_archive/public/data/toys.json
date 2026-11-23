@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "catalogRelease": "2026-11-22-pilot.2",
+  "catalogRelease": "2026-11-23-pilot.3",
   "status": "pilot",
   "coverage": {
     "complete": false,
@@ -13,12 +13,17 @@
       "url": "https://bakugan.wiki/wiki/Delta_Dragonoid",
       "section": "Physical Game / Availability",
       "checkedAt": "2026-11-21",
-      "revision": null,
+      "revision": 858181,
       "observedRevision": {
         "revision": 858181,
         "observedAt": "2026-11-22",
         "method": "indexed-page"
-      }
+      },
+      "pageId": 1365,
+      "sourceTimestamp": "2025-01-20T20:24:07Z",
+      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "62584a160bd18030d394c3e34eba221946e9d3b45054fd5bf29ed84cf74949fe"
     },
     {
       "id": "source-dragonoid",
@@ -26,7 +31,12 @@
       "url": "https://bakugan.wiki/wiki/Dragonoid_(Generation_2)",
       "section": "Physical Game / Bakugan Battle Planet / Bakulog",
       "checkedAt": "2026-11-21",
-      "revision": null
+      "revision": 866041,
+      "pageId": 297889,
+      "sourceTimestamp": "2026-10-11T05:04:20Z",
+      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "b6b3a1788dd768037398ee47ab1efbe5d604370a1759da3f1d079ab145c996e4"
     },
     {
       "id": "source-pegatrix",
@@ -34,7 +44,12 @@
       "url": "https://bakugan.wiki/wiki/Pegatrix",
       "section": "Physical Game / Battle Planet / Bakulog",
       "checkedAt": "2026-11-21",
-      "revision": null
+      "revision": 865210,
+      "pageId": 288888,
+      "sourceTimestamp": "2026-06-02T23:19:15Z",
+      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "a83597e8e9523bc1473f7494c1bccdd9037c0af9ef966edbc7ffc5c88bdcf2f9"
     },
     {
       "id": "source-hydorous",
@@ -42,6 +57,75 @@
       "url": "https://bakugan.wiki/wiki/Hydorous",
       "section": "Physical Game / Battle Planet / BakuLog",
       "checkedAt": "2026-11-21",
+      "revision": 865179,
+      "pageId": 288881,
+      "sourceTimestamp": "2026-06-02T22:14:16Z",
+      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "6a7f2ce6f60372f4e87dd35a76616bb17c41a02f98b42c1a9b20d57241714587"
+    },
+    {
+      "id": "source-delta-b1",
+      "title": "Template:B1 Delta Dragonoid Bakulog",
+      "url": "https://bakugan.wiki/wiki/Template:B1_Delta_Dragonoid_Bakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-delta-b2",
+      "title": "Template:B2 Delta Dragonoid Bakulog",
+      "url": "https://bakugan.wiki/wiki/Template:B2_Delta_Dragonoid_Bakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-dragonoid-core",
+      "title": "Template:BPDragonoidBakulog",
+      "url": "https://bakugan.wiki/wiki/Template:BPDragonoidBakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-dragonoid-ultra",
+      "title": "Template:BPDragonoidUltraBakulog",
+      "url": "https://bakugan.wiki/wiki/Template:BPDragonoidUltraBakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-pegatrix-core",
+      "title": "Template:BPPegatrixBakulog",
+      "url": "https://bakugan.wiki/wiki/Template:BPPegatrixBakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-pegatrix-ultra",
+      "title": "Template:BPPegatrixUltraBakulog",
+      "url": "https://bakugan.wiki/wiki/Template:BPPegatrixUltraBakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-hydorous-core",
+      "title": "Template:BPHydorousBakulog",
+      "url": "https://bakugan.wiki/wiki/Template:BPHydorousBakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
+      "revision": null
+    },
+    {
+      "id": "source-hydorous-ultra",
+      "title": "Template:BPHydorousUltraBakulog",
+      "url": "https://bakugan.wiki/wiki/Template:BPHydorousUltraBakulog",
+      "section": "Availability / base-profile table",
+      "checkedAt": "2026-11-23",
       "revision": null
     }
   ],
@@ -55,7 +139,8 @@
       "generation": "G1",
       "series": "Legacy",
       "edition": "28 mm (B1)",
-      "sourceId": "source-delta"
+      "sourceId": "source-delta",
+      "tableSourceId": "source-delta-b1"
     },
     {
       "id": "model-0002",
@@ -66,7 +151,8 @@
       "generation": "G1",
       "series": "Legacy",
       "edition": "B2",
-      "sourceId": "source-delta"
+      "sourceId": "source-delta",
+      "tableSourceId": "source-delta-b2"
     },
     {
       "id": "model-0003",
@@ -75,7 +161,8 @@
       "generation": "G2",
       "series": "Battle Planet",
       "edition": "Core",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid",
+      "tableSourceId": "source-dragonoid-core"
     },
     {
       "id": "model-0004",
@@ -84,7 +171,8 @@
       "generation": "G2",
       "series": "Battle Planet",
       "edition": "Ultra",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid",
+      "tableSourceId": "source-dragonoid-ultra"
     },
     {
       "id": "model-0005",
@@ -93,7 +181,8 @@
       "generation": "G2",
       "series": "Battle Planet",
       "edition": "Core",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix",
+      "tableSourceId": "source-pegatrix-core"
     },
     {
       "id": "model-0006",
@@ -102,7 +191,8 @@
       "generation": "G2",
       "series": "Battle Planet",
       "edition": "Ultra",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix",
+      "tableSourceId": "source-pegatrix-ultra"
     },
     {
       "id": "model-0007",
@@ -111,7 +201,8 @@
       "generation": "G2",
       "series": "Battle Planet",
       "edition": "Core",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous",
+      "tableSourceId": "source-hydorous-core"
     },
     {
       "id": "model-0008",
@@ -120,7 +211,8 @@
       "generation": "G2",
       "series": "Battle Planet",
       "edition": "Ultra",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous",
+      "tableSourceId": "source-hydorous-ultra"
     }
   ],
   "variants": [
@@ -134,7 +226,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -149,7 +241,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -164,7 +256,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -179,7 +271,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Pyrus / Pearl",
         "reviewStatus": "source-transcribed"
       }
@@ -194,7 +286,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Pyrus / Flip",
         "reviewStatus": "source-transcribed"
       }
@@ -209,7 +301,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -224,7 +316,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -239,7 +331,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Aquos / Flip",
         "reviewStatus": "source-transcribed"
       }
@@ -254,7 +346,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Ventus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -269,7 +361,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Haos / Pearl",
         "reviewStatus": "source-transcribed"
       }
@@ -284,7 +376,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Haos / Flip",
         "reviewStatus": "source-transcribed"
       }
@@ -299,7 +391,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Darkus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -314,7 +406,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b1",
         "locator": "28 mm (B1) / Darkus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -329,7 +421,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b2",
         "locator": "B2 / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -344,7 +436,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b2",
         "locator": "B2 / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -359,7 +451,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b2",
         "locator": "B2 / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -374,7 +466,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b2",
         "locator": "B2 / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -389,7 +481,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-delta",
+        "sourceId": "source-delta-b2",
         "locator": "B2 / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -406,7 +498,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-core",
         "locator": "Core / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -423,7 +515,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-core",
         "locator": "Core / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -440,7 +532,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-core",
         "locator": "Core / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -457,7 +549,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-core",
         "locator": "Core / Ventus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -474,7 +566,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-core",
         "locator": "Core / Darkus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -491,7 +583,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-core",
         "locator": "Core / Aurelus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -508,7 +600,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-ultra",
         "locator": "Ultra / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -525,7 +617,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-ultra",
         "locator": "Ultra / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -542,7 +634,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-dragonoid",
+        "sourceId": "source-dragonoid-ultra",
         "locator": "Ultra / Aurelus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -559,7 +651,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-core",
         "locator": "Core / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -576,7 +668,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-core",
         "locator": "Core / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -593,7 +685,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-core",
         "locator": "Core / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -610,7 +702,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-core",
         "locator": "Core / Ventus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -627,7 +719,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-core",
         "locator": "Core / Darkus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -644,7 +736,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-core",
         "locator": "Core / Aurelus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -661,7 +753,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-ultra",
         "locator": "Ultra / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -678,7 +770,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-pegatrix",
+        "sourceId": "source-pegatrix-ultra",
         "locator": "Ultra / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -695,7 +787,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-core",
         "locator": "Core / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -712,7 +804,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-core",
         "locator": "Core / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -729,7 +821,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-core",
         "locator": "Core / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -746,7 +838,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-core",
         "locator": "Core / Ventus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -763,7 +855,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-core",
         "locator": "Core / Darkus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -780,7 +872,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-core",
         "locator": "Core / Aurelus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -797,7 +889,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-ultra",
         "locator": "Ultra / Pyrus / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -814,7 +906,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-ultra",
         "locator": "Ultra / Aquos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -831,7 +923,7 @@
       "releaseIds": [],
       "image": null,
       "evidence": {
-        "sourceId": "source-hydorous",
+        "sourceId": "source-hydorous-ultra",
         "locator": "Ultra / Haos / Standard",
         "reviewStatus": "source-transcribed"
       }
@@ -847,7 +939,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-core"
     },
     {
       "id": "profile-0020",
@@ -858,7 +950,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-core"
     },
     {
       "id": "profile-0021",
@@ -869,7 +961,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-core"
     },
     {
       "id": "profile-0022",
@@ -880,7 +972,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-core"
     },
     {
       "id": "profile-0023",
@@ -891,7 +983,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-core"
     },
     {
       "id": "profile-0024",
@@ -902,7 +994,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-core"
     },
     {
       "id": "profile-0025",
@@ -913,7 +1005,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-ultra"
     },
     {
       "id": "profile-0026",
@@ -924,7 +1016,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-ultra"
     },
     {
       "id": "profile-0027",
@@ -935,7 +1027,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-dragonoid"
+      "sourceId": "source-dragonoid-ultra"
     },
     {
       "id": "profile-0028",
@@ -946,7 +1038,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-core"
     },
     {
       "id": "profile-0029",
@@ -957,7 +1049,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-core"
     },
     {
       "id": "profile-0030",
@@ -968,7 +1060,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-core"
     },
     {
       "id": "profile-0031",
@@ -979,7 +1071,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-core"
     },
     {
       "id": "profile-0032",
@@ -990,7 +1082,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-core"
     },
     {
       "id": "profile-0033",
@@ -1001,7 +1093,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-core"
     },
     {
       "id": "profile-0034",
@@ -1012,7 +1104,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-ultra"
     },
     {
       "id": "profile-0035",
@@ -1023,7 +1115,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-pegatrix"
+      "sourceId": "source-pegatrix-ultra"
     },
     {
       "id": "profile-0036",
@@ -1034,7 +1126,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-core"
     },
     {
       "id": "profile-0037",
@@ -1045,7 +1137,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-core"
     },
     {
       "id": "profile-0038",
@@ -1056,7 +1148,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-core"
     },
     {
       "id": "profile-0039",
@@ -1067,7 +1159,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-core"
     },
     {
       "id": "profile-0040",
@@ -1078,7 +1170,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-core"
     },
     {
       "id": "profile-0041",
@@ -1089,7 +1181,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-core"
     },
     {
       "id": "profile-0042",
@@ -1100,7 +1192,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-ultra"
     },
     {
       "id": "profile-0043",
@@ -1111,7 +1203,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-ultra"
     },
     {
       "id": "profile-0044",
@@ -1122,7 +1214,7 @@
       "bakuCores": null,
       "cardPrintingIds": [],
       "compatibility": "unverified",
-      "sourceId": "source-hydorous"
+      "sourceId": "source-hydorous-ultra"
     }
   ],
   "releases": [],
