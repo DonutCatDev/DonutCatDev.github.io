@@ -1,4 +1,4 @@
-import { FACTIONS, groupModels, prepareCatalog, readState, revisionUrl, safeUrl, selectVariants, writeState } from './lib/catalog.js';
+import { cardArchiveUrl, FACTIONS, groupModels, prepareCatalog, readState, revisionUrl, safeUrl, selectVariants, writeState } from './lib/catalog.js';
 
 const PAGE_SIZE = 12;
 function el(tag, properties = {}, children = []) {
@@ -127,10 +127,14 @@ export function mount(container) {
     for (const profile of profiles) {
       fact('Source-listed B-Power', profile.bPower === null ? 'Unknown' : String(profile.bPower));
       fact('Source-listed damage', profile.damage === null ? 'Unknown' : String(profile.damage));
-    }
-    if (variant.model.generation === 'G2') {
-      fact('Paired BakuCores', 'Not yet recorded');
-      fact('Character Card compatibility', 'Not yet verified');
+      fact('Paired BakuCores', profile.bakuCores ? profile.bakuCores.join(' + ') : 'Not yet recorded');
+      if (profile.compatibility === 'source-matched') {
+        const card = data.cardPrintings.find((item) => item.id === profile.cardPrintingIds[0]);
+        details.append(el('div', { className: 'detail-item' }, [el('dt', { text: 'Matched Character Card' }), el('dd', {}, [
+          el('a', { href: cardArchiveUrl(card.id), text: `${profile.faction} ${card.name} (${card.set})` })
+        ])]));
+        fact('Match review', 'Matched to the captured source row. Format legality has not been checked.');
+      } else fact('Character Card compatibility', 'Not yet verified');
     }
     const source = data.sources.find((item) => item.id === variant.evidence.sourceId);
     const sourceLink = el('a', { href: safeUrl(source.url), target: '_blank', rel: 'noopener noreferrer', text: `Source: ${source.title}` });
@@ -226,8 +230,9 @@ export function mount(container) {
       }
       const reviewedCount = data.variants.filter((variant) => variant.evidence.reviewStatus === 'revision-reviewed').length;
       const imageCount = data.variants.filter((variant) => variant.image).length;
+      const linkedCount = data.profiles.filter((profile) => profile.compatibility === 'source-matched').length;
       coverage.replaceChildren(el('strong', { text: 'A pilot, with plenty left to find.' }),
-        el('p', { text: `${data.variants.length} variants · ${reviewedCount} reviewed against captured revisions · ${imageCount} with identification photos. Card links are pending review.` }),
+        el('p', { text: `${data.variants.length} variants · ${reviewedCount} reviewed against captured revisions · ${imageCount} with identification photos. ${linkedCount} of ${data.profiles.length} Character Card profiles matched. Format legality has not been checked.` }),
         el('details', {}, [el('summary', { text: 'What this pilot covers' }), el('p', { text: data.coverage.description }),
           el('p', { text: 'Missing entries do not mean a variant was never released. Product-release details and source revisions are still being reviewed.' })]));
       coverage.hidden = false; form.hidden = false; status.hidden = true;

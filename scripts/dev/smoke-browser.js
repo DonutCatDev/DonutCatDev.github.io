@@ -169,7 +169,18 @@ try {
     passed('safe URL/search text, empty state, pagination and direct refresh');
     await navigate('/baku/bakugan-archive/?item=toy-0043', "Boolean(document.querySelector('dialog')?.open)");
     assert.match(await evaluate('document.title'), /Aquos Hydorous/);
-    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Not yet verified/);
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Shield \+ Shield/);
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Format legality has not been checked/);
+    assert.equal(await evaluate("document.querySelector('dialog a[href*=bakugan_card_archive]').getAttribute('href')"), '/baku/bakugan_card_archive/?q=wiki-279791');
+    await evaluate("document.querySelector('dialog a[href*=bakugan_card_archive]').click()");
+    await until(() => evaluate("document.querySelectorAll('#card-grid .card-result').length === 1"), 'exact matched card printing');
+    assert.equal(await evaluate("new URLSearchParams(location.search).get('q')"), 'wiki-279791');
+    await evaluate("document.querySelector('#card-grid .card-result').click()");
+    assert.match(await evaluate("document.querySelector('#card-dialog').textContent"), /Shield, Shield/);
+    assert.match(await evaluate("document.querySelector('#card-dialog').textContent"), /Hydorous Ultra/);
+    await evaluate('history.back()');
+    await until(() => evaluate("location.pathname === '/baku/bakugan-archive/' && Boolean(document.querySelector('dialog')?.open)"), 'Back restores toy details');
+    passed('reviewed paired cores and exact Character Card link survive cross-archive navigation');
     await navigate('/baku/bakugan-archive/?item=missing', "Boolean(document.querySelector('.notice') && !document.querySelector('.notice').hidden)");
     assert.equal(await evaluate("document.querySelector('dialog').open"), false);
     passed('direct variant links and unknown item recovery');
@@ -187,6 +198,7 @@ try {
     passed('malformed catalog recovery');
     const empty = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
     empty.models = []; empty.variants = []; empty.profiles = []; empty.sources = [];
+    empty.cardPrintings = []; empty.cardCatalog = null;
     intercept = ({ requestId }) => call('Fetch.fulfillRequest', { requestId, responseCode: 200, body: Buffer.from(JSON.stringify(empty)).toString('base64') });
     await navigate('/baku/bakugan-archive/', "Boolean(document.querySelector('.empty-state'))");
     assert.equal(await evaluate("document.querySelector('.empty-state h2').textContent"), 'The catalog is empty.');
@@ -196,6 +208,8 @@ try {
     // Synthetic metadata/photos exercise future reviewed entries without publishing them.
     const evidenceFixture = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
     for (const variant of evidenceFixture.variants) variant.evidence = { sourceId: variant.evidence.sourceId, locator: variant.evidence.locator, reviewStatus: 'source-transcribed' };
+    for (const profile of evidenceFixture.profiles) { profile.compatibility = 'unverified'; profile.bakuCores = null; profile.cardPrintingIds = []; delete profile.linkEvidence; }
+    evidenceFixture.cardPrintings = []; evidenceFixture.cardCatalog = null;
     const sourceFixture = evidenceFixture.sources.find((source) => source.id === evidenceFixture.variants[0].evidence.sourceId);
     Object.assign(sourceFixture, { revision: 202, pageId: 101, sourceTimestamp: '2026-11-20T12:00:00Z', capturedAt: '2026-11-22T12:00:00Z', captureMethod: 'browser-api', sourceSha256: 'a'.repeat(64) });
     Object.assign(evidenceFixture.variants[0].evidence, { reviewStatus: 'revision-reviewed', sourceRevision: 202, sourceSha256: 'a'.repeat(64), reviewer: 'Synthetic browser fixture', reviewedAt: '2026-11-22' });
@@ -219,6 +233,11 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /facts have not yet been reviewed/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Source revision 202/);
     passed('captured tables still show pending status for unreviewed variants');
+    await navigate('/baku/bakugan-archive/?item=toy-0043', "Boolean(document.querySelector('dialog')?.open)");
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Not yet verified/);
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Not yet recorded/);
+    assert.equal(await evaluate("Boolean(document.querySelector('dialog a[href*=bakugan_card_archive]'))"), false);
+    passed('unmatched profiles retain unknown cores and pending card compatibility');
     await navigate('/baku/bakugan-archive/'); await readyCatalog();
     assert.match(await evaluate("document.querySelector('.toy-photo figcaption').textContent"), /Example variant: Pyrus Delta Dragonoid/);
     await choose('faction', 'Aquos');
@@ -258,6 +277,14 @@ try {
     await mkdir(output, { recursive: true });
     const screenshot = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
     await writeFile(join(output, 'toy-pilot-mobile.png'), Buffer.from(screenshot.data, 'base64'));
+    await navigate('/baku/bakugan-archive/?item=toy-0043', "Boolean(document.querySelector('dialog')?.open)");
+    assert.ok(await evaluate("document.querySelector('dialog').scrollWidth <= document.querySelector('dialog').clientWidth + 1"));
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Shield \+ Shield/);
+    await evaluate("document.querySelector('dialog a[href*=bakugan_card_archive]').scrollIntoView({ block: 'center' })");
+    assert.ok(await evaluate("(() => { const rect = document.querySelector('dialog a[href*=bakugan_card_archive]').getBoundingClientRect(); return rect.top >= 0 && rect.bottom <= innerHeight; })()"));
+    const mobileProfile = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    await writeFile(join(output, 'toy-pilot-mobile-profile.png'), Buffer.from(mobileProfile.data, 'base64'));
+    passed('320px profile dialog retains paired cores and readable card links without horizontal scrolling');
     await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
     await call('Page.reload'); await readyCatalog();
     const desktop = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "catalogRelease": "2026-11-23-pilot.4",
+  "schemaVersion": 3,
+  "catalogRelease": "2026-11-23-pilot.5",
   "status": "pilot",
   "coverage": {
     "complete": false,
@@ -1152,10 +1152,25 @@
       "faction": "Pyrus",
       "bPower": 200,
       "damage": 5,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-core"
+      "bakuCores": [
+        "Flaming Fist",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-279824"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-core",
+      "linkEvidence": {
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "cardSourceRevision": 863290,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "1c839db1c8db4ee4b009cfe8019a490050673354645be7c2652cf534c82d1a85",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Pyrus base Character Card row / Dragonoid (Pyrus Card) ENG 343 CC BB.png / B-Power 200, damage 5 / Paired BakuCores: Flaming Fist + Fist"
+      }
     },
     {
       "id": "profile-0020",
@@ -1163,10 +1178,25 @@
       "faction": "Aquos",
       "bPower": 400,
       "damage": 3,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-core"
+      "bakuCores": [
+        "Shield",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-279787"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-core",
+      "linkEvidence": {
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "cardSourceRevision": 861973,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "26b91262527f25dfd5ff0004523838ea1cd77aa7e9bfe4c67a4c31c5fdc7ff28",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aquos base Character Card row / Dragonoid (Aquos Card) ENG 283 CC BB.png / B-Power 400, damage 3 / Paired BakuCores: Shield + Fist"
+      }
     },
     {
       "id": "profile-0021",
@@ -1174,10 +1204,25 @@
       "faction": "Haos",
       "bPower": 400,
       "damage": 3,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-core"
+      "bakuCores": [
+        "Fist",
+        "Helix"
+      ],
+      "cardPrintingIds": [
+        "wiki-280310"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-core",
+      "linkEvidence": {
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "cardSourceRevision": 852390,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "c4bff1507ba0dd75489d37a96e7245ef4e0cd082efeb96c203ccc7a93952cc0c",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Haos base Character Card row / Dragonoid (Haos Card) ENG 327 CC BB.png / B-Power 400, damage 3 / Paired BakuCores: Fist + Helix"
+      }
     },
     {
       "id": "profile-0022",
@@ -1185,10 +1230,25 @@
       "faction": "Ventus",
       "bPower": 200,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-core"
+      "bakuCores": [
+        "Helix",
+        "Helix"
+      ],
+      "cardPrintingIds": [
+        "wiki-279834"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-core",
+      "linkEvidence": {
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "cardSourceRevision": 852670,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "c3caf7e2cb83db9d82428307d956d251705593c7c2e84b5e5a0e910a781e4e33",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Ventus base Character Card row / Dragonoid (Ventus Card) ENG 359 CC BB.png / B-Power 200, damage 4 / Paired BakuCores: Helix + Helix"
+      }
     },
     {
       "id": "profile-0023",
@@ -1196,10 +1256,25 @@
       "faction": "Darkus",
       "bPower": 400,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-core"
+      "bakuCores": [
+        "Flaming Fist",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-279806"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-core",
+      "linkEvidence": {
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "cardSourceRevision": 862022,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "f2d398186ae1ba456c11bc81c3ff12b5d3ba0e3348f7414aeede1d4a3c1c5dd0",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Darkus base Character Card row / Dragonoid (Darkus Card) ENG 312 CC BB.png / B-Power 400, damage 4 / Paired BakuCores: Flaming Fist + Shield"
+      }
     },
     {
       "id": "profile-0024",
@@ -1207,10 +1282,25 @@
       "faction": "Aurelus",
       "bPower": 400,
       "damage": 6,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-core"
+      "bakuCores": [
+        "Magic Shield",
+        "Flaming Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-9765"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-core",
+      "linkEvidence": {
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "cardSourceRevision": 850953,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "2e2a8bb3eb9f2a3a154cf3e5c67853080837eb6970d0f15d99d6b4a780369a73",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aurelus base Character Card row / Dragonoid (Aurelus Card) ENG 298 CC BB.png / B-Power 400, damage 6 / Paired BakuCores: Magic Shield + Flaming Fist"
+      }
     },
     {
       "id": "profile-0025",
@@ -1218,10 +1308,25 @@
       "faction": "Pyrus",
       "bPower": 500,
       "damage": 5,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-ultra"
+      "bakuCores": [
+        "Magic Shield",
+        "Flaming Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-279833"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-ultra",
+      "linkEvidence": {
+        "sourceRevision": 844707,
+        "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926",
+        "cardSourceRevision": 862068,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "fa100ade3a06d56e5ec0bca99223c1b56834540feda4a3024721df6b67f4b0cb",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Pyrus base Character Card row / Dragonoid Ultra (Pyrus Card) ENG 357 CC BB.png / B-Power 500, damage 5 / Paired BakuCores: Magic Shield + Flaming Fist"
+      }
     },
     {
       "id": "profile-0026",
@@ -1229,10 +1334,25 @@
       "faction": "Haos",
       "bPower": 500,
       "damage": 3,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-ultra"
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-286924"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-ultra",
+      "linkEvidence": {
+        "sourceRevision": 844707,
+        "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926",
+        "cardSourceRevision": 852415,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "7ca6b3318d2a6dc01e4596ec9692805ab05152cf1bfe0a8ccf8371847a128977",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Haos base Character Card row / Dragonoid Ultra (Haos Card) ENG 191 CC AA.png / B-Power 500, damage 3 / Paired BakuCores: Shield + Shield"
+      }
     },
     {
       "id": "profile-0027",
@@ -1240,10 +1360,25 @@
       "faction": "Aurelus",
       "bPower": 500,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-dragonoid-ultra"
+      "bakuCores": [
+        "Magic Shield",
+        "Flaming Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-282485"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-dragonoid-ultra",
+      "linkEvidence": {
+        "sourceRevision": 844707,
+        "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926",
+        "cardSourceRevision": 847173,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "10e5b7396e8cb1676017e85211e6dc769ff58415d391647504acd0ac88dfee62",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aurelus base Character Card row / Dragonoid Ultra (Aurelus Card) ENG 182 CC BR.png / B-Power 500, damage 4 / Paired BakuCores: Magic Shield + Flaming Fist"
+      }
     },
     {
       "id": "profile-0028",
@@ -1251,10 +1386,25 @@
       "faction": "Pyrus",
       "bPower": 300,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-core"
+      "bakuCores": [
+        "Magic Shield",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-282618"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-core",
+      "linkEvidence": {
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "cardSourceRevision": 853843,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "07d0b34b0b36eeeca1aca4abf9d286ab0f3e27ef8abf9bd08429154d07a91d76",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Pyrus base Character Card row / Pegatrix (Pyrus Card) ENG 228 CC BR.png / B-Power 300, damage 4 / Paired BakuCores: Magic Shield + Fist"
+      }
     },
     {
       "id": "profile-0029",
@@ -1262,10 +1412,25 @@
       "faction": "Aquos",
       "bPower": 500,
       "damage": 2,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-core"
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-279793"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-core",
+      "linkEvidence": {
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "cardSourceRevision": 847038,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "4f8d41ccbeee1591b71e7aed97f2d56f17b625d12834233c05ffd409f7038168",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aquos base Character Card row / Pegatrix (Aquos Card) ENG 292 CC BB.png / B-Power 500, damage 2 / Paired BakuCores: Shield + Shield"
+      }
     },
     {
       "id": "profile-0030",
@@ -1273,10 +1438,25 @@
       "faction": "Haos",
       "bPower": 500,
       "damage": 2,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-core"
+      "bakuCores": [
+        "Fist",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-279822"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-core",
+      "linkEvidence": {
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "cardSourceRevision": 853031,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "f5580e80e3b72050bba16ab488abc0f155d19ed1ce54a3fce728b2e97aa91f12",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Haos base Character Card row / Pegatrix (Haos Card) ENG 339 CC BB.png / B-Power 500, damage 2 / Paired BakuCores: Fist + Fist"
+      }
     },
     {
       "id": "profile-0031",
@@ -1284,10 +1464,25 @@
       "faction": "Ventus",
       "bPower": 300,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-core"
+      "bakuCores": [
+        "Magic Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-279841"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-core",
+      "linkEvidence": {
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "cardSourceRevision": 854152,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "11f408f9301a415c7581c446f234c1f29f0308924004e34be756fad266b869e1",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Ventus base Character Card row / Pegatrix (Ventus Card) ENG 369 CC BB.png / B-Power 300, damage 4 / Paired BakuCores: Magic Shield + Shield"
+      }
     },
     {
       "id": "profile-0032",
@@ -1295,10 +1490,25 @@
       "faction": "Darkus",
       "bPower": 200,
       "damage": 5,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-core"
+      "bakuCores": [
+        "Shield",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-282168"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-core",
+      "linkEvidence": {
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "cardSourceRevision": 861794,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "2ea6586dc3ae756ee2ccf67d2c070c84c5afea9eb9d8e61ed88d2a993f02569b",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Darkus base Character Card row / Pegatrix (Darkus Card) ENG 323 CC BB.png / B-Power 200, damage 5 / Paired BakuCores: Shield + Fist"
+      }
     },
     {
       "id": "profile-0033",
@@ -1306,10 +1516,25 @@
       "faction": "Aurelus",
       "bPower": 600,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-core"
+      "bakuCores": [
+        "Fist",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-279804"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-core",
+      "linkEvidence": {
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "cardSourceRevision": 861858,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "a78e92de5fee8ebf62b75d41cd173094cb77a22d90abf92238daccddf451f0d6",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aurelus base Character Card row / Pegatrix (Aurelus Card) ENG 308 CC BB.png / B-Power 600, damage 4 / Paired BakuCores: Fist + Fist"
+      }
     },
     {
       "id": "profile-0034",
@@ -1317,10 +1542,25 @@
       "faction": "Aquos",
       "bPower": 600,
       "damage": 1,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-ultra"
+      "bakuCores": [
+        "Shield",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-283609"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-ultra",
+      "linkEvidence": {
+        "sourceRevision": 851749,
+        "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf",
+        "cardSourceRevision": 847093,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "bb8a95a76d237162134f36a558f1c878eba85a9f1476b7eab65948757b755b2b",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aquos base Character Card row / Pegatrix Ultra (Aquos Card) ENG 175 CC BR.png / B-Power 600, damage 1 / Paired BakuCores: Shield + Fist"
+      }
     },
     {
       "id": "profile-0035",
@@ -1328,10 +1568,25 @@
       "faction": "Haos",
       "bPower": 300,
       "damage": 5,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-pegatrix-ultra"
+      "bakuCores": [
+        "Magic Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-282619"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-pegatrix-ultra",
+      "linkEvidence": {
+        "sourceRevision": 851749,
+        "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf",
+        "cardSourceRevision": 862040,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "db80ccc29508c7561074bc289eb334e328031aa08b8b2b0422396cd1b4cc0bc4",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Haos base Character Card row / Pegatrix Ultra (Haos Card) ENG 215 CC BR.png / B-Power 300, damage 5 / Paired BakuCores: Magic Shield + Shield"
+      }
     },
     {
       "id": "profile-0036",
@@ -1339,10 +1594,25 @@
       "faction": "Pyrus",
       "bPower": 400,
       "damage": 3,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-core"
+      "bakuCores": [
+        "Magic Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-279826"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-core",
+      "linkEvidence": {
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "cardSourceRevision": 853573,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "83dd5ec38519b2460cbf8c119b8aa89ca3a525f1f761bbac601e6f8f8bfe8117",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Pyrus base Character Card row / Hydorous (Pyrus Card) ENG 350 CC BB.png / B-Power 400, damage 3 / Paired BakuCores: Magic Shield + Shield"
+      }
     },
     {
       "id": "profile-0037",
@@ -1350,10 +1620,25 @@
       "faction": "Aquos",
       "bPower": 200,
       "damage": 6,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-core"
+      "bakuCores": [
+        "Shield",
+        "Helix"
+      ],
+      "cardPrintingIds": [
+        "wiki-279790"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-core",
+      "linkEvidence": {
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "cardSourceRevision": 861845,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "3fa3f9803c41129006e92a9ade77ef544bcaf6f96879b1e1186150ae78a86462",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aquos base Character Card row / Hydorous (Aquos Card) ENG 287 CC BB.png / B-Power 200, damage 6 / Paired BakuCores: Shield + Helix"
+      }
     },
     {
       "id": "profile-0038",
@@ -1361,10 +1646,25 @@
       "faction": "Haos",
       "bPower": 200,
       "damage": 3,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-core"
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-282169"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-core",
+      "linkEvidence": {
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "cardSourceRevision": 852969,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "c09d8ede7f2ec5e97b3b9bebd9ac161cf9b68347127bd38258adb66e8958646b",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Haos base Character Card row / Hydorous (Haos Card) ENG 332 CC BB.png / B-Power 200, damage 3 / Paired BakuCores: Shield + Shield"
+      }
     },
     {
       "id": "profile-0039",
@@ -1372,10 +1672,25 @@
       "faction": "Ventus",
       "bPower": 500,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-core"
+      "bakuCores": [
+        "Magic Shield",
+        "Helix"
+      ],
+      "cardPrintingIds": [
+        "wiki-286943"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-core",
+      "linkEvidence": {
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "cardSourceRevision": 853914,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "e854a6b9349d00dc785079585217e8d68331665de69e424cf56febc2ade7f2d3",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Ventus base Character Card row / Hydorous (Ventus Card) ENG 213 CC AA.png / B-Power 500, damage 4 / Paired BakuCores: Magic Shield + Helix"
+      }
     },
     {
       "id": "profile-0040",
@@ -1383,10 +1698,25 @@
       "faction": "Darkus",
       "bPower": 300,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-core"
+      "bakuCores": [
+        "Fist",
+        "Fist"
+      ],
+      "cardPrintingIds": [
+        "wiki-279809"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-core",
+      "linkEvidence": {
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "cardSourceRevision": 852148,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "1bee4b6fdda1488bdb973d7cf0e89fd49f6cb89d48559f4c0a34121744fff162",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Darkus base Character Card row / Hydorous (Darkus Card) ENG 318 CC BB.png / B-Power 300, damage 4 / Paired BakuCores: Fist + Fist"
+      }
     },
     {
       "id": "profile-0041",
@@ -1394,10 +1724,25 @@
       "faction": "Aurelus",
       "bPower": 400,
       "damage": 5,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-core"
+      "bakuCores": [
+        "Helix",
+        "Helix"
+      ],
+      "cardPrintingIds": [
+        "wiki-279800"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-core",
+      "linkEvidence": {
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "cardSourceRevision": 851558,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "b098d3c06a3b7410438d9a9a6c6f744e170b31839f5ca2e8eb15136cb416f393",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aurelus base Character Card row / Hydorous (Aurelus Card) ENG 303 CC BB.png / B-Power 400, damage 5 / Paired BakuCores: Helix + Helix"
+      }
     },
     {
       "id": "profile-0042",
@@ -1405,10 +1750,25 @@
       "faction": "Pyrus",
       "bPower": 300,
       "damage": 5,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-ultra"
+      "bakuCores": [
+        "Shield",
+        "Helix"
+      ],
+      "cardPrintingIds": [
+        "wiki-279827"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-ultra",
+      "linkEvidence": {
+        "sourceRevision": 852569,
+        "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91",
+        "cardSourceRevision": 853415,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "d3cd38a2dfeb544bb93d25f87fcc5da4b1e162024af5e75d29fb475401c4e0e5",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Pyrus base Character Card row / Hydorous Ultra (Pyrus Card) ENG 351 CC BB.png / B-Power 300, damage 5 / Paired BakuCores: Shield + Helix"
+      }
     },
     {
       "id": "profile-0043",
@@ -1416,10 +1776,25 @@
       "faction": "Aquos",
       "bPower": 400,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-ultra"
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-279791"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-ultra",
+      "linkEvidence": {
+        "sourceRevision": 852569,
+        "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91",
+        "cardSourceRevision": 863284,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "afe39b15ba7f1b3a55db07bf335fdbb9d65b9a6941b953fbb00e78efc2bd6a81",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Aquos base Character Card row / Hydorous Ultra (Aquos Card) ENG 288 CC BB.png / B-Power 400, damage 4 / Paired BakuCores: Shield + Shield"
+      }
     },
     {
       "id": "profile-0044",
@@ -1427,10 +1802,577 @@
       "faction": "Haos",
       "bPower": 200,
       "damage": 4,
-      "bakuCores": null,
-      "cardPrintingIds": [],
-      "compatibility": "unverified",
-      "sourceId": "source-hydorous-ultra"
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "cardPrintingIds": [
+        "wiki-279820"
+      ],
+      "compatibility": "source-matched",
+      "sourceId": "source-hydorous-ultra",
+      "linkEvidence": {
+        "sourceRevision": 852569,
+        "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91",
+        "cardSourceRevision": 862032,
+        "cardCatalogSha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+        "mappingSha256": "7349edda92352597758b24b41fab1a5f43bf0ef74ed5279ddfabaca2e3061b55",
+        "reviewer": "Codex (captured-source and card-record review)",
+        "reviewedAt": "2026-11-23T03:39:40.693Z",
+        "locator": "Haos base Character Card row / Hydorous Ultra (Haos Card) ENG 333 CC BB.png / B-Power 200, damage 4 / Paired BakuCores: Shield + Shield"
+      }
+    }
+  ],
+  "cardCatalog": {
+    "sha256": "f11e7708006d67670741d84dc1c76e3caff94925de7ac407116626f9c4e8866a",
+    "generatedAt": "2026-11-11T00:18:07.556Z"
+  },
+  "cardPrintings": [
+    {
+      "id": "wiki-279824",
+      "name": "Dragonoid",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Pyrus"
+      ],
+      "bPower": 200,
+      "damage": 5,
+      "bakuCores": [
+        "Flaming Fist",
+        "Fist"
+      ],
+      "imageFile": "Dragonoid (Pyrus Card) ENG 343 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Pyrus_Dragonoid_(Battle_Brawlers)",
+      "sourceRevision": 863290,
+      "sourceTimestamp": "2025-08-23T10:16:41Z"
+    },
+    {
+      "id": "wiki-279787",
+      "name": "Dragonoid",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aquos"
+      ],
+      "bPower": 400,
+      "damage": 3,
+      "bakuCores": [
+        "Shield",
+        "Fist"
+      ],
+      "imageFile": "Dragonoid (Aquos Card) ENG 283 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aquos_Dragonoid_(Battle_Brawlers)",
+      "sourceRevision": 861973,
+      "sourceTimestamp": "2025-07-06T02:28:51Z"
+    },
+    {
+      "id": "wiki-280310",
+      "name": "Dragonoid",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Haos"
+      ],
+      "bPower": 400,
+      "damage": 3,
+      "bakuCores": [
+        "Fist",
+        "Helix"
+      ],
+      "imageFile": "Dragonoid (Haos Card) ENG 327 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Haos_Dragonoid_(Battle_Brawlers)",
+      "sourceRevision": 852390,
+      "sourceTimestamp": "2024-06-12T22:57:39Z"
+    },
+    {
+      "id": "wiki-279834",
+      "name": "Dragonoid",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Ventus"
+      ],
+      "bPower": 200,
+      "damage": 4,
+      "bakuCores": [
+        "Helix",
+        "Helix"
+      ],
+      "imageFile": "Dragonoid (Ventus Card) ENG 359 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Ventus_Dragonoid_(Battle_Brawlers)",
+      "sourceRevision": 852670,
+      "sourceTimestamp": "2024-06-14T23:16:51Z"
+    },
+    {
+      "id": "wiki-279806",
+      "name": "Dragonoid",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Darkus"
+      ],
+      "bPower": 400,
+      "damage": 4,
+      "bakuCores": [
+        "Flaming Fist",
+        "Shield"
+      ],
+      "imageFile": "Dragonoid (Darkus Card) ENG 312 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Darkus_Dragonoid_(Battle_Brawlers)",
+      "sourceRevision": 862022,
+      "sourceTimestamp": "2025-07-06T02:29:36Z"
+    },
+    {
+      "id": "wiki-9765",
+      "name": "Dragonoid",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aurelus"
+      ],
+      "bPower": 400,
+      "damage": 6,
+      "bakuCores": [
+        "Magic Shield",
+        "Flaming Fist"
+      ],
+      "imageFile": "Dragonoid (Aurelus Card) ENG 298 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aurelus_Dragonoid_(Battle_Brawlers)",
+      "sourceRevision": 850953,
+      "sourceTimestamp": "2024-05-19T23:10:25Z"
+    },
+    {
+      "id": "wiki-279833",
+      "name": "Dragonoid Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Pyrus"
+      ],
+      "bPower": 500,
+      "damage": 5,
+      "bakuCores": [
+        "Magic Shield",
+        "Flaming Fist"
+      ],
+      "imageFile": "Dragonoid Ultra (Pyrus Card) ENG 357 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Pyrus_Dragonoid_Ultra_(Battle_Brawlers)",
+      "sourceRevision": 862068,
+      "sourceTimestamp": "2025-07-06T03:32:13Z"
+    },
+    {
+      "id": "wiki-286924",
+      "name": "Dragonoid Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Age of Aurelus",
+      "factions": [
+        "Haos"
+      ],
+      "bPower": 500,
+      "damage": 3,
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "imageFile": "Dragonoid Ultra (Haos Card) ENG 191 CC AA.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Haos_Dragonoid_Ultra_(Age_of_Aurelus)",
+      "sourceRevision": 852415,
+      "sourceTimestamp": "2024-06-12T22:57:57Z"
+    },
+    {
+      "id": "wiki-282485",
+      "name": "Dragonoid Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Bakugan Resurgence",
+      "factions": [
+        "Aurelus"
+      ],
+      "bPower": 500,
+      "damage": 4,
+      "bakuCores": [
+        "Magic Shield",
+        "Flaming Fist"
+      ],
+      "imageFile": "Dragonoid Ultra (Aurelus Card) ENG 182 CC BR.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aurelus_Dragonoid_Ultra_(Bakugan_Resurgence)",
+      "sourceRevision": 847173,
+      "sourceTimestamp": "2023-08-11T05:09:17Z"
+    },
+    {
+      "id": "wiki-282618",
+      "name": "Pegatrix",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Bakugan Resurgence",
+      "factions": [
+        "Pyrus"
+      ],
+      "bPower": 300,
+      "damage": 4,
+      "bakuCores": [
+        "Magic Shield",
+        "Fist"
+      ],
+      "imageFile": "Pegatrix (Pyrus Card) ENG 228 CC BR.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Pyrus_Pegatrix_(Bakugan_Resurgence)",
+      "sourceRevision": 853843,
+      "sourceTimestamp": "2024-06-18T00:45:38Z"
+    },
+    {
+      "id": "wiki-279793",
+      "name": "Pegatrix",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aquos"
+      ],
+      "bPower": 500,
+      "damage": 2,
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "imageFile": "Pegatrix (Aquos Card) ENG 292 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aquos_Pegatrix_(Battle_Brawlers)",
+      "sourceRevision": 847038,
+      "sourceTimestamp": "2023-08-11T04:54:49Z"
+    },
+    {
+      "id": "wiki-279822",
+      "name": "Pegatrix",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Haos"
+      ],
+      "bPower": 500,
+      "damage": 2,
+      "bakuCores": [
+        "Fist",
+        "Fist"
+      ],
+      "imageFile": "Pegatrix (Haos Card) ENG 339 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Haos_Pegatrix_(Battle_Brawlers)",
+      "sourceRevision": 853031,
+      "sourceTimestamp": "2024-06-16T09:59:14Z"
+    },
+    {
+      "id": "wiki-279841",
+      "name": "Pegatrix",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Ventus"
+      ],
+      "bPower": 300,
+      "damage": 4,
+      "bakuCores": [
+        "Magic Shield",
+        "Shield"
+      ],
+      "imageFile": "Pegatrix (Ventus Card) ENG 369 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Ventus_Pegatrix_(Battle_Brawlers)",
+      "sourceRevision": 854152,
+      "sourceTimestamp": "2024-06-21T04:39:39Z"
+    },
+    {
+      "id": "wiki-282168",
+      "name": "Pegatrix",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Darkus"
+      ],
+      "bPower": 200,
+      "damage": 5,
+      "bakuCores": [
+        "Shield",
+        "Fist"
+      ],
+      "imageFile": "Pegatrix (Darkus Card) ENG 323 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Darkus_Pegatrix_(Battle_Brawlers)",
+      "sourceRevision": 861794,
+      "sourceTimestamp": "2025-07-06T02:26:16Z"
+    },
+    {
+      "id": "wiki-279804",
+      "name": "Pegatrix",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aurelus"
+      ],
+      "bPower": 600,
+      "damage": 4,
+      "bakuCores": [
+        "Fist",
+        "Fist"
+      ],
+      "imageFile": "Pegatrix (Aurelus Card) ENG 308 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aurelus_Pegatrix_(Battle_Brawlers)",
+      "sourceRevision": 861858,
+      "sourceTimestamp": "2025-07-06T02:26:42Z"
+    },
+    {
+      "id": "wiki-283609",
+      "name": "Pegatrix Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Bakugan Resurgence",
+      "factions": [
+        "Aquos"
+      ],
+      "bPower": 600,
+      "damage": 1,
+      "bakuCores": [
+        "Shield",
+        "Fist"
+      ],
+      "imageFile": "Pegatrix Ultra (Aquos Card) ENG 175 CC BR.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aquos_Pegatrix_Ultra_(Bakugan_Resurgence)",
+      "sourceRevision": 847093,
+      "sourceTimestamp": "2023-08-11T04:57:22Z"
+    },
+    {
+      "id": "wiki-282619",
+      "name": "Pegatrix Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Bakugan Resurgence",
+      "factions": [
+        "Haos"
+      ],
+      "bPower": 300,
+      "damage": 5,
+      "bakuCores": [
+        "Magic Shield",
+        "Shield"
+      ],
+      "imageFile": "Pegatrix Ultra (Haos Card) ENG 215 CC BR.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Haos_Pegatrix_Ultra_(Bakugan_Resurgence)",
+      "sourceRevision": 862040,
+      "sourceTimestamp": "2025-07-06T02:29:55Z"
+    },
+    {
+      "id": "wiki-279826",
+      "name": "Hydorous",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Pyrus"
+      ],
+      "bPower": 400,
+      "damage": 3,
+      "bakuCores": [
+        "Magic Shield",
+        "Shield"
+      ],
+      "imageFile": "Hydorous (Pyrus Card) ENG 350 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Pyrus_Hydorous_(Battle_Brawlers)",
+      "sourceRevision": 853573,
+      "sourceTimestamp": "2024-06-17T08:00:55Z"
+    },
+    {
+      "id": "wiki-279790",
+      "name": "Hydorous",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aquos"
+      ],
+      "bPower": 200,
+      "damage": 6,
+      "bakuCores": [
+        "Shield",
+        "Helix"
+      ],
+      "imageFile": "Hydorous (Aquos Card) ENG 287 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aquos_Hydorous_(Battle_Brawlers)",
+      "sourceRevision": 861845,
+      "sourceTimestamp": "2025-07-06T02:26:33Z"
+    },
+    {
+      "id": "wiki-282169",
+      "name": "Hydorous",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Haos"
+      ],
+      "bPower": 200,
+      "damage": 3,
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "imageFile": "Hydorous (Haos Card) ENG 332 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Haos_Hydorous_(Battle_Brawlers)",
+      "sourceRevision": 852969,
+      "sourceTimestamp": "2024-06-16T09:58:22Z"
+    },
+    {
+      "id": "wiki-286943",
+      "name": "Hydorous",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Age of Aurelus",
+      "factions": [
+        "Ventus"
+      ],
+      "bPower": 500,
+      "damage": 4,
+      "bakuCores": [
+        "Magic Shield",
+        "Helix"
+      ],
+      "imageFile": "Hydorous (Ventus Card) ENG 213 CC AA.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Ventus_Hydorous_(Age_of_Aurelus)",
+      "sourceRevision": 853914,
+      "sourceTimestamp": "2024-06-18T00:46:35Z"
+    },
+    {
+      "id": "wiki-279809",
+      "name": "Hydorous",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Darkus"
+      ],
+      "bPower": 300,
+      "damage": 4,
+      "bakuCores": [
+        "Fist",
+        "Fist"
+      ],
+      "imageFile": "Hydorous (Darkus Card) ENG 318 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Darkus_Hydorous_(Battle_Brawlers)",
+      "sourceRevision": 852148,
+      "sourceTimestamp": "2024-06-11T22:55:52Z"
+    },
+    {
+      "id": "wiki-279800",
+      "name": "Hydorous",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aurelus"
+      ],
+      "bPower": 400,
+      "damage": 5,
+      "bakuCores": [
+        "Helix",
+        "Helix"
+      ],
+      "imageFile": "Hydorous (Aurelus Card) ENG 303 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aurelus_Hydorous_(Battle_Brawlers)",
+      "sourceRevision": 851558,
+      "sourceTimestamp": "2024-06-04T03:06:43Z"
+    },
+    {
+      "id": "wiki-279827",
+      "name": "Hydorous Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Pyrus"
+      ],
+      "bPower": 300,
+      "damage": 5,
+      "bakuCores": [
+        "Shield",
+        "Helix"
+      ],
+      "imageFile": "Hydorous Ultra (Pyrus Card) ENG 351 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Pyrus_Hydorous_Ultra_(Battle_Brawlers)",
+      "sourceRevision": 853415,
+      "sourceTimestamp": "2024-06-17T07:59:05Z"
+    },
+    {
+      "id": "wiki-279791",
+      "name": "Hydorous Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Aquos"
+      ],
+      "bPower": 400,
+      "damage": 4,
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "imageFile": "Hydorous Ultra (Aquos Card) ENG 288 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Aquos_Hydorous_Ultra_(Battle_Brawlers)",
+      "sourceRevision": 863284,
+      "sourceTimestamp": "2025-08-23T10:14:24Z"
+    },
+    {
+      "id": "wiki-279820",
+      "name": "Hydorous Ultra",
+      "generation": "Generation 2",
+      "cardType": "Character",
+      "series": "Battle Planet",
+      "set": "Battle Brawlers (Card set)",
+      "factions": [
+        "Haos"
+      ],
+      "bPower": 200,
+      "damage": 4,
+      "bakuCores": [
+        "Shield",
+        "Shield"
+      ],
+      "imageFile": "Hydorous Ultra (Haos Card) ENG 333 CC BB.png",
+      "sourceUrl": "https://bakugan.wiki/wiki/Haos_Hydorous_Ultra_(Battle_Brawlers)",
+      "sourceRevision": 862032,
+      "sourceTimestamp": "2025-07-06T02:29:45Z"
     }
   ],
   "releases": [],

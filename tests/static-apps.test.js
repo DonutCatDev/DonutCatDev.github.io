@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { cp, mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { getStaticApps, validateStaticApp } from '../scripts/dev/static-apps.js';
@@ -39,6 +40,28 @@ test('snapshot validation rejects tampering, extra files, and missing required a
         await assert.rejects(validateStaticApp({ ...app, required: ['missing.json'] }), /missing/);
     } finally {
         assert.ok(temporary.startsWith(join(tmpdir(), 'donutcat-snapshot-')));
+        await rm(temporary, { recursive: true, force: true });
+    }
+});
+
+test('assembly rejects an internally consistent toy snapshot pinned to a different card catalog', async () => {
+    const original = getStaticApps({}).find((entry) => entry.page === 'bakugan-archive');
+    const temporary = await mkdtemp(join(tmpdir(), 'donutcat-card-pin-'));
+    try {
+        const source = join(temporary, 'public');
+        await cp(original.source, source, { recursive: true });
+        const catalog = JSON.parse(await readFile(join(source, 'data/toys.json'), 'utf8'));
+        catalog.cardCatalog.sha256 = '0'.repeat(64);
+        for (const profile of catalog.profiles) profile.linkEvidence.cardCatalogSha256 = catalog.cardCatalog.sha256;
+        const bytes = `${JSON.stringify(catalog, null, 2)}\n`;
+        await writeFile(join(source, 'data/toys.json'), bytes);
+        const manifest = JSON.parse(await readFile(original.release, 'utf8'));
+        manifest.files['data/toys.json'] = createHash('sha256').update(bytes).digest('hex');
+        const release = join(temporary, 'release.json');
+        await writeFile(release, JSON.stringify(manifest));
+        await assert.rejects(validateStaticApp({ ...original, source, release }), /pinned card catalog/);
+    } finally {
+        assert.ok(temporary.startsWith(join(tmpdir(), 'donutcat-card-pin-')));
         await rm(temporary, { recursive: true, force: true });
     }
 });

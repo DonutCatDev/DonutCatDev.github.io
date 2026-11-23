@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { join, relative, resolve, sep } from 'node:path';
 import { sections } from '../site-config.js';
+import { validateCardLinks, validateCatalog } from '../../vendor/bakugan_toy_archive/public/scripts/lib/catalog.js';
 
 const root = resolve(import.meta.dirname, '..', '..');
 // Route names come from site-config; this manifest declares source/output contracts only.
@@ -55,4 +56,10 @@ export async function validateStaticApp(app) {
     }
     const catalog = JSON.parse(await readFile(join(app.source, 'data/toys.json'), 'utf8'));
     if (catalog.catalogRelease !== release.catalogRelease) throw new Error(`${app.page}: catalog release mismatch.`);
+    validateCatalog(catalog);
+    if (catalog.cardPrintings.length) {
+        const cardArchive = getStaticApps().find((entry) => entry.page === 'bakugan_card_archive');
+        const bytes = await readFile(join(cardArchive.source, 'data/cards.json'));
+        validateCardLinks(catalog, JSON.parse(bytes.toString('utf8')), createHash('sha256').update(bytes).digest('hex'));
+    }
 }
