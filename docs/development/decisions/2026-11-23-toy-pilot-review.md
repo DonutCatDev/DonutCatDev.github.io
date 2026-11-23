@@ -1,0 +1,11 @@
+# Pilot variants reviewed against captured tables
+
+The user's second browser export, captured at `2026-11-23T03:25:08.843Z`, includes all four pilot articles and eight base-table templates. The toy repository imports their compact revision/hash metadata and records 44 completed source comparisons under reviewer `Codex (captured-source review)` at `2026-11-23T03:27:26.110Z`. Both timestamps fall on November 22 in the workstation's local timezone. Raw Wiki content and local audit output remain ignored in the toy repository.
+
+All 18 G1 variants match their faction/treatment/printed-power rows, with source treatment `None` represented as `Standard`. All 26 G2 variants match standard base Character Card rows and their B-Power/damage. Exact locators distinguish printed powers and same-faction limited editions. The misleading `Evos` heading on the Dragonoid Core template was not used as a base-profile identity: the reviewed rows identify standard toys and `CC` card filenames. Diamond/Evo, Limited Edition, Hyper-only, anime, and regional profile differences were excluded.
+
+Catalog release `2026-11-23-pilot.4` preserves every model/variant/profile ID and existing stat. Its existing UI now shows 44 reviews and the captured table revision links. Every committed review is bound to the table revision, content SHA-256, and current fact fingerprint; source or stat changes invalidate it. Tests cover stale G1 values and linked G2 base-profile corrections. Browser checks cover both the actual reviewed catalog and synthetic pending records against captured tables.
+
+Source review does not approve images or establish toy/card compatibility. There are still zero identification photos, no product-release entities, no curated paired cores, and no verified links to card printing IDs. The pilot stays `noindex` and out of the sitemap. Shared Card Archive styling remains unchanged.
+
+Next work is identification-photo provenance and exact variant matching, followed by product/card/core curation and further reviewed coverage. The complete captured tables can support the next data pass without another article-only export. Commit the toy repository first, export its checked public snapshot, then commit this site's snapshot/docs/browser checks; leave manual pushes in the same order to the owner.

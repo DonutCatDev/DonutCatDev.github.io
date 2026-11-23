@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "catalogRelease": "2026-11-23-pilot.3",
+  "catalogRelease": "2026-11-23-pilot.4",
   "sourceProject": "Bakugan_Toy_Archive",
   "files": {
-    "data/toys.json": "2e0094ea9d8120f845b291b6d8775c60b03967fdf54a52583ca0cab44b26595d",
+    "data/toys.json": "c886470bf9d6708ab2821855feb1aa275a1022367d5db232c7e071bcdce4ac6e",
     "index.html": "c444d06e4dcb723c6d9faa29e996f2b1f090121ab909c23fb857e904fb928910",
     "scripts/app.js": "a5b2226a94da558ada35a4ded2d56b2b2b599d289d4148b216b572ac76076c5a",
     "scripts/bootstrap.js": "597ea27db272fa279c4ee1aa19affb77c5ea65c3d2368ee356a8a8b2ee12d551",

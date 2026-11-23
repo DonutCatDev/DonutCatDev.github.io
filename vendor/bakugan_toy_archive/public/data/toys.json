@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "catalogRelease": "2026-11-23-pilot.3",
+  "catalogRelease": "2026-11-23-pilot.4",
   "status": "pilot",
   "coverage": {
     "complete": false,
@@ -21,7 +21,7 @@
       },
       "pageId": 1365,
       "sourceTimestamp": "2025-01-20T20:24:07Z",
-      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
       "captureMethod": "browser-api",
       "sourceSha256": "62584a160bd18030d394c3e34eba221946e9d3b45054fd5bf29ed84cf74949fe"
     },
@@ -34,7 +34,7 @@
       "revision": 866041,
       "pageId": 297889,
       "sourceTimestamp": "2026-10-11T05:04:20Z",
-      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
       "captureMethod": "browser-api",
       "sourceSha256": "b6b3a1788dd768037398ee47ab1efbe5d604370a1759da3f1d079ab145c996e4"
     },
@@ -47,7 +47,7 @@
       "revision": 865210,
       "pageId": 288888,
       "sourceTimestamp": "2026-06-02T23:19:15Z",
-      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
       "captureMethod": "browser-api",
       "sourceSha256": "a83597e8e9523bc1473f7494c1bccdd9037c0af9ef966edbc7ffc5c88bdcf2f9"
     },
@@ -60,7 +60,7 @@
       "revision": 865179,
       "pageId": 288881,
       "sourceTimestamp": "2026-06-02T22:14:16Z",
-      "capturedAt": "2026-11-23T03:11:03.316Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
       "captureMethod": "browser-api",
       "sourceSha256": "6a7f2ce6f60372f4e87dd35a76616bb17c41a02f98b42c1a9b20d57241714587"
     },
@@ -70,7 +70,12 @@
       "url": "https://bakugan.wiki/wiki/Template:B1_Delta_Dragonoid_Bakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 849669,
+      "pageId": 297620,
+      "sourceTimestamp": "2024-03-16T22:32:21Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07"
     },
     {
       "id": "source-delta-b2",
@@ -78,7 +83,12 @@
       "url": "https://bakugan.wiki/wiki/Template:B2_Delta_Dragonoid_Bakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 849678,
+      "pageId": 297622,
+      "sourceTimestamp": "2024-03-17T22:44:10Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c"
     },
     {
       "id": "source-dragonoid-core",
@@ -86,7 +96,12 @@
       "url": "https://bakugan.wiki/wiki/Template:BPDragonoidBakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 854089,
+      "pageId": 297910,
+      "sourceTimestamp": "2024-06-21T04:38:21Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
     },
     {
       "id": "source-dragonoid-ultra",
@@ -94,7 +109,12 @@
       "url": "https://bakugan.wiki/wiki/Template:BPDragonoidUltraBakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 844707,
+      "pageId": 297911,
+      "sourceTimestamp": "2023-07-19T04:21:21Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926"
     },
     {
       "id": "source-pegatrix-core",
@@ -102,7 +122,12 @@
       "url": "https://bakugan.wiki/wiki/Template:BPPegatrixBakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 854240,
+      "pageId": 297953,
+      "sourceTimestamp": "2024-06-21T04:41:18Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
     },
     {
       "id": "source-pegatrix-ultra",
@@ -110,7 +135,12 @@
       "url": "https://bakugan.wiki/wiki/Template:BPPegatrixUltraBakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 851749,
+      "pageId": 297954,
+      "sourceTimestamp": "2024-06-10T19:42:06Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf"
     },
     {
       "id": "source-hydorous-core",
@@ -118,7 +148,12 @@
       "url": "https://bakugan.wiki/wiki/Template:BPHydorousBakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 858059,
+      "pageId": 297932,
+      "sourceTimestamp": "2025-01-19T08:18:35Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
     },
     {
       "id": "source-hydorous-ultra",
@@ -126,7 +161,12 @@
       "url": "https://bakugan.wiki/wiki/Template:BPHydorousUltraBakulog",
       "section": "Availability / base-profile table",
       "checkedAt": "2026-11-23",
-      "revision": null
+      "revision": 852569,
+      "pageId": 297933,
+      "sourceTimestamp": "2024-06-14T23:15:00Z",
+      "capturedAt": "2026-11-23T03:25:08.843Z",
+      "captureMethod": "browser-api",
+      "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91"
     }
   ],
   "models": [
@@ -227,8 +267,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 290 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -242,8 +286,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 380 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -257,8 +305,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 400 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -272,8 +324,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Pyrus / Pearl",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / Pearl treatment / Available G-Power: 560 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -287,8 +343,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Pyrus / Flip",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / Flip treatment / Available G-Power: 560 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -302,8 +362,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos tab / None treatment / Available G-Power: 350 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -317,8 +381,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos tab / None treatment / Available G-Power: 370 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -332,8 +400,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Aquos / Flip",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos tab / Flip treatment / Available G-Power: 550 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -347,8 +419,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Ventus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Ventus tab / None treatment / Available G-Power: 400 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -362,8 +438,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Haos / Pearl",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos tab / Pearl treatment / Available G-Power: 530 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -377,8 +457,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Haos / Flip",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos tab / Flip treatment / Available G-Power: 530 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -392,8 +476,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Darkus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Darkus tab / None treatment / Available G-Power: 350 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -407,8 +495,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
-        "locator": "28 mm (B1) / Darkus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Darkus tab / None treatment / Available G-Power: 370 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849669,
+        "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -422,8 +514,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b2",
-        "locator": "B2 / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 460 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849678,
+        "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -437,8 +533,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b2",
-        "locator": "B2 / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 480 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849678,
+        "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -452,8 +552,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b2",
-        "locator": "B2 / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 500 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849678,
+        "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -467,8 +571,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b2",
-        "locator": "B2 / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus tab / None treatment / Available G-Power: 670 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849678,
+        "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -482,8 +590,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b2",
-        "locator": "B2 / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos tab / None treatment / Available G-Power: 650 Gs",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 849678,
+        "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -499,8 +611,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
-        "locator": "Core / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus base Character Card row / Dragonoid (Pyrus Card) ENG 343 CC BB.png / B-Power 200, damage 5",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -516,8 +632,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
-        "locator": "Core / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos base Character Card row / Dragonoid (Aquos Card) ENG 283 CC BB.png / B-Power 400, damage 3",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -533,8 +653,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
-        "locator": "Core / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos base Character Card row / Dragonoid (Haos Card) ENG 327 CC BB.png / B-Power 400, damage 3",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -550,8 +674,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
-        "locator": "Core / Ventus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Ventus base Character Card row / Dragonoid (Ventus Card) ENG 359 CC BB.png / B-Power 200, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -567,8 +695,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
-        "locator": "Core / Darkus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Darkus base Character Card row / Dragonoid (Darkus Card) ENG 312 CC BB.png / B-Power 400, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -584,8 +716,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
-        "locator": "Core / Aurelus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aurelus base Character Card row / Dragonoid (Aurelus Card) ENG 298 CC BB.png / B-Power 400, damage 6",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854089,
+        "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -601,8 +737,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-ultra",
-        "locator": "Ultra / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus base Character Card row / Dragonoid Ultra (Pyrus Card) ENG 357 CC BB.png / B-Power 500, damage 5",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 844707,
+        "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -618,8 +758,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-ultra",
-        "locator": "Ultra / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos base Character Card row / Dragonoid Ultra (Haos Card) ENG 191 CC AA.png / B-Power 500, damage 3",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 844707,
+        "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -635,8 +779,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-ultra",
-        "locator": "Ultra / Aurelus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aurelus base Character Card row / Dragonoid Ultra (Aurelus Card) ENG 182 CC BR.png / B-Power 500, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 844707,
+        "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -652,8 +800,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
-        "locator": "Core / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus base Character Card row / Pegatrix (Pyrus Card) ENG 228 CC BR.png / B-Power 300, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -669,8 +821,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
-        "locator": "Core / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos base Character Card row / Pegatrix (Aquos Card) ENG 292 CC BB.png / B-Power 500, damage 2",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -686,8 +842,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
-        "locator": "Core / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos base Character Card row / Pegatrix (Haos Card) ENG 339 CC BB.png / B-Power 500, damage 2",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -703,8 +863,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
-        "locator": "Core / Ventus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Ventus base Character Card row / Pegatrix (Ventus Card) ENG 369 CC BB.png / B-Power 300, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -720,8 +884,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
-        "locator": "Core / Darkus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Darkus base Character Card row / Pegatrix (Darkus Card) ENG 323 CC BB.png / B-Power 200, damage 5",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -737,8 +905,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
-        "locator": "Core / Aurelus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aurelus base Character Card row / Pegatrix (Aurelus Card) ENG 308 CC BB.png / B-Power 600, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 854240,
+        "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -754,8 +926,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-ultra",
-        "locator": "Ultra / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos base Character Card row / Pegatrix Ultra (Aquos Card) ENG 175 CC BR.png / B-Power 600, damage 1",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 851749,
+        "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -771,8 +947,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-ultra",
-        "locator": "Ultra / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos base Character Card row / Pegatrix Ultra (Haos Card) ENG 215 CC BR.png / B-Power 300, damage 5",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 851749,
+        "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -788,8 +968,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
-        "locator": "Core / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus base Character Card row / Hydorous (Pyrus Card) ENG 350 CC BB.png / B-Power 400, damage 3",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -805,8 +989,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
-        "locator": "Core / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos base Character Card row / Hydorous (Aquos Card) ENG 287 CC BB.png / B-Power 200, damage 6",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -822,8 +1010,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
-        "locator": "Core / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos base Character Card row / Hydorous (Haos Card) ENG 332 CC BB.png / B-Power 200, damage 3",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -839,8 +1031,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
-        "locator": "Core / Ventus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Ventus base Character Card row / Hydorous (Ventus Card) ENG 213 CC AA.png / B-Power 500, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -856,8 +1052,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
-        "locator": "Core / Darkus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Darkus base Character Card row / Hydorous (Darkus Card) ENG 318 CC BB.png / B-Power 300, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -873,8 +1073,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
-        "locator": "Core / Aurelus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aurelus base Character Card row / Hydorous (Aurelus Card) ENG 303 CC BB.png / B-Power 400, damage 5",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 858059,
+        "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -890,8 +1094,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-ultra",
-        "locator": "Ultra / Pyrus / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Pyrus base Character Card row / Hydorous Ultra (Pyrus Card) ENG 351 CC BB.png / B-Power 300, damage 5",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 852569,
+        "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -907,8 +1115,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-ultra",
-        "locator": "Ultra / Aquos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Aquos base Character Card row / Hydorous Ultra (Aquos Card) ENG 288 CC BB.png / B-Power 400, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 852569,
+        "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     },
     {
@@ -924,8 +1136,12 @@
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-ultra",
-        "locator": "Ultra / Haos / Standard",
-        "reviewStatus": "source-transcribed"
+        "locator": "Haos base Character Card row / Hydorous Ultra (Haos Card) ENG 333 CC BB.png / B-Power 200, damage 4",
+        "reviewStatus": "revision-reviewed",
+        "sourceRevision": 852569,
+        "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91",
+        "reviewer": "Codex (captured-source review)",
+        "reviewedAt": "2026-11-23T03:27:26.110Z"
       }
     }
   ],
