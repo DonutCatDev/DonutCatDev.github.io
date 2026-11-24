@@ -210,7 +210,7 @@ Run each affected repository's tests/lint and the main site's `npm test` and `np
 4. What operating budget and account sign-in method are acceptable? Evaluate the two backend candidates before choosing one.
 5. Should initial sharing be manually published snapshots or automatically updated lists? Proposed default: explicit snapshots with update/revoke controls.
 
-Phase 1 now has a separate local toy repository, 44 variants across eight molds reviewed against captured table revisions, 26 reviewed G2 card/core mappings, a searchable standalone pilot, and a checksummed public snapshot integrated into the site build/preview. See the [initial pilot decision](../decisions/2026-11-21-toy-archive-pilot.md). Images, product releases, broader coverage, and remote release verification remain pending; Phase 1 is not yet a completed public release. Accounts and deployment remain later work.
+Phase 1 now has a separate local toy repository, 44 variants across eight molds reviewed against captured table revisions, 26 reviewed G2 card/core mappings, 48 searchable product releases, and a checksummed public snapshot integrated into the site build and preview. Identification photos, broader coverage, and remote release verification remain pending. [Initial pilot decision](../decisions/2026-11-21-toy-archive-pilot.md)
 
 The initial schema 2 follow-up added browser/XML source intake, hash-bound variant reviews, and reviewed identification-photo mappings. It recorded an indexed Delta Dragonoid revision separately from imported snapshots; all 44 variants awaited revision review and approved photos at that stage. See the [source-review decision](../decisions/2026-11-22-toy-source-review.md).
 
@@ -218,7 +218,9 @@ The user's first browser export supplied all four article revisions. Their avail
 
 The second export includes all twelve sources. All 44 pilot variants were reviewed against the captured table rows with no stat or ID changes. The records identify Codex as the source reviewer and bind to exact revision/content/fact hashes; this is not a physical inspection or owner attestation. See the [pilot review decision](../decisions/2026-11-23-toy-pilot-review.md).
 
-The schema 3 follow-up adds exact Character Card printing links and both paired cores for all 26 G2 profiles. It also corrects the Card Archive importer and 405 matching-revision records that had lost repeated core icons. The main build now validates toy/card catalog pins and selected records together. Source matching does not establish format legality. Identification photos and product releases remain pending, and the catalog keeps the shared Card Archive theme and noindex pilot status. See the [card/core mapping decision](../decisions/2026-11-23-toy-card-core-links.md).
+The schema 3 follow-up added exact Character Card printing links and both paired cores for all 26 G2 profiles. It also corrected the Card Archive importer and 405 matching-revision records that had lost repeated core icons. The main build validates toy/card catalog pins and selected records together. The catalog keeps the shared Card Archive theme and noindex pilot status. [Card/core mapping decision](../decisions/2026-11-23-toy-card-core-links.md)
+
+Release `2026-11-23-pilot.6` adds 48 searchable product releases and 52 source-backed associations across 28 pilot variants. Four packages contain two cataloged variants each. The G1 links use rows with a single printed G-Power. G2 links use exact reviewed base rows from the captured tables. The toy repository's `docs/pilot-photo-review.md` tracks five photo candidates and their identification and reuse evidence gaps.
 
 ## Research and verification notes
 

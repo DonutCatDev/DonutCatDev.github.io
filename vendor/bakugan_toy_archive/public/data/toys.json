@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "catalogRelease": "2026-11-23-pilot.5",
+  "catalogRelease": "2026-11-23-pilot.6",
   "status": "pilot",
   "coverage": {
     "complete": false,
@@ -415,7 +415,9 @@
       "treatment": "Standard",
       "gPower": 400,
       "profileIds": [],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0001"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b1",
@@ -586,7 +588,9 @@
       "treatment": "Standard",
       "gPower": 650,
       "profileIds": [],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0002"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-delta-b2",
@@ -607,7 +611,13 @@
       "profileIds": [
         "profile-0019"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0003",
+        "release-0004",
+        "release-0005",
+        "release-0006",
+        "release-0007"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
@@ -628,7 +638,9 @@
       "profileIds": [
         "profile-0020"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0008"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
@@ -649,7 +661,10 @@
       "profileIds": [
         "profile-0021"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0009",
+        "release-0010"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
@@ -670,7 +685,9 @@
       "profileIds": [
         "profile-0022"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0011"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
@@ -691,7 +708,10 @@
       "profileIds": [
         "profile-0023"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0012",
+        "release-0013"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
@@ -712,7 +732,10 @@
       "profileIds": [
         "profile-0024"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0014",
+        "release-0015"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-core",
@@ -733,7 +756,10 @@
       "profileIds": [
         "profile-0025"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0016",
+        "release-0017"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-ultra",
@@ -754,7 +780,9 @@
       "profileIds": [
         "profile-0026"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0018"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-ultra",
@@ -775,7 +803,9 @@
       "profileIds": [
         "profile-0027"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0019"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-dragonoid-ultra",
@@ -796,7 +826,11 @@
       "profileIds": [
         "profile-0028"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0019",
+        "release-0020",
+        "release-0021"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
@@ -817,7 +851,10 @@
       "profileIds": [
         "profile-0029"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0022",
+        "release-0023"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
@@ -838,7 +875,11 @@
       "profileIds": [
         "profile-0030"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0024",
+        "release-0025",
+        "release-0026"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
@@ -859,7 +900,10 @@
       "profileIds": [
         "profile-0031"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0027",
+        "release-0028"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
@@ -880,7 +924,10 @@
       "profileIds": [
         "profile-0032"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0029",
+        "release-0030"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
@@ -901,7 +948,10 @@
       "profileIds": [
         "profile-0033"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0004",
+        "release-0031"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-core",
@@ -922,7 +972,9 @@
       "profileIds": [
         "profile-0034"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0032"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-ultra",
@@ -943,7 +995,9 @@
       "profileIds": [
         "profile-0035"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0033"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-pegatrix-ultra",
@@ -964,7 +1018,9 @@
       "profileIds": [
         "profile-0036"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0034"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
@@ -985,7 +1041,13 @@
       "profileIds": [
         "profile-0037"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0035",
+        "release-0036",
+        "release-0037",
+        "release-0038",
+        "release-0039"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
@@ -1006,7 +1068,10 @@
       "profileIds": [
         "profile-0038"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0040",
+        "release-0041"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
@@ -1027,7 +1092,10 @@
       "profileIds": [
         "profile-0039"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0042",
+        "release-0043"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
@@ -1048,7 +1116,10 @@
       "profileIds": [
         "profile-0040"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0028",
+        "release-0044"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
@@ -1069,7 +1140,10 @@
       "profileIds": [
         "profile-0041"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0027",
+        "release-0045"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-core",
@@ -1090,7 +1164,9 @@
       "profileIds": [
         "profile-0042"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0046"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-ultra",
@@ -1111,7 +1187,9 @@
       "profileIds": [
         "profile-0043"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0047"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-ultra",
@@ -1132,7 +1210,9 @@
       "profileIds": [
         "profile-0044"
       ],
-      "releaseIds": [],
+      "releaseIds": [
+        "release-0048"
+      ],
       "image": null,
       "evidence": {
         "sourceId": "source-hydorous-ultra",
@@ -2375,6 +2455,759 @@
       "sourceTimestamp": "2025-07-06T02:29:45Z"
     }
   ],
-  "releases": [],
+  "releases": [
+    {
+      "id": "release-0001",
+      "name": "Ventus Delta Dragonoid Series 1 Booster Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0009",
+          "sourceId": "source-delta-b1",
+          "sourceRevision": 849669,
+          "sourceSha256": "686327d1fbbabfbeff32c6878123adacb17826882de8ce854ef40a00a3516a07"
+        }
+      ]
+    },
+    {
+      "id": "release-0002",
+      "name": "Haos Delta Dragonoid Special Attack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0018",
+          "sourceId": "source-delta-b2",
+          "sourceRevision": 849678,
+          "sourceSha256": "56896bdf2751076030ac701e0b78e1b2b9ae0eb90739bc949dc7c68d33a5397c"
+        }
+      ]
+    },
+    {
+      "id": "release-0003",
+      "name": "Pyrus Dragonoid Single Pack",
+      "wave": "Battle Brawlers Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0019",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0004",
+      "name": "Haos Howlkor Ultra Starter Set",
+      "wave": "Battle Brawlers Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0019",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        },
+        {
+          "variantId": "toy-0033",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0005",
+      "name": "Red Baku-Storage",
+      "wave": "Battle Brawlers Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0019",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0006",
+      "name": "Ventus Krakelios Ultra Starter Pack",
+      "wave": "Battle Brawlers Wave 3",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0019",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0007",
+      "name": "Bakugan Battle Bundle",
+      "wave": "Bakugan Resurgence Wave 3",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0019",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0008",
+      "name": "Aquos Dragonoid Bakugan Battle Arena",
+      "wave": "Battle Brawlers Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0020",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0009",
+      "name": "Aquos Trox Ultra / Ventus Fangzor Ultra Battle Pack",
+      "wave": "Battle Brawlers Wave 3",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0021",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0010",
+      "name": "Darkus Gorthion Ultra Starter Pack",
+      "wave": "Bakugan Resurgence Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0021",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0011",
+      "name": "Ventus Dragonoid Single Pack",
+      "wave": "Battle Brawlers Wave 3",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0022",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0012",
+      "name": "Haos Hydorous Starter Pack",
+      "wave": "Battle Brawlers Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0023",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0013",
+      "name": "Darkus Dragonoid Single Pack",
+      "wave": "Battle Brawlers Wave 2",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0023",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0014",
+      "name": "Aurelus Dragonoid Single Pack",
+      "wave": "Battle Brawlers Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0024",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0015",
+      "name": "Pyrus Nillious Ultra Starter Pack",
+      "wave": "Bakugan Resurgence Wave 3",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0024",
+          "sourceId": "source-dragonoid-core",
+          "sourceRevision": 854089,
+          "sourceSha256": "41fc344b5c2812c51e5fa195abe41605febc1dd861530296be1850c2ac85823d"
+        }
+      ]
+    },
+    {
+      "id": "release-0016",
+      "name": "Pyrus Dragonoid Ultra Single Pack",
+      "wave": "Battle Brawlers Wave 3",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0025",
+          "sourceId": "source-dragonoid-ultra",
+          "sourceRevision": 844707,
+          "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926"
+        }
+      ]
+    },
+    {
+      "id": "release-0017",
+      "name": "Pyrus Dragonoid Ultra Starter Pack",
+      "wave": "Bakugan Resurgence Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0025",
+          "sourceId": "source-dragonoid-ultra",
+          "sourceRevision": 844707,
+          "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926"
+        }
+      ]
+    },
+    {
+      "id": "release-0018",
+      "name": "Haos Dragonoid Ultra / Darkus Goreene Ultra Battle Pack",
+      "wave": "Age of Aurelus",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0026",
+          "sourceId": "source-dragonoid-ultra",
+          "sourceRevision": 844707,
+          "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926"
+        }
+      ]
+    },
+    {
+      "id": "release-0019",
+      "name": "Aurelus Dragonoid Ultra Starter Pack",
+      "wave": "Bakugan Resurgence Wave 1",
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0027",
+          "sourceId": "source-dragonoid-ultra",
+          "sourceRevision": 844707,
+          "sourceSha256": "5a10ce2afe42ee6ce500c4ad7a8d5bc6a01f3d413cb78163403dc6ecc3e66926"
+        },
+        {
+          "variantId": "toy-0028",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0020",
+      "name": "Pyrus Pegatrix Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0028",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0021",
+      "name": "Darkus Kelion Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0028",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0022",
+      "name": "Ventus Maxotaur Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0029",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0023",
+      "name": "Aquos Pegatrix Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0029",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0024",
+      "name": "Haos Pegatrix Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0030",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0025",
+      "name": "Darkus Turtonium Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0030",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0026",
+      "name": "Pegatrix vs. Mantonoid 2-Pack",
+      "wave": null,
+      "markets": [
+        "Canada",
+        "Australia",
+        "Mexico"
+      ],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0030",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0027",
+      "name": "Aquos Serpenteze Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0031",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        },
+        {
+          "variantId": "toy-0041",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0028",
+      "name": "Pyrus Maxotaur Ultra / Aquos Mantonoid Ultra Battle Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0031",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        },
+        {
+          "variantId": "toy-0040",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0029",
+      "name": "Haos Nillious Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0032",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0030",
+      "name": "Ventus Phaedrus Ultra / Pyrus Hydranoid Ultra Battle Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0032",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0031",
+      "name": "Aurelus Pegatrix Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0033",
+          "sourceId": "source-pegatrix-core",
+          "sourceRevision": 854240,
+          "sourceSha256": "89201c00d3e7aa6d39ebc4415156f575b86e830b7fe000520a0cfb625bf41e73"
+        }
+      ]
+    },
+    {
+      "id": "release-0032",
+      "name": "Aquos Pegatrix Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0034",
+          "sourceId": "source-pegatrix-ultra",
+          "sourceRevision": 851749,
+          "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf"
+        }
+      ]
+    },
+    {
+      "id": "release-0033",
+      "name": "Haos Pegatrix Ultra Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0035",
+          "sourceId": "source-pegatrix-ultra",
+          "sourceRevision": 851749,
+          "sourceSha256": "7e3e86ae55dd29c6c7f6e91f46f6b278d70b9d55f44141ec52226d8a93fb67bf"
+        }
+      ]
+    },
+    {
+      "id": "release-0034",
+      "name": "Haos Serpenteze Ultra / Ventus Howlkor Ultra Battle Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0036",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0035",
+      "name": "Aquos Hydorous Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0037",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0036",
+      "name": "Aurelus Howlkor Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0037",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0037",
+      "name": "Blue Baku-Storage",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0037",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0038",
+      "name": "Hydorous vs. Gorthion 2-Pack",
+      "wave": null,
+      "markets": [
+        "Canada",
+        "Australia",
+        "Mexico"
+      ],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0037",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0039",
+      "name": "Pyrus Pyravian Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0037",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0040",
+      "name": "Ventus Garganoid Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0038",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0041",
+      "name": "Haos Hydorous Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0038",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0042",
+      "name": "Aurelus Cloptor Ultra / Pyrus Trhyno Ultra Battle Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0039",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0043",
+      "name": "Haos Pyravian Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0039",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0044",
+      "name": "Aquos Garganoid Ultra Starter Set",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0040",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0045",
+      "name": "Aurelus Hydorous Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0041",
+          "sourceId": "source-hydorous-core",
+          "sourceRevision": 858059,
+          "sourceSha256": "88b3c1ef74151bb623d9627e0267c6e2d035d2e5e65d2391b9a1e1a6441b3af5"
+        }
+      ]
+    },
+    {
+      "id": "release-0046",
+      "name": "Pyrus Hydorous Ultra Starter Set",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0042",
+          "sourceId": "source-hydorous-ultra",
+          "sourceRevision": 852569,
+          "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91"
+        }
+      ]
+    },
+    {
+      "id": "release-0047",
+      "name": "Aquos Hydorous Ultra Single Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0043",
+          "sourceId": "source-hydorous-ultra",
+          "sourceRevision": 852569,
+          "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91"
+        }
+      ]
+    },
+    {
+      "id": "release-0048",
+      "name": "Haos Hydorous Ultra Starter Pack",
+      "wave": null,
+      "markets": [],
+      "status": "source-listed",
+      "members": [
+        {
+          "variantId": "toy-0044",
+          "sourceId": "source-hydorous-ultra",
+          "sourceRevision": 852569,
+          "sourceSha256": "be79520fe38d4b83ecbfc3e400527860bcec9958b9a01e1539d9691f1b83ac91"
+        }
+      ]
+    }
+  ],
   "aliases": {}
 }

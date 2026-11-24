@@ -26,7 +26,7 @@ export function mount(container) {
   const retry = el('button', { type: 'button', className: 'primary-button', text: 'Try again', hidden: true });
   const coverage = el('aside', { className: 'coverage', 'aria-label': 'Catalog coverage', hidden: true });
   const form = el('form', { role: 'search', className: 'search-shell search-panel', 'aria-label': 'Find physical Bakugan', hidden: true });
-  const search = el('input', { id: 'toy-query', type: 'search', placeholder: 'Try Aquos, Delta, 400 G, or Meteor…', maxlength: 160 });
+  const search = el('input', { id: 'toy-query', type: 'search', placeholder: 'Try Aquos, 400 G, or Howlkor Starter Set…', maxlength: 160 });
   const searchButton = el('button', { type: 'submit', className: 'primary-button', text: 'Search' });
   const searchLabel = el('label', { className: 'visually-hidden', for: 'toy-query', text: 'Search Bakugan' });
   const searchRow = el('div', { className: 'search-field search-row' }, [el('span', { className: 'search-icon', 'aria-hidden': 'true' }), search, searchButton]);
@@ -137,6 +137,14 @@ export function mount(container) {
       } else fact('Character Card compatibility', 'Not yet verified');
     }
     const source = data.sources.find((item) => item.id === variant.evidence.sourceId);
+    const products = el('section', {}, [
+      el('h3', { text: 'Product releases' }),
+      variant.products.length ? el('ul', {}, variant.products.map((product) => {
+        const label = [product.name, product.wave, product.markets.join(', ')].filter(Boolean).join(' · ');
+        return el('li', { text: label });
+      })) : el('p', { className: 'detail-note', text: 'No packages have been matched to this variant yet.' })
+    ]);
+    if (variant.products.length) products.append(el('p', { className: 'detail-note', text: 'Packages listed in the source table below.' }));
     const sourceLink = el('a', { href: safeUrl(source.url), target: '_blank', rel: 'noopener noreferrer', text: `Source: ${source.title}` });
     const article = data.sources.find((item) => item.id === variant.model.sourceId);
     const articleNote = el('p', { className: 'detail-note' });
@@ -157,7 +165,7 @@ export function mount(container) {
     const reviewText = variant.evidence.reviewStatus === 'revision-reviewed'
       ? `Catalog facts reviewed against the captured revision on ${variant.evidence.reviewedAt.slice(0, 10)}. This is not a deck-legality ruling.`
       : 'Pilot entry transcribed from a source table; its facts have not yet been reviewed against a captured revision. This is not a deck-legality ruling.';
-    dialogBody.replaceChildren(heading, picture(variant.image, variant.label, { detail: true }), details,
+    dialogBody.replaceChildren(heading, picture(variant.image, variant.label, { detail: true }), details, products,
       el('p', { className: 'detail-note', text: reviewText }),
       sourceLink, el('p', { className: 'detail-note', text: `${source.section} / ${variant.evidence.locator}.` }), provenance, ...(articleNote.childNodes.length ? [articleNote] : []),
       el('p', {}, [permalink]));
@@ -234,7 +242,7 @@ export function mount(container) {
       coverage.replaceChildren(el('strong', { text: 'A pilot, with plenty left to find.' }),
         el('p', { text: `${data.variants.length} variants · ${reviewedCount} reviewed against captured revisions · ${imageCount} with identification photos. ${linkedCount} of ${data.profiles.length} Character Card profiles matched. Format legality has not been checked.` }),
         el('details', {}, [el('summary', { text: 'What this pilot covers' }), el('p', { text: data.coverage.description }),
-          el('p', { text: 'Missing entries do not mean a variant was never released. Product-release details and source revisions are still being reviewed.' })]));
+          el('p', { text: `${data.releases.length} source-listed products. Search by product name or open a variant to see its packages.` })]));
       coverage.hidden = false; form.hidden = false; status.hidden = true;
       render();
     } catch (error) {

@@ -95,6 +95,23 @@ export function validateCatalog(data) {
     numeric(card.bPower, 'card B-Power'); numeric(card.damage, 'card damage'); cores(card.bakuCores);
   }
   const releases = records(data.releases, 'release');
+  const releaseMembers = new Map();
+  for (const release of releases.values()) {
+    text(release.name, 'product release name');
+    if (release.wave !== null) text(release.wave, 'product release wave', 120);
+    if (release.status !== 'source-listed' || !Array.isArray(release.markets) || new Set(release.markets).size !== release.markets.length || release.markets.length > 20) throw new Error('Invalid product release metadata.');
+    release.markets.forEach((market) => text(market, 'product release market', 80));
+    if (!Array.isArray(release.members) || !release.members.length || release.members.length > variants.size) throw new Error('A product release needs at least one cataloged variant.');
+    const members = new Set();
+    for (const member of release.members) {
+      const variant = variants.get(member?.variantId);
+      const proof = variant?.evidence;
+      if (members.has(member?.variantId) || proof?.reviewStatus !== 'revision-reviewed' || member.sourceId !== proof.sourceId || member.sourceRevision !== proof.sourceRevision || member.sourceSha256 !== proof.sourceSha256) throw new Error('Invalid or stale product release membership.');
+      if (!Array.isArray(variant.releaseIds) || !variant.releaseIds.includes(release.id)) throw new Error('Product release membership is missing its variant link.');
+      members.add(member.variantId);
+    }
+    releaseMembers.set(release.id, members);
+  }
   for (const source of sources.values()) {
     for (const field of ['title', 'section', 'checkedAt']) text(source[field], `source ${field}`);
     if (!safeUrl(source.url) || !/^https?:\/\//i.test(source.url)) throw new Error('Invalid source URL.');
@@ -136,7 +153,7 @@ export function validateCatalog(data) {
     text(variant.treatment, 'treatment'); numeric(variant.gPower, 'G-Power');
     if (model.generation === 'G2' && variant.gPower !== null) throw new Error('G2 toys cannot have G-Power.');
     if (!Array.isArray(variant.profileIds) || new Set(variant.profileIds).size !== variant.profileIds.length || variant.profileIds.some((id) => !profiles.has(id) || profiles.get(id).modelId !== model.id || profiles.get(id).faction !== variant.faction)) throw new Error('Invalid variant profile link.');
-    if (!Array.isArray(variant.releaseIds) || variant.releaseIds.some((id) => !releases.has(id))) throw new Error('Invalid release link.');
+    if (!Array.isArray(variant.releaseIds) || new Set(variant.releaseIds).size !== variant.releaseIds.length || variant.releaseIds.some((id) => !releaseMembers.get(id)?.has(variant.id))) throw new Error('Invalid release link.');
     if (!sources.has(variant.evidence?.sourceId) || variant.evidence.sourceId !== (model.tableSourceId || model.sourceId) || !['source-transcribed', 'revision-reviewed'].includes(variant.evidence.reviewStatus)) throw new Error('Invalid variant evidence.');
     if (variant.evidence.reviewStatus === 'revision-reviewed') {
       const source = sources.get(variant.evidence.sourceId);
@@ -161,10 +178,13 @@ export function validateCatalog(data) {
 export function prepareCatalog(data) {
   validateCatalog(data);
   const models = new Map(data.models.map((model) => [model.id, model]));
+  const releases = new Map(data.releases.map((release) => [release.id, release]));
   return data.variants.map((variant) => {
     const model = models.get(variant.modelId);
+    const products = variant.releaseIds.map((id) => releases.get(id));
+    const productTerms = products.flatMap((product) => [product.name, product.wave, ...product.markets]);
     const label = `${variant.faction} ${model.name} · ${model.edition} · ${variant.treatment}${variant.gPower === null ? '' : ` · ${variant.gPower} G`}`;
-    return { ...variant, model, label, searchText: fold([label, model.generation, model.series, ...model.aliases].join(' ')) };
+    return { ...variant, model, products, label, searchText: fold([label, model.generation, model.series, ...model.aliases, ...productTerms].join(' ')) };
   });
 }
 

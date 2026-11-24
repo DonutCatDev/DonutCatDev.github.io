@@ -185,6 +185,14 @@ try {
     assert.equal(await evaluate("document.querySelector('dialog').open"), false);
     passed('direct variant links and unknown item recovery');
 
+    await navigate('/baku/bakugan-archive/?q=Haos+Howlkor+Ultra+Starter+Set&view=variants'); await readyCatalog();
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^2 of 44 variants/);
+    await evaluate("document.querySelector('[data-item=toy-0033]').click()");
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Haos Howlkor Ultra Starter Set/);
+    await navigate('/baku/bakugan-archive/?item=toy-0006', "Boolean(document.querySelector('dialog')?.open)");
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /No packages have been matched/);
+    passed('product search finds shared package contents and unmatched variants explain the gap');
+
     await call('Fetch.enable', { patterns: [{ urlPattern: '*data/toys.json*', requestStage: 'Request' }] });
     intercept = ({ requestId }) => call('Fetch.failRequest', { requestId, errorReason: 'InternetDisconnected' });
     await navigate('/baku/bakugan-archive/', "Boolean(document.querySelector('#catalog > button') && !document.querySelector('#catalog > button').hidden)");
@@ -198,7 +206,7 @@ try {
     passed('malformed catalog recovery');
     const empty = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
     empty.models = []; empty.variants = []; empty.profiles = []; empty.sources = [];
-    empty.cardPrintings = []; empty.cardCatalog = null;
+    empty.cardPrintings = []; empty.cardCatalog = null; empty.releases = [];
     intercept = ({ requestId }) => call('Fetch.fulfillRequest', { requestId, responseCode: 200, body: Buffer.from(JSON.stringify(empty)).toString('base64') });
     await navigate('/baku/bakugan-archive/', "Boolean(document.querySelector('.empty-state'))");
     assert.equal(await evaluate("document.querySelector('.empty-state h2').textContent"), 'The catalog is empty.');
@@ -208,6 +216,8 @@ try {
     // Synthetic metadata/photos exercise future reviewed entries without publishing them.
     const evidenceFixture = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
     for (const variant of evidenceFixture.variants) variant.evidence = { sourceId: variant.evidence.sourceId, locator: variant.evidence.locator, reviewStatus: 'source-transcribed' };
+    for (const variant of evidenceFixture.variants) variant.releaseIds = [];
+    evidenceFixture.releases = [];
     for (const profile of evidenceFixture.profiles) { profile.compatibility = 'unverified'; profile.bakuCores = null; profile.cardPrintingIds = []; delete profile.linkEvidence; }
     evidenceFixture.cardPrintings = []; evidenceFixture.cardCatalog = null;
     const sourceFixture = evidenceFixture.sources.find((source) => source.id === evidenceFixture.variants[0].evidence.sourceId);
