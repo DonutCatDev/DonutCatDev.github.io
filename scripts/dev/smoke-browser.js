@@ -59,7 +59,7 @@ async function navigate(path, ready) {
     await until(() => evaluate(`performance.timeOrigin !== ${previousOrigin} && location.pathname === ${JSON.stringify(new URL(path, origin).pathname)} && (${ready || "Boolean(document.querySelector('h1'))"})`), `navigation to ${path}`);
 }
 function passed(message) { checks++; console.log(`PASS ${message}`); }
-async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('of 138 variants') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
+async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('of 412 variants') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
 async function choose(key, value) { await evaluate(`(() => { const control = document.getElementById(${JSON.stringify(`toy-${key}`)}); control.value = ${JSON.stringify(value)}; control.dispatchEvent(new Event('change', { bubbles: true })); })()`); }
 async function archiveTheme() {
     await until(() => evaluate("getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() === '#040b1b'"), 'archive stylesheet loaded');
@@ -131,11 +131,11 @@ try {
     assert.deepEqual(await archiveTheme(), cardTheme);
     passed('card and toy archives share the same baseline stylesheet and computed theme');
     await choose('generation', 'G1');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^20 of 138 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^20 of 412 variants/);
     await choose('faction', 'Pyrus');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^9 of 138 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^9 of 412 variants/);
     await choose('treatment', 'Pearl');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 138 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 412 variants/);
     await evaluate("document.querySelector('[data-item]').click()");
     assert.equal(await evaluate("document.querySelector('dialog').open"), true);
     assert.equal(await evaluate('document.activeElement.id'), 'toy-detail-heading');
@@ -145,7 +145,7 @@ try {
     assert.equal(await evaluate("document.querySelector('dialog a[href*=\"Template\"]').href.includes('B1_Delta_Dragonoid_Bakulog')"), true);
     assert.equal(await evaluate("document.querySelector('dialog a[href*=oldid]').href.includes('oldid=849669')"), true);
     assert.equal(await evaluate("Boolean(document.querySelector('dialog a[href*=\"oldid=858181\"]'))"), true);
-    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /138 reviewed against captured revisions/);
+    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /412 reviewed against captured revisions/);
     await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await until(() => evaluate("!document.querySelector('dialog').open"), 'Escape closes details');
@@ -165,7 +165,7 @@ try {
     await evaluate("document.querySelector('.paging button:last-child').click()");
     assert.equal(await evaluate("new URLSearchParams(location.search).get('page')"), '2');
     await call('Page.reload'); await readyCatalog();
-    assert.equal(await evaluate("document.querySelector('.paging span').textContent"), 'Page 2 of 12');
+    assert.equal(await evaluate("document.querySelector('.paging span').textContent"), 'Page 2 of 35');
     passed('safe URL/search text, empty state, pagination and direct refresh');
     await navigate('/baku/bakugan-archive/?item=toy-0043', "Boolean(document.querySelector('dialog')?.open)");
     assert.match(await evaluate('document.title'), /Aquos Hydorous/);
@@ -186,7 +186,7 @@ try {
     passed('direct variant links and unknown item recovery');
 
     await navigate('/baku/bakugan-archive/?q=Haos+Howlkor+Ultra+Starter+Set&series=Battle+Planet&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^2 of 138 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^2 of 412 variants/);
     await evaluate("document.querySelector('[data-item=toy-0033]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Haos Howlkor Ultra Starter Set/);
     await navigate('/baku/bakugan-archive/?item=toy-0006', "Boolean(document.querySelector('dialog')?.open)");
@@ -201,7 +201,7 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Not yet verified/);
     passed('special treatments retain distinct variants and honest gameplay evidence');
     await navigate('/baku/bakugan-archive/?q=Gear+Up+Pack&treatment=Hexagonal&faction=Ventus&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 138 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 412 variants/);
     await evaluate("document.querySelector('[data-item=toy-0098]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Gear Up Pack \(Hexagonal\)/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Base Character Card link pending review/);
@@ -210,7 +210,7 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Baku-Gear Solo \(Translucent\)/);
     passed('treated variants have independent package search, direct links, and pending gameplay evidence');
     await navigate('/baku/bakugan-archive/?series=Armored+Alliance'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^82 of 138 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^150 of 412 variants/);
     assert.equal(await evaluate("document.querySelectorAll('.toy-tile').length"), 12);
     await call('Page.reload'); await readyCatalog();
     assert.equal(await evaluate("document.getElementById('toy-series').value"), 'Armored Alliance');
@@ -219,6 +219,17 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Fist \+ Fist/);
     assert.equal(await evaluate("document.querySelector('dialog a[href*=bakugan_card_archive]').getAttribute('href')"), '/baku/bakugan_card_archive/?q=wiki-291159');
     passed('series filter and refresh distinguish season-specific variants and exact card links');
+
+    await navigate('/baku/bakugan-archive/?series=Armored+Alliance&q=Batrix&edition=Ultra&view=variants'); await readyCatalog();
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^4 of 412 variants/);
+    await evaluate("document.querySelector('[data-item=toy-0383]').click()");
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Translucent/);
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Base Character Card link pending review/);
+    assert.match(await evaluate("document.querySelector('dialog').textContent"), /Batrix Ultra \/ Darkus Ramparian Ultra Baku-Gear Pack/);
+    await navigate('/baku/bakugan-archive/?series=Battle+Planet&q=Phaedrus&edition=Ultra&faction=Darkus&view=variants'); await readyCatalog();
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 412 variants/);
+    assert.match(await evaluate("document.querySelector('.toy-tile').textContent"), /Diamond/);
+    passed('bulk-capture cross-source release evidence and Diamond-only exclusion remain searchable');
 
     await call('Fetch.enable', { patterns: [{ urlPattern: '*data/toys.json*', requestStage: 'Request' }] });
     intercept = ({ requestId }) => call('Fetch.failRequest', { requestId, errorReason: 'InternetDisconnected' });
