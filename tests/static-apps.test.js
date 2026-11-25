@@ -21,7 +21,7 @@ test('the pinned toy archive matches its release and catalog contract', async ()
     const app = getStaticApps({}).find((entry) => entry.page === 'bakugan-archive');
     await validateStaticApp(app);
     const data = JSON.parse(await readFile(join(app.source, 'data/toys.json'), 'utf8'));
-    assert.equal(prepareCatalog(data).length, 48);
+    assert.equal(prepareCatalog(data).length, 56);
     assert.equal(data.coverage.complete, false);
 });
 
@@ -52,7 +52,7 @@ test('assembly rejects an internally consistent toy snapshot pinned to a differe
         await cp(original.source, source, { recursive: true });
         const catalog = JSON.parse(await readFile(join(source, 'data/toys.json'), 'utf8'));
         catalog.cardCatalog.sha256 = '0'.repeat(64);
-        for (const profile of catalog.profiles) profile.linkEvidence.cardCatalogSha256 = catalog.cardCatalog.sha256;
+        for (const profile of catalog.profiles) if (profile.linkEvidence) profile.linkEvidence.cardCatalogSha256 = catalog.cardCatalog.sha256;
         const bytes = `${JSON.stringify(catalog, null, 2)}\n`;
         await writeFile(join(source, 'data/toys.json'), bytes);
         const manifest = JSON.parse(await readFile(original.release, 'utf8'));
