@@ -210,7 +210,7 @@ Run each affected repository's tests/lint and the main site's `npm test` and `np
 4. What operating budget and account sign-in method are acceptable? Evaluate the two backend candidates before choosing one.
 5. Should initial sharing be manually published snapshots or automatically updated lists? Proposed default: explicit snapshots with update/revoke controls.
 
-Phase 1 now has a pinned toy submodule, 56 variants across eight molds reviewed against captured table revisions, 28 reviewed G2 card/core mappings, and 57 searchable product releases. The main-site build validates the public release manifest and copies only the archive's public directory. Identification photos and broader coverage remain pending. The next source cohort is six Armored Alliance tables for Dragonoid, Pegatrix and Hydorous. [Submodule decision](../decisions/2026-11-24-toy-submodule.md)
+Phase 1 now has a pinned toy submodule, 96 variants across fourteen season-specific models reviewed against captured table revisions, 63 reviewed G2 card/core mappings, and 107 searchable product releases. The Armored Alliance cohort adds 40 reviewed physical variants and a Series filter. The main-site build validates the public release manifest and copies only the archive's public directory. Identification photos and broader coverage remain pending. [Submodule decision](../decisions/2026-11-24-toy-submodule.md)
 
 The initial schema 2 follow-up added browser/XML source intake, hash-bound variant reviews, and reviewed identification-photo mappings. It recorded an indexed Delta Dragonoid revision separately from imported snapshots; all 44 variants awaited revision review and approved photos at that stage. See the [source-review decision](../decisions/2026-11-22-toy-source-review.md).
 

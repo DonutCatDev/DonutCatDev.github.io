@@ -21,7 +21,7 @@ test('the pinned toy archive matches its release and catalog contract', async ()
     const app = getStaticApps({}).find((entry) => entry.page === 'bakugan-archive');
     await validateStaticApp(app);
     const data = JSON.parse(await readFile(join(app.source, 'data/toys.json'), 'utf8'));
-    assert.equal(prepareCatalog(data).length, 56);
+    assert.equal(prepareCatalog(data).length, 96);
     assert.equal(data.coverage.complete, false);
 });
 
