@@ -42,12 +42,12 @@ Set `BROWSER_PATH` if your browser is installed elsewhere. The runner uses a tem
 - `tests/`: unit tests using `node:test`.
 - `docs/development/`: engineering plans and audits.
 - `vendor/bakugan_card_archive/`: private submodule used to assemble the public Bakugan Card Archive.
-- `vendor/bakugan_toy_archive/`: checksummed public pilot snapshot exported from the separate toy archive project.
+- `vendor/bakugan_toy_archive/`: pinned Toy Archive submodule.
 
 ## Pages deployment
 
-GitHub Actions validates the main site, checks out the private archive submodule, and builds a public-only artifact. The archive repository's `public/` directory is copied to `/baku/bakugan_card_archive/`; its development tools, imports, and repository history are not published. The workflow requires a `BAKUGAN_ARCHIVE_TOKEN` Actions secret with read-only Contents access to both repositories.
+GitHub Actions checks out the two archive submodules, validates the main site and builds a public-only artifact. Their `public/` directories are copied to `/baku/bakugan_card_archive/` and `/baku/bakugan-archive/`. Both workflows require the existing `BAKUGAN_ARCHIVE_TOKEN` Actions secret with read-only Contents access to the site and both archives.
 
 See [AGENTS.md](AGENTS.md) for detailed architecture, safety rules, change recipes, and the definition of done.
 
-The physical toy catalog pilot is available at `/baku/bakugan-archive/`. Source is maintained in the separate local `S:/Bakugan/website_stuff/bakugan_toy_archive` Git repository. Update its public snapshot through that project's `export:site` command, not by editing vendor files. See the [pilot boundary decision](docs/development/decisions/2026-11-21-toy-archive-pilot.md) for release checks and the future remote/submodule migration.
+The physical toy catalog pilot is maintained in the separate Toy Archive repository. Run `git submodule update --init --recursive` after cloning or pulling this site. To release a new toy version, generate its catalog and checksum manifest, validate and commit the toy repository, then advance the site's submodule pin. Push the toy commit before the site commit. [Submodule decision](docs/development/decisions/2026-11-24-toy-submodule.md)

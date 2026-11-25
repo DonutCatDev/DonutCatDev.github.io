@@ -59,7 +59,7 @@ async function navigate(path, ready) {
     await until(() => evaluate(`performance.timeOrigin !== ${previousOrigin} && location.pathname === ${JSON.stringify(new URL(path, origin).pathname)} && (${ready || "Boolean(document.querySelector('h1'))"})`), `navigation to ${path}`);
 }
 function passed(message) { checks++; console.log(`PASS ${message}`); }
-async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('44') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
+async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('of 48 variants') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
 async function choose(key, value) { await evaluate(`(() => { const control = document.getElementById(${JSON.stringify(`toy-${key}`)}); control.value = ${JSON.stringify(value)}; control.dispatchEvent(new Event('change', { bubbles: true })); })()`); }
 async function archiveTheme() {
     await until(() => evaluate("getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() === '#040b1b'"), 'archive stylesheet loaded');
@@ -131,11 +131,11 @@ try {
     assert.deepEqual(await archiveTheme(), cardTheme);
     passed('card and toy archives share the same baseline stylesheet and computed theme');
     await choose('generation', 'G1');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^18 of 44 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^20 of 48 variants/);
     await choose('faction', 'Pyrus');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^9 of 44 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^9 of 48 variants/);
     await choose('treatment', 'Pearl');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 44 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 48 variants/);
     await evaluate("document.querySelector('[data-item]').click()");
     assert.equal(await evaluate("document.querySelector('dialog').open"), true);
     assert.equal(await evaluate('document.activeElement.id'), 'toy-detail-heading');
@@ -145,7 +145,7 @@ try {
     assert.equal(await evaluate("document.querySelector('dialog a[href*=\"Template\"]').href.includes('B1_Delta_Dragonoid_Bakulog')"), true);
     assert.equal(await evaluate("document.querySelector('dialog a[href*=oldid]').href.includes('oldid=849669')"), true);
     assert.equal(await evaluate("Boolean(document.querySelector('dialog a[href*=\"oldid=858181\"]'))"), true);
-    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /44 reviewed against captured revisions/);
+    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /48 reviewed against captured revisions/);
     await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await until(() => evaluate("!document.querySelector('dialog').open"), 'Escape closes details');
@@ -186,7 +186,7 @@ try {
     passed('direct variant links and unknown item recovery');
 
     await navigate('/baku/bakugan-archive/?q=Haos+Howlkor+Ultra+Starter+Set&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^2 of 44 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^2 of 48 variants/);
     await evaluate("document.querySelector('[data-item=toy-0033]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Haos Howlkor Ultra Starter Set/);
     await navigate('/baku/bakugan-archive/?item=toy-0006', "Boolean(document.querySelector('dialog')?.open)");

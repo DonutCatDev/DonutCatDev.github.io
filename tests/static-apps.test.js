@@ -17,11 +17,11 @@ test('each standalone route has exactly one artifact contract', () => {
     assert.equal(new Set(apps.map((app) => app.path)).size, apps.length);
 });
 
-test('the checked toy snapshot matches its release and catalog contract', async () => {
+test('the pinned toy archive matches its release and catalog contract', async () => {
     const app = getStaticApps({}).find((entry) => entry.page === 'bakugan-archive');
     await validateStaticApp(app);
     const data = JSON.parse(await readFile(join(app.source, 'data/toys.json'), 'utf8'));
-    assert.equal(prepareCatalog(data).length, 44);
+    assert.equal(prepareCatalog(data).length, 48);
     assert.equal(data.coverage.complete, false);
 });
 

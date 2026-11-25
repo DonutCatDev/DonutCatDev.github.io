@@ -210,7 +210,7 @@ Run each affected repository's tests/lint and the main site's `npm test` and `np
 4. What operating budget and account sign-in method are acceptable? Evaluate the two backend candidates before choosing one.
 5. Should initial sharing be manually published snapshots or automatically updated lists? Proposed default: explicit snapshots with update/revoke controls.
 
-Phase 1 now has a separate local toy repository, 44 variants across eight molds reviewed against captured table revisions, 26 reviewed G2 card/core mappings, 48 searchable product releases, and a checksummed public snapshot integrated into the site build and preview. Identification photos, broader coverage, and remote release verification remain pending. [Initial pilot decision](../decisions/2026-11-21-toy-archive-pilot.md)
+Phase 1 now has a pinned toy submodule, 48 variants across eight molds reviewed against captured table revisions, 28 reviewed G2 card/core mappings, and 50 searchable product releases. The main-site build validates the public release manifest and copies only the archive's public directory. Identification photos and broader coverage remain pending. [Submodule decision](../decisions/2026-11-24-toy-submodule.md)
 
 The initial schema 2 follow-up added browser/XML source intake, hash-bound variant reviews, and reviewed identification-photo mappings. It recorded an indexed Delta Dragonoid revision separately from imported snapshots; all 44 variants awaited revision review and approved photos at that stage. See the [source-review decision](../decisions/2026-11-22-toy-source-review.md).
 
