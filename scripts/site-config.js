@@ -93,13 +93,19 @@ export const sections = {
         route: '/baku',
         label: 'Baku',
         title: 'Bakugan resources',
-        description: "DonutCat's Bakugan card and physical toy research tools and references.",
+        description: "DonutCat's Bakugan card and physical toy research tools, collection management and references.",
         templateId: 'baku-page',
         dropdownId: 'baku-dropdown',
         subpages: {
             'bakugan-archive': {
                 title: 'Bakugan Toy Archive',
                 description: 'Explore a pilot catalog of physical Bakugan molds, attributes, treatments, and documented G1 and G2 variants.',
+                type: 'static',
+                indexable: false
+            },
+            collection: {
+                title: 'Bakugan Collection Manager',
+                description: 'Manage cards and physical Bakugan, owned and wanted quantities, trade lists, virtual binders and local inventory backups.',
                 type: 'static',
                 indexable: false
             },

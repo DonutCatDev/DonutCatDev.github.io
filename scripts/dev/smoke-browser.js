@@ -60,6 +60,7 @@ async function navigate(path, ready) {
 }
 function passed(message) { checks++; console.log(`PASS ${message}`); }
 async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('of 979 variants') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
+async function readyCollection() { await until(() => evaluate("Boolean(document.querySelector('#inventory-result-count')) && document.querySelector('.collection-manager').textContent.includes('catalog items.')"), 'collection catalogs loaded'); }
 async function choose(key, value) { await evaluate(`(() => { const control = document.getElementById(${JSON.stringify(`toy-${key}`)}); control.value = ${JSON.stringify(value)}; control.dispatchEvent(new Event('change', { bubbles: true })); })()`); }
 async function archiveTheme() {
     await until(() => evaluate("getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() === '#040b1b'"), 'archive stylesheet loaded');
@@ -343,6 +344,78 @@ try {
     }
     passed('three mount/cleanup cycles leave no reacting listeners or content');
 
+    // Synthetic legacy collection in this isolated browser profile only.
+    await navigate('/baku');
+    const legacyKey = 'bakugan-card-archive.collection.v1', sharedKey = 'bakugan-suite.inventory.v2';
+    const legacy = JSON.stringify({ schemaVersion: 1, items: { 'wiki-279791': { quantity: 5, name: 'Aquos Hydorous Ultra' }, 'wiki-99999999': { quantity: 2, name: 'Unmatched fixture' } } });
+    await evaluate(`localStorage.setItem(${JSON.stringify(legacyKey)}, ${JSON.stringify(legacy)}); localStorage.removeItem(${JSON.stringify(sharedKey)})`);
+    await evaluate("document.querySelector('.project-grid a[href=\"/baku/collection\"]').click()"); await readyCollection();
+    assert.equal(await evaluate('location.pathname'), '/baku/collection/');
+    assert.equal(await evaluate("document.querySelector('h1').textContent"), 'Bakugan Collection Manager');
+    assert.equal(await evaluate("document.querySelector('meta[name=robots]').content"), 'noindex,follow');
+    assert.deepEqual(await archiveTheme(), cardTheme);
+    assert.match(await evaluate("document.querySelector('[aria-label=\"Local storage and migration\"]').textContent"), /2 legacy card entries, 7 owned copies.*1 unmatched/);
+    assert.equal(await evaluate(`localStorage.getItem(${JSON.stringify(sharedKey)})`), null);
+    await evaluate("document.querySelector('[data-action=activate]').click()");
+    await until(() => evaluate(`Boolean(localStorage.getItem(${JSON.stringify(sharedKey)}))`), 'explicit shared migration');
+    assert.equal(await evaluate(`localStorage.getItem(${JSON.stringify(legacyKey)})`), legacy);
+    assert.equal(await evaluate(`JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})).items.length`), 2);
+    passed('collection manager route, shared theme, migration preview, activation and original legacy preservation');
+
+    await navigate('/baku/collection/?kind=toy&item=toy-0001'); await readyCollection();
+    assert.match(await evaluate("document.querySelector('#inventory-result-count').textContent"), /^1 matching items/);
+    await evaluate("(() => { const f=document.querySelector('form[data-form=quantities]'); f.elements.owned.value='2'; f.elements.wanted.value='3'; f.elements.offered.value='1'; f.elements.notes.value='Private fixture note'; f.requestSubmit(); })()");
+    const sharedItem = (key) => `JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})).items.find(item => item.key === ${JSON.stringify(key)})`;
+    await until(() => evaluate(`${sharedItem('toy:toy-0001')}?.owned === 2`), 'toy ownership saved');
+    assert.deepEqual(await evaluate(`(() => { const i=${sharedItem('toy:toy-0001')}; return [i.owned,i.wanted,i.offered,i.notes]; })()`), [2, 3, 1, 'Private fixture note']);
+    for (const [index, name] of ['Trade binder', 'Wishlist binder'].entries()) {
+        await evaluate(`(() => { const f=document.querySelector('form[data-form=create-binder]'); f.elements.name.value=${JSON.stringify(name)}; f.requestSubmit(); })()`);
+        await until(() => evaluate(`JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})).binders.length === ${index + 1}`), 'binder created');
+        await until(() => evaluate("!document.querySelector('[data-action=add-member]').disabled"), 'binder controls ready');
+        await evaluate(`(() => { const f=document.querySelector('form[data-form=quantities]'); f.elements.binderTarget.value=JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})).binders[${index}].id; f.querySelector('[data-action=add-member]').click(); })()`);
+        await until(() => evaluate(`JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})).binders[${index}].entries.includes('toy:toy-0001')`), 'binder membership saved');
+    }
+    assert.equal(await evaluate(`${sharedItem('toy:toy-0001')}.owned`), 2);
+    await evaluate("document.getElementById('inventory-status').value='offered'; document.getElementById('inventory-status').dispatchEvent(new Event('change',{bubbles:true}))");
+    assert.match(await evaluate("document.querySelector('#inventory-result-count').textContent"), /^1 matching items/);
+    await call('Page.reload'); await readyCollection();
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"), '2');
+    passed('independent toy ownership, wants, trade offers and multiple binder memberships persist on refresh');
+
+    await navigate('/baku/collection/?kind=card&item=wiki-279791'); await readyCollection();
+    await evaluate("(() => { const f=document.querySelector('form[data-form=quantities]'); f.elements.wanted.value='2'; f.elements.offered.value='2'; f.requestSubmit(); })()");
+    await until(() => evaluate(`${sharedItem('card:wiki-279791')}?.offered === 2`), 'card offers saved');
+    await navigate('/baku/bakugan_card_archive/?q=wiki-279791', "document.querySelectorAll('#card-grid .card-result').length === 1");
+    assert.match(await evaluate("document.getElementById('collection-summary').textContent"), /Shared inventory/);
+    await evaluate("document.querySelector('#card-grid .card-result').click()");
+    await evaluate("(() => { const f=document.querySelector('#card-dialog .collection-edit'); f.querySelector('input').value='6'; f.requestSubmit(); })()");
+    await until(() => evaluate(`${sharedItem('card:wiki-279791')}?.owned === 6`), 'card archive shared ownership saved');
+    assert.deepEqual(await evaluate(`(() => {const i=${sharedItem('card:wiki-279791')};return [i.owned,i.wanted,i.offered]})()`), [6, 2, 2]);
+    assert.equal(await evaluate(`${sharedItem('toy:toy-0001')}.owned`), 2);
+    assert.equal(await evaluate(`JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})).binders.length`), 2);
+    assert.equal(await evaluate(`localStorage.getItem(${JSON.stringify(legacyKey)})`), legacy);
+    await evaluate("(() => { const f=document.querySelector('#card-dialog .collection-edit'); f.querySelector('input').value='1'; f.requestSubmit(); })()");
+    await until(() => evaluate("document.querySelector('#card-dialog .collection-edit-note').textContent.includes('Offered quantity cannot exceed owned')"), 'card ownership cannot invalidate offers');
+    assert.equal(await evaluate(`${sharedItem('card:wiki-279791')}.owned`), 6);
+    passed('Card Archive adopts shared ownership without erasing toys, wants, offers, binders or legacy backup');
+
+    await navigate('/baku/bakugan-archive/?item=toy-0001', "Boolean(document.querySelector('dialog')?.open)");
+    assert.equal(await evaluate("document.querySelector('dialog a[href*=\"/baku/collection/\"]').getAttribute('href')"), '/baku/collection/?kind=toy&item=toy-0001');
+    await evaluate("document.querySelector('dialog a[href*=\"/baku/collection/\"]').click()"); await readyCollection();
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"), '2');
+    await evaluate('history.back()'); await until(() => evaluate("location.pathname === '/baku/bakugan-archive/' && Boolean(document.querySelector('dialog')?.open)"), 'Back restores exact toy variant');
+    passed('exact toy variant handoff and Back navigation preserve shared quantities');
+
+    await navigate('/baku/collection/?kind=toy&item=toy-0001'); await readyCollection();
+    const beforeImport = await evaluate(`localStorage.getItem(${JSON.stringify(sharedKey)})`);
+    await evaluate(`(() => { const data=JSON.parse(localStorage.getItem(${JSON.stringify(sharedKey)})); const item=data.items.find(v=>v.key==='toy:toy-0001'); item.owned=1;item.wanted=4;item.offered=0; const transfer=new DataTransfer();transfer.items.add(new File([JSON.stringify(data)],'synthetic.json',{type:'application/json'}));const input=document.getElementById('inventory-import-file');input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true})); })()`);
+    await until(() => evaluate("Boolean(document.querySelector('dialog[open] #inventory-import-heading'))"), 'backup preview');
+    assert.equal(await evaluate(`localStorage.getItem(${JSON.stringify(sharedKey)})`), beforeImport);
+    await evaluate("document.querySelector('[data-action=confirm-import]').click()");
+    await until(() => evaluate(`${sharedItem('toy:toy-0001')}?.wanted === 4`), 'maximum merge applied');
+    assert.deepEqual(await evaluate(`(() => {const i=${sharedItem('toy:toy-0001')};return [i.owned,i.wanted,i.offered,i.notes]})()`), [2, 4, 1, 'Private fixture note']);
+    passed('backup preview does not mutate inventory; confirmed merge uses maximum quantities');
+
     await navigate('/baku/bakugan-archive/'); await readyCatalog();
     await call('Emulation.setDeviceMetricsOverride', { width: 320, height: 800, deviceScaleFactor: 1, mobile: true });
     await call('Page.reload'); await readyCatalog();
@@ -371,8 +444,14 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Listed attribute wheelAquos \/ Subterra \/ Ventus/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /S\/S\/B2-TX mark/);
     passed('320px legacy detail preserves wheel and physical-mark text without horizontal scrolling');
+    await navigate('/baku/collection/?kind=toy&item=toy-0001'); await readyCollection();
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"), '2');
+    const collectionMobile = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    await writeFile(join(output, 'collection-mobile.png'), Buffer.from(collectionMobile.data, 'base64'));
+    passed('320px shared collection layout and quantity editor remain usable');
     await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
-    await call('Page.reload'); await readyCatalog();
+    await navigate('/baku/bakugan-archive/?item=toy-0742', "Boolean(document.querySelector('dialog')?.open)"); await readyCatalog();
     const desktop = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
     await writeFile(join(output, 'toy-pilot-desktop.png'), Buffer.from(desktop.data, 'base64'));
     passed('320px layout, reduced motion, forced colors, desktop/mobile screenshots');

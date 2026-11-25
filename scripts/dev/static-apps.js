@@ -8,7 +8,8 @@ const root = resolve(import.meta.dirname, '..', '..');
 // Route names come from site-config; this manifest declares source/output contracts only.
 const manifest = [
     { section: 'baku', page: 'bakugan_card_archive', directory: 'vendor/bakugan_card_archive/public', override: 'BAKUGAN_ARCHIVE_PUBLIC', required: ['index.html', 'data/cards.json', 'styles/main.css'] },
-    { section: 'baku', page: 'bakugan-archive', directory: 'vendor/bakugan_toy_archive/public', release: 'vendor/bakugan_toy_archive/release.json', required: ['index.html', 'data/toys.json', 'scripts/app.js'] }
+    { section: 'baku', page: 'bakugan-archive', directory: 'vendor/bakugan_toy_archive/public', release: 'vendor/bakugan_toy_archive/release.json', contract: 'toy-catalog', required: ['index.html', 'data/toys.json', 'scripts/app.js'] },
+    { section: 'baku', page: 'collection', directory: 'vendor/bakugan_collection/public', release: 'vendor/bakugan_collection/release.json', contract: 'collection-app', required: ['index.html', 'scripts/app.js', 'scripts/lib/inventory.js', 'styles/main.css'] }
 ];
 
 export function getStaticApps(environment = process.env) {
@@ -54,6 +55,11 @@ export async function validateStaticApp(app) {
         const digest = createHash('sha256').update(await readFile(file)).digest('hex');
         if (!/^[a-f0-9]{64}$/.test(expected || '') || digest !== expected) throw new Error(`${app.page}: public snapshot checksum mismatch: ${path}`);
     }
+    if (app.contract === 'collection-app') {
+        if (release.sourceProject !== 'Bakugan_Collection' || typeof release.appRelease !== 'string' || !release.appRelease.trim()) throw new Error(`${app.page}: invalid application release.`);
+        return;
+    }
+    if (app.contract !== 'toy-catalog') return;
     const catalog = JSON.parse(await readFile(join(app.source, 'data/toys.json'), 'utf8'));
     if (catalog.catalogRelease !== release.catalogRelease) throw new Error(`${app.page}: catalog release mismatch.`);
     validateCatalog(catalog);

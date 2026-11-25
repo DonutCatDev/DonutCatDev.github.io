@@ -25,6 +25,14 @@ test('the pinned toy archive matches its release and catalog contract', async ()
     assert.equal(data.coverage.complete, false);
 });
 
+test('the collection manager has a pinned public release and canonical route', async () => {
+    const app = getStaticApps({}).find(entry => entry.page === 'collection');
+    assert.equal(app.path, '/baku/collection/');
+    await validateStaticApp(app);
+    const source = await readFile(join(app.source, 'scripts/lib/inventory.js'), 'utf8');
+    assert.match(source, /bakugan-suite\.inventory\.v2/);
+});
+
 test('snapshot validation rejects tampering, extra files, and missing required assets', async () => {
     const temporary = await mkdtemp(join(tmpdir(), 'donutcat-snapshot-'));
     try {

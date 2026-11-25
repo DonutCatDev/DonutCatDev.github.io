@@ -37,4 +37,6 @@ test('the sitemap includes every indexable canonical route and omits the pilot',
     });
     assert.equal(getRouteDetails('/baku/bakugan-archive').indexable, false);
     assert.doesNotMatch(sitemap, /<loc>https:\/\/donutcat\.org\/baku\/bakugan-archive\/?<\/loc>/);
+    assert.equal(getRouteDetails('/baku/collection').indexable, false);
+    assert.doesNotMatch(sitemap, /<loc>https:\/\/donutcat\.org\/baku\/collection\/?<\/loc>/);
 });

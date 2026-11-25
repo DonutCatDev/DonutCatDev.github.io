@@ -4,3 +4,7 @@
 [submodule "vendor/bakugan_toy_archive"]
 	path = vendor/bakugan_toy_archive
 	url = https://github.com/DonutCatDev/Bakugan_Toy_Archive.git
+[submodule "vendor/bakugan_collection"]
+	path = vendor/bakugan_collection
+	url = https://github.com/DonutCatDev/Bakugan_Collection.git
+	branch = main
