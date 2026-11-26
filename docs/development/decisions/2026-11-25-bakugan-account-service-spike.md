@@ -1,6 +1,6 @@
 # Bakugan accounts and sharing: database service spike
 
-Date: 2026-11-25. Status: locally verified, not provisioned or public.
+Date: 2026-11-25. Status: historical, locally verified; **provider choice superseded** by the [Cloudflare Workers + D1 decision](2026-11-26-bakugan-cloudflare-services.md) on 2026-11-26. The Supabase prototype was never provisioned or public.
 
 The new sibling repository `S:/Bakugan/website_stuff/bakugan_services` owns the service migration, API contract and tests (initial verified commit `7f49ddf`). Its proposed remote is `DonutCatDev/Bakugan_Services`. Do not add it to the Pages vendor submodules: unlike the archive and collection applications, it has no deployable public directory. The existing static site and browser-local guest inventory remain unchanged.
 

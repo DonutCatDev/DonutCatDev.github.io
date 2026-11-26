@@ -1,0 +1,22 @@
+# Bakugan backend provider decision: Cloudflare Workers + D1
+
+Date: 2026-11-26. Status: locally verified prototype; no hosted deployment.
+
+The owner selected Cloudflare over Supabase to minimize operating costs. This supersedes the provider choice in the [2026-11-25 service spike](2026-11-25-bakugan-account-service-spike.md), not the existing inventory or sharing requirements. The Supabase prototype remains in `Bakugan_Services` Git history at `7f49ddf`; no real hosted accounts or data need migration. The same sibling repository now owns a Worker API and D1 migration (commit `21c346b`). It remains outside the site's static vendor build.
+
+## Cost and hosting
+
+Keep `donutcat.org` on GitHub Pages. A separate first-level HTTPS API hostname (`baku-api.donutcat.org` is proposed, `baku-api-stage.donutcat.org` for disposable tests) allows same-site host-only cookies without moving existing DNS/routing. The owner will create a dedicated D1 database and Worker on Free for staging. Cloudflare currently advertises a daily free allowance of 100,000 Worker requests, 5 million D1 row reads, 100,000 writes, 500 MB per D1 database/5 GB total, and seven-day recovery. Paid Workers starts at $5/month plus excess usage, unlike the previous Supabase Pro baseline. Discord OAuth is the initial sign-in prototype to avoid a separate paid identity/email service. The owner has not provisioned an application or approved public launch. [Workers pricing](https://developers.cloudflare.com/workers/platform/pricing/), [D1 limits](https://developers.cloudflare.com/d1/platform/limits/), [Time Travel](https://developers.cloudflare.com/d1/reference/time-travel/), [Discord OAuth](https://docs.discord.com/developers/topics/oauth2).
+
+Cloudflare Free CPU allowance is only 10 ms per Worker invocation; measure typical and largest collection saves on hosted staging rather than assuming 4 MiB requests will fit. Keep anonymous browsing and local edits independent of backend availability. Do not upgrade without the owner's decision.
+
+## Implemented contract and verification
+
+- A versioned Worker API resolves owner identity from an expiring hashed session, never from a client-supplied owner ID. Discord authorization-code flow uses S256 PKCE, single-use D1 state and a host-only HttpOnly/Secure/SameSite cookie. Exact frontend Origin checks protect state-changing requests; redirect is fixed. Store only the provider ID and opaque internal account ID, never provider access/refresh tokens or email.
+- D1 stores the same v2 document with a distinct server revision. Text chunks below 1 MB avoid D1's 2 MB row/string limit; all conditional replacement writes execute in one atomic batch guarded by a unique request nonce. A losing concurrent operation cannot replace the current chunks. Latest identical mutation replays; older stale mutations conflict. Guest storage is untouched.
+- Explicit preview, create, list, revoke and anonymous read endpoints preserve the initial server-generated unlisted snapshot contract and publication limits; private notes, owner identity, unrelated quantities and binder names are never exposed. Links are immutable and revocable. Account deletion cascades to data, sessions and publications; self-service deletion is pending.
+- Seven automated tests exercise actual SQLite schema/SQL, simulated D1 transport and synthetic OAuth. A separate local workerd/Miniflare integration verifies the real local D1 binding, synthetic sign-in, two-owner isolation, conditional concurrent saves, a 3,097,525-byte v2 inventory, immutable publication/revocation and logout. Wrangler's deployment dry run also builds the Worker without uploading anything. This validates local runtime compatibility, not hosted Cloudflare CPU limits, browser cross-host cookies or real Discord authorization.
+
+## Remaining phases
+
+The checked-in Workers config has no public route and a placeholder database ID. The service repo's staging guide describes the isolated D1/Discord setup. Complete the actual hosted integration, account workspace and explicit guest-adoption interface, public noindex share reader, cross-tab sign-out/account-switch tests, self-service deletion/export, rate/budget controls, abuse reporting and backup/restore expectations before production. The legacy Card Archive and Toy Archive remain unchanged. No subscriptions, DNS changes, remote resources or deployments were made during the pivot.
