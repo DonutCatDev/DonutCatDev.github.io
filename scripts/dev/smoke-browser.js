@@ -540,6 +540,143 @@ try {
     const desktop = await call('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
     await writeFile(join(output, 'toy-pilot-desktop.png'), Buffer.from(desktop.data, 'base64'));
     passed('320px layout, reduced motion, forced colors, desktop/mobile screenshots');
+
+    // Account frontend fixture: all network responses are intercepted inside
+    // the isolated browser profile. The real Worker is tested separately.
+    await navigate('/baku/shared/');
+    await until(() => evaluate("document.querySelector('#shared-list').textContent.includes('not configured yet')"), 'disabled share reader');
+    assert.equal(await evaluate("document.querySelector('meta[name=robots]').content"), 'noindex,follow');
+    assert.equal(await evaluate("document.querySelector('link[rel=canonical]').href"), 'https://donutcat.org/baku/shared/');
+    assert.equal((await fetch(`${origin}/baku/collection/shared/`)).status, 404);
+    passed('canonical static share route is noindex and safely disabled before service configuration');
+
+    const alice = '11111111-1111-4111-8111-111111111111', bob = '22222222-2222-4222-8222-222222222222', shareId = '33333333-3333-4333-8333-333333333333';
+    let signedIn = alice, loseReceipt = true, losePublicationReceipt = true, writes = [], publicationWrites = [], publications = new Map(), sessionCalls = 0;
+    const heads = new Map([[alice,{revision:0,inventory:null}], [bob,{revision:1,inventory:{schemaVersion:2,revision:0,items:[{kind:'toy',id:'toy-b-private',key:'toy:toy-b-private',snapshot:{name:'BOB ONLY FIXTURE'},owned:1,wanted:0,offered:0,notes:'BOB PRIVATE NOTE'}],binders:[]}}]]);
+    const receipts = new Map(), scopeEntries = (doc, scope) => {
+        const byKey = new Map(doc.items.map(item => [item.key,item]));
+        const source = scope.binderId ? doc.binders.find(binder=>binder.id===scope.binderId).entries.map(key=>byKey.get(key)) : doc.items;
+        return source.filter(item=>item[scope.quantityField]>0).map(item=>({kind:item.kind,id:item.id,name:item.snapshot.name,...(item.snapshot.set ? {set:item.snapshot.set}:{}),...(item.snapshot.serial?{serial:item.snapshot.serial}:{}),quantity:item[scope.quantityField]}));
+    };
+    intercept = async ({ requestId, request }) => {
+        const path = new URL(request.url).pathname;
+        const respond = (value, responseCode=200) => call('Fetch.fulfillRequest', { requestId, responseCode, responseHeaders:[{name:'Content-Type',value:'application/json'},{name:'Cache-Control',value:'no-store'}], body:Buffer.from(JSON.stringify(value)).toString('base64') });
+        if(path.endsWith('/data/service-config.json'))return respond({schemaVersion:1,apiOrigin:origin});
+        if(path==='/v1/session'){sessionCalls++;return respond(signedIn?{signedIn:true,accountId:signedIn}:{signedIn:false});}
+        if(path.startsWith('/v1/shared/')){const p=publications.get(path.split('/').at(-1));return respond(p&&!p.revoked?p.view:null);}
+        if(!signedIn)return respond({error:'AUTH_REQUIRED'},401);
+        const asserted=Object.entries(request.headers).find(([key])=>key.toLowerCase()==='x-bakugan-account')?.[1];
+        if(asserted!==signedIn)return respond({error:'ACCOUNT_CHANGED'},409);
+        const head=heads.get(signedIn), body=request.postData?JSON.parse(request.postData):null;
+        if(path==='/v1/inventory'&&request.method==='GET')return respond(head);
+        if(path==='/v1/inventory'&&request.method==='POST'){
+            writes.push({account:signedIn,...structuredClone(body)});
+            const prior=receipts.get(signedIn);if(prior?.id===body.mutationId)return respond({status:'replayed',revision:head.revision});
+            if(body.expectedRevision!==head.revision)return respond({status:'conflict',revision:head.revision});
+            const revision=head.revision+1;heads.set(signedIn,{revision,inventory:structuredClone(body.inventory)});receipts.set(signedIn,{id:body.mutationId});
+            if(loseReceipt){loseReceipt=false;return respond({error:'UNAVAILABLE'},503);}
+            return respond({status:'saved',revision});
+        }
+        if(path==='/v1/shares/preview')return body.expectedRevision===head.revision?respond({status:'preview',revision:head.revision,title:body.title,quantityField:body.quantityField,entries:scopeEntries(head.inventory,body)}):respond({status:'conflict',revision:head.revision});
+        if(path==='/v1/shares'&&request.method==='POST'){
+            publicationWrites.push(structuredClone(body));
+            const previous=publications.get(shareId);if(previous?.requestId===body.requestId)return respond({status:'replayed',id:shareId});
+            if(body.expectedRevision!==head.revision)return respond({status:'conflict',revision:head.revision});
+            const view={id:shareId,title:body.title,quantityField:body.quantityField,createdAt:'2026-11-26T00:00:00Z',entries:scopeEntries(head.inventory,body)};
+            publications.set(shareId,{owner:signedIn,view,sourceRevision:head.revision,revoked:false,requestId:body.requestId});
+            if(losePublicationReceipt){losePublicationReceipt=false;return respond({error:'UNAVAILABLE'},503);}
+            return respond({status:'created',id:shareId});
+        }
+        if(path==='/v1/shares'&&request.method==='GET')return respond([...publications.values()].filter(p=>p.owner===signedIn&&!p.revoked).map(p=>({id:p.view.id,title:p.view.title,quantityField:p.view.quantityField,createdAt:p.view.createdAt,sourceRevision:p.sourceRevision,entryCount:p.view.entries.length})));
+        if(path.endsWith('/revoke')){const p=publications.get(path.split('/')[3]);if(p?.owner===signedIn){p.revoked=true;return respond(true);}return respond(false);}
+        if(path==='/v1/auth/logout'){signedIn=null;return respond({signedIn:false});}
+        return respond({error:'NOT_FOUND'},404);
+    };
+    await call('Fetch.enable',{patterns:[{urlPattern:'*data/service-config.json*',requestStage:'Request'},{urlPattern:`${origin}/v1/*`,requestStage:'Request'}]});
+    const accountButton = action => evaluate(`document.querySelector('.collection-account-panel [data-action=${JSON.stringify(action)}]')?.click()`);
+    const accountText = () => evaluate("document.querySelector('.collection-account-panel').textContent");
+    const readyAccount = async () => { await until(()=>evaluate("Boolean(document.querySelector('[aria-label=\"Account draft status\"]')) && !document.querySelector('.collection-workspace').hidden"),'account workspace visible'); await readyCollection(); };
+    await navigate('/baku/collection/?kind=toy&item=toy-0001'); await readyCollection();
+    const guestBefore = await rawInventory();
+    await until(()=>evaluate("Boolean(document.querySelector('[data-action=open-account]'))"),'signed-in guest controls');
+    assert.equal(writes.length,0); assert.equal(heads.get(alice).revision,0);
+    await accountButton('open-account'); await readyAccount();
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"),'0');
+    await accountButton('copy-guest'); assert.match(await evaluate("document.querySelector('dialog[open]').textContent"),/Guest: .* Account draft:/);
+    assert.equal(writes.length,0); await accountButton('confirm-account-dialog'); await readyAccount();
+    assert.match(await accountText(),/Unsynced account draft/); assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"),'2');
+    assert.equal(await rawInventory(),guestBefore); assert.equal(writes.length,0);
+    await accountButton('sync'); await until(()=>evaluate("document.querySelector('.collection-account-panel').textContent.includes('save result is uncertain')"),'uncertain account receipt');
+    assert.equal(writes.length,1); assert.equal(heads.get(alice).revision,1);
+    await accountButton('sync'); await until(()=>evaluate("document.querySelector('.account-sync-state')?.textContent.includes('server revision 1')"),'replayed account receipt');
+    assert.deepEqual(writes[0],writes[1]); assert.equal(await rawInventory(),guestBefore);
+    passed('sign-in never uploads guest data; explicit adoption and exact sync retry preserve the independent guest inventory');
+
+    await evaluate("(() => {const f=document.querySelector('form[data-form=quantities]');f.elements.owned.value='3';f.requestSubmit()})()");
+    await until(()=>evaluate("document.querySelector('.account-sync-state')?.textContent.includes('Unsynced')"),'account edit draft');
+    const incoming=structuredClone(heads.get(alice));incoming.revision++;incoming.inventory.items.find(item=>item.key==='toy:toy-0001').owned=6;incoming.inventory.items.find(item=>item.key==='toy:toy-0001').notes='ALICE PRIVATE ONLY';heads.set(alice,incoming);
+    await accountButton('sync');await until(()=>evaluate("Boolean(document.querySelector('[data-action=resolve-conflict]'))"),'conflict loaded');
+    await accountButton('resolve-conflict');assert.match(await evaluate("document.querySelector('dialog[open]').textContent"),/Remote revision 2/);
+    await evaluate("(() => {const s=document.querySelector('dialog[open] select');s.value='merge';s.dispatchEvent(new Event('change',{bubbles:true}))})()");
+    await accountButton('confirm-account-dialog');await readyAccount();
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"),'6');assert.equal(heads.get(alice).revision,2);
+    await accountButton('sync');await until(()=>evaluate("document.querySelector('.account-sync-state')?.textContent.includes('server revision 3')"),'resolved account synced');
+    assert.equal(heads.get(alice).inventory.items.find(item=>item.key==='toy:toy-0001').notes,'ALICE PRIVATE ONLY');assert.equal(await rawInventory(),guestBefore);
+    passed('conflict retains the account draft and explicit maximum-merge preview does not auto-overwrite the remote version');
+
+    await evaluate("(() => {const f=document.querySelector('[data-account-form=share]');f.elements['share-field'].value='offered';f.elements['share-title'].value='Trade <img src=x onerror=alert(1)>';f.requestSubmit()})()");
+    await until(()=>evaluate("document.querySelector('dialog[open] #account-dialog-title')?.textContent==='Preview unlisted publication'"),'server publication preview');
+    assert.equal(publications.size,0);assert.match(await evaluate("document.querySelector('dialog[open]').textContent"),/Trade <img src=x/);
+    await accountButton('confirm-account-dialog');await until(()=>evaluate("Boolean(document.querySelector('dialog[open] [data-publication-error]')) && !document.querySelector('dialog[open] [data-action=confirm-account-dialog]').disabled"),'uncertain share receipt visible');
+    assert.equal(publications.size,1);
+    await accountButton('confirm-account-dialog');await until(()=>evaluate("Boolean(document.querySelector('.account-share-link a'))"),'published link displayed');
+    assert.deepEqual(publicationWrites[0],publicationWrites[1]);
+    assert.equal(publications.size,1);assert.doesNotMatch(JSON.stringify(publications.get(shareId).view),/ALICE PRIVATE|Private fixture note/);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});
+    assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    await evaluate("document.querySelector('.collection-account-panel').scrollIntoView({block:'start',behavior:'instant'})");
+    const accountScreenshot=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile(join(output,'collection-account-desktop.png'),Buffer.from(accountScreenshot.data,'base64'));
+    await evaluate("document.querySelector('.account-share-link a').click()");
+    await until(()=>evaluate("location.pathname==='/baku/shared/' && document.querySelector('.shared-entry')"),'anonymous shared list read');
+    assert.match(await evaluate("document.querySelector('[aria-label=\"Published list\"] h2').textContent"),/Trade <img src=x/);
+    assert.equal(await evaluate("document.querySelectorAll('.shared-reader img[onerror]').length"),0);
+    assert.doesNotMatch(await evaluate("document.querySelector('.shared-reader').textContent"),/ALICE PRIVATE|Private fixture note/);
+    await evaluate("(() => {const f=document.querySelector('[aria-label=\"Open shared link\"]');f.elements.link.value='44444444-4444-4444-8444-444444444444';f.requestSubmit()})()");
+    await until(()=>evaluate("document.querySelector('#shared-list').textContent.includes('List unavailable')"),'unknown share link recovery');
+    await evaluate('history.back()');await until(()=>evaluate("Boolean(document.querySelector('.shared-entry'))"),'Back restores previous shared snapshot');
+    await evaluate('history.forward()');await until(()=>evaluate("document.querySelector('#shared-list').textContent.includes('List unavailable')"),'Forward restores unavailable share');
+    await evaluate('history.back()');await until(()=>evaluate("Boolean(document.querySelector('.shared-entry'))"),'Back restores valid snapshot again');
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});
+    assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await evaluate("document.querySelector('[aria-label=\"Published list\"]').scrollIntoView({block:'start',behavior:'instant'})");
+    const sharedScreenshot=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile(join(output,'collection-shared-mobile.png'),Buffer.from(sharedScreenshot.data,'base64'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    passed('explicit share preview and publish produce a safe anonymous read-only list, including 320px layout');
+
+    await navigate('/baku/collection/?kind=toy&item=toy-0001');await readyCollection();await until(()=>evaluate("Boolean(document.querySelector('[data-action=open-account]'))"),'account controls after navigation');
+    await accountButton('open-account');await readyAccount();await accountButton('load-shares');await until(()=>evaluate("Boolean(document.querySelector('[data-action=revoke-share]'))"),'active share listed');
+    await accountButton('revoke-share');await accountButton('confirm-account-dialog');await until(()=>publications.get(shareId).revoked,'share revoked');
+    await until(()=>evaluate("!document.querySelector('dialog[open]')"),'revocation dialog closed');
+    await navigate(`/baku/shared/?id=${shareId}`);await until(()=>evaluate("document.querySelector('#shared-list').textContent.includes('List unavailable')"),'revoked reader unavailable');
+    passed('owner revocation removes the public snapshot from future reads');
+
+    await navigate('/baku/collection/?kind=toy&item=toy-0001');await readyCollection();await until(()=>evaluate("Boolean(document.querySelector('[data-action=open-account]'))"),'account controls');await accountButton('open-account');await readyAccount();
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] textarea').value"),'ALICE PRIVATE ONLY');
+    signedIn=bob;await evaluate("(() => {const c=new BroadcastChannel('bakugan-suite.account.v1');c.postMessage('session-changed');c.close()})()");
+    await until(()=>evaluate("Boolean(document.querySelector('[aria-label=\"Local storage and migration\"]')) && Boolean(document.querySelector('[data-action=open-account]'))"),'account change resets guest workspace');
+    assert.equal(await rawInventory(),guestBefore); assert.equal(await evaluate("[...document.querySelectorAll('textarea')].some(t=>t.value==='ALICE PRIVATE ONLY')"),false);
+    await accountButton('open-account');await readyAccount();
+    assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"),'0');
+    await evaluate("(() => {const f=document.querySelector('form[data-form=quantities]');f.elements.owned.value='1';f.requestSubmit()})()");
+    await until(()=>evaluate("document.querySelector('.account-sync-state')?.textContent.includes('Unsynced')"),'second account draft');
+    const savedAlice=JSON.stringify(heads.get(alice));signedIn=alice;await accountButton('sync');
+    await until(()=>evaluate("Boolean(document.querySelector('[aria-label=\"Local storage and migration\"]')) && Boolean(document.querySelector('[data-action=open-account]'))"),'stale account mutation rejected');
+    assert.equal(JSON.stringify(heads.get(alice)),savedAlice);assert.equal(await rawInventory(),guestBefore);
+    assert.ok(sessionCalls>2);
+    await accountButton('sign-out');await until(()=>evaluate("document.querySelector('.collection-account-panel').textContent.includes('Sign in with Discord')"),'signed out');
+    passed('account switching and stale-session mutation assertions clear the prior private workspace without altering guest data');
+    await call('Fetch.disable');intercept=null;
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {

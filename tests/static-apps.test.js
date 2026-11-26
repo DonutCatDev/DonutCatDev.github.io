@@ -31,6 +31,13 @@ test('the collection manager has a pinned public release and canonical route', a
     await validateStaticApp(app);
     const source = await readFile(join(app.source, 'scripts/lib/inventory.js'), 'utf8');
     assert.match(source, /bakugan-suite\.inventory\.v2/);
+    const shared = getStaticApps({}).find(entry => entry.page === 'shared');
+    assert.equal(shared.path, '/baku/shared/');
+    assert.equal(shared.source, join(app.source, 'shared'));
+    assert.ok(app.separateDirectories.includes('shared'));
+    await validateStaticApp(shared);
+    const config = JSON.parse(await readFile(join(app.source, 'data/service-config.json'), 'utf8'));
+    assert.equal(config.schemaVersion, 1);
 });
 
 test('snapshot validation rejects tampering, extra files, and missing required assets', async () => {

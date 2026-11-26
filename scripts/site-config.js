@@ -109,6 +109,12 @@ export const sections = {
                 type: 'static',
                 indexable: false
             },
+            shared: {
+                title: 'Shared Bakugan Lists',
+                description: 'Open an explicitly published, read-only Bakugan Have, Want or Trade list.',
+                type: 'static',
+                indexable: false
+            },
             bakugan_card_archive: {
                 title: 'Bakugan Card Archive',
                 description: 'Search and filter Bakugan cards across generations, sets, card types, factions, stats, effects, and source details.',

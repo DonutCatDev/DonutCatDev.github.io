@@ -27,7 +27,8 @@ export async function buildPages() {
     for (const app of apps) {
         const destination = join(output, app.path);
         await mkdir(destination, { recursive: true });
-        await cp(app.source, destination, { recursive: true });
+        const separate = new Set((app.separateDirectories || []).map(directory => join(app.source, directory)));
+        await cp(app.source, destination, { recursive: true, filter: source => !separate.has(source) });
     }
     await writeFile(join(output, '.nojekyll'), '', 'utf8');
     return output;
