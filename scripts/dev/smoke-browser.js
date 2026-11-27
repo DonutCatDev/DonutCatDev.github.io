@@ -59,7 +59,7 @@ async function navigate(path, ready) {
     await until(() => evaluate(`performance.timeOrigin !== ${previousOrigin} && location.pathname === ${JSON.stringify(new URL(path, origin).pathname)} && (${ready || "Boolean(document.querySelector('h1'))"})`), `navigation to ${path}`);
 }
 function passed(message) { checks++; console.log(`PASS ${message}`); }
-async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('of 979 variants') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
+async function readyCatalog() { await until(() => evaluate("document.querySelector('.result-summary')?.textContent.includes('of 1206 variants') && !document.querySelector('.search-panel').hidden"), 'catalog loaded'); }
 async function readyCollection() { await until(() => evaluate("Boolean(document.querySelector('#inventory-result-count')) && document.querySelector('.collection-manager').textContent.includes('catalog items.')"), 'collection catalogs loaded'); }
 async function choose(key, value) { await evaluate(`(() => { const control = document.getElementById(${JSON.stringify(`toy-${key}`)}); control.value = ${JSON.stringify(value)}; control.dispatchEvent(new Event('change', { bubbles: true })); })()`); }
 async function archiveTheme() {
@@ -132,13 +132,13 @@ try {
     assert.deepEqual(await archiveTheme(), cardTheme);
     passed('card and toy archives share the same baseline stylesheet and computed theme');
     await choose('generation', 'G1');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^558 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^558 of 1206 variants/);
     await evaluate("document.getElementById('toy-query').value = 'Delta Dragonoid'; document.querySelector('.search-panel').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))");
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^20 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^20 of 1206 variants/);
     await choose('faction', 'Pyrus');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^9 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^9 of 1206 variants/);
     await choose('treatment', 'Pearl');
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 1206 variants/);
     await evaluate("document.querySelector('[data-item]').click()");
     assert.equal(await evaluate("document.querySelector('dialog').open"), true);
     assert.equal(await evaluate('document.activeElement.id'), 'toy-detail-heading');
@@ -148,8 +148,8 @@ try {
     assert.equal(await evaluate("document.querySelector('dialog a[href*=\"Template\"]').href.includes('B1_Delta_Dragonoid_Bakulog')"), true);
     assert.equal(await evaluate("document.querySelector('dialog a[href*=oldid]').href.includes('oldid=849669')"), true);
     assert.equal(await evaluate("Boolean(document.querySelector('dialog a[href*=\"oldid=858181\"]'))"), true);
-    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /979 reviewed against captured revisions/);
-    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /365 documented product records.*446 of 979 variants with matched product releases/);
+    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /1206 reviewed against captured revisions/);
+    assert.match(await evaluate("document.querySelector('.coverage').textContent"), /539 documented product records.*664 of 1206 variants with matched product releases/);
     await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
     await until(() => evaluate("!document.querySelector('dialog').open"), 'Escape closes details');
@@ -190,7 +190,7 @@ try {
     await evaluate("document.querySelector('.paging button:last-child').click()");
     assert.equal(await evaluate("new URLSearchParams(location.search).get('page')"), '2');
     await call('Page.reload'); await readyCatalog();
-    assert.equal(await evaluate("document.querySelector('.paging span').textContent"), 'Page 2 of 82');
+    assert.equal(await evaluate("document.querySelector('.paging span').textContent"), 'Page 2 of 101');
     passed('safe URL/search text, empty state, pagination and direct refresh');
     await navigate('/baku/bakugan-archive/?item=toy-0043', "Boolean(document.querySelector('dialog')?.open)");
     assert.match(await evaluate('document.title'), /Aquos Hydorous/);
@@ -211,7 +211,7 @@ try {
     passed('direct variant links and unknown item recovery');
 
     await navigate('/baku/bakugan-archive/?q=Haos+Howlkor+Ultra+Starter+Set&series=Battle+Planet&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^3 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^3 of 1206 variants/);
     await evaluate("document.querySelector('[data-item=toy-0033]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Haos Howlkor Ultra Starter Set/);
     await navigate('/baku/bakugan-archive/?item=toy-0006', "Boolean(document.querySelector('dialog')?.open)");
@@ -226,7 +226,7 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Not yet verified/);
     passed('special treatments retain distinct variants and honest gameplay evidence');
     await navigate('/baku/bakugan-archive/?q=Gear+Up+Pack&treatment=Hexagonal&faction=Ventus&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 1206 variants/);
     await evaluate("document.querySelector('[data-item=toy-0098]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Gear Up Pack \(Hexagonal\)/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Base Character Card link pending review/);
@@ -235,7 +235,7 @@ try {
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Baku-Gear Solo \(Translucent\)/);
     passed('treated variants have independent package search, direct links, and pending gameplay evidence');
     await navigate('/baku/bakugan-archive/?series=Armored+Alliance'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^169 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^169 of 1206 variants/);
     assert.equal(await evaluate("document.querySelectorAll('.toy-tile').length"), 12);
     await call('Page.reload'); await readyCatalog();
     assert.equal(await evaluate("document.getElementById('toy-series').value"), 'Armored Alliance');
@@ -246,20 +246,20 @@ try {
     passed('series filter and refresh distinguish season-specific variants and exact card links');
 
     await navigate('/baku/bakugan-archive/?series=Armored+Alliance&q=Batrix&edition=Ultra&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^5 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^5 of 1206 variants/);
     await evaluate("document.querySelector('[data-item=toy-0383]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Translucent/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Base Character Card link pending review/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Batrix Ultra \/ Darkus Ramparian Ultra Baku-Gear Pack/);
     await navigate('/baku/bakugan-archive/?series=Battle+Planet&q=Phaedrus&edition=Ultra&faction=Darkus&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 1206 variants/);
     assert.match(await evaluate("document.querySelector('.toy-tile').textContent"), /Diamond/);
     passed('bulk-capture cross-source release evidence and Diamond-only exclusion remain searchable');
 
     await navigate('/baku/bakugan-archive/?q=Darkus+Hydorous+Ultra+Aurelus+Garganoid+Ultra+Battle+Pack&series=Battle+Planet&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^5 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^5 of 1206 variants/);
     await navigate('/baku/bakugan-archive/?q=Pyrus+Pegatrix+Ultra+Baku-Gear+Solo&series=Armored+Alliance&view=variants'); await readyCatalog();
-    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 979 variants/);
+    assert.match(await evaluate("document.querySelector('.result-summary').textContent"), /^1 of 1206 variants/);
     await evaluate("document.querySelector('[data-item=toy-0436]').click()");
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Translucent/);
     assert.match(await evaluate("document.querySelector('dialog').textContent"), /Base Character Card link pending review/);
@@ -681,7 +681,7 @@ try {
     // Deckbuilder uses the actual pinned catalogs and the same isolated guest
     // inventory. The saved library is synthetic and exists only in this profile.
     await navigate('/baku');await evaluate("document.querySelector('.project-grid a[href=\"/baku/deckbuilder\"]').click()");
-    await until(()=>evaluate("location.pathname==='/baku/deckbuilder/' && document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('979 toy variants')"),'deckbuilder catalog loaded');
+    await until(()=>evaluate("location.pathname==='/baku/deckbuilder/' && document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('1,206 toy variants')"),'deckbuilder catalog loaded');
     assert.equal(await evaluate("document.querySelector('h1').textContent"),'Bakugan Deckbuilder');assert.equal(await evaluate("document.querySelector('meta[name=robots]').content"),'noindex,follow');
     const deckKey='bakugan-suite.decks.v1';const savedLibrary=()=>evaluate(`JSON.parse(localStorage.getItem(${JSON.stringify(deckKey)}))`);
     const activeDeck=async()=>{const lib=await savedLibrary();return lib?.decks.find(deck=>deck.id===lib.activeId);};
@@ -700,10 +700,15 @@ try {
     assert.equal(await rawInventory(),guestBefore);
     await deckSave(()=>evaluate("document.querySelector('[data-action=increase-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'incomplete');assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/1 Gold frame/);
     await deckSave(()=>evaluate("document.querySelector('[data-action=decrease-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'checks-passed');
-    await call('Page.reload');await until(()=>evaluate("document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('979 toy variants') && document.querySelector('.deck-check-status')"),'G1 saved reload');assert.equal(await deckState(),'checks-passed');
+    await call('Page.reload');await until(()=>evaluate("document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('1,206 toy variants') && document.querySelector('.deck-check-status')"),'G1 saved reload');assert.equal(await deckState(),'checks-passed');
     passed('G1 draft saves exact physical variants and frame zones, checks Gate/Ability colors, restores on refresh and never writes inventory');
 
     await createDeckUI('G2 browser fixture','g2-bp-tcg-v1');await browseDeck('team');for(const id of ['toy-0019','toy-0020','toy-0043'])await addDeckItem(id);
+    const searchTeam=async query=>evaluate(`(() => {const q=document.getElementById('deck-search');q.value=${JSON.stringify(query)};q.dispatchEvent(new Event('input',{bubbles:true}));return document.querySelector('.deck-results').textContent})()`);
+    const beforeCoverageSearch=await savedLibrary();const tretorous=await searchTeam('Tretorous');assert.match(tretorous,/10 matching toy variant\(s\) exist in the Toy Archive outside this format/);assert.match(tretorous,/Armored Alliance/);
+    for(const query of ['Warrior Whale','Serpillious']){const outside=await searchTeam(query);assert.match(outside,/matching toy variant\(s\) exist in the Toy Archive outside this format/);assert.match(outside,/All seasons/);}const missing=await searchTeam('Nova Hanoj');assert.match(missing,/matching G2 Character printing\(s\)/);assert.match(missing,/no matching physical toy variant is cataloged yet/);
+    assert.deepEqual(await savedLibrary(),beforeCoverageSearch);
+    passed('Team searches distinguish later format exclusions from actual physical catalog gaps without changing the draft');
     assert.match(await evaluate("document.querySelector('[aria-label=Team]').textContent"),/Shield \+ Shield/);
     await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:2,'Flaming Fist':1,Shield:3,'Magic Shield':0,Helix:0});
     await browseDeck('deck');await addDeckItem('wiki-279263');
@@ -741,11 +746,23 @@ try {
     await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
     passed('Big Game six-toy, twelve-card deck verifies frame counts and duplicate rules, with a scrollable mobile boost table');
     await createDeckUI('G2 expanded browser fixture','g2-bp-aa-tcg-v1');await browseDeck('team');for(const id of ['toy-0057','toy-0020','toy-0043'])await addDeckItem(id);
+    assert.match(await searchTeam('Tretorous'),/Tretorous/);assert.equal(await evaluate("document.querySelectorAll('.deck-results [data-action=add-toy]').length"),8);
     await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:3,'Flaming Fist':0,Shield:3,'Magic Shield':0,Helix:0});
     await browseDeck('deck');await addDeckItem('wiki-291286');assert.match(await evaluate("document.querySelector('[aria-label=\"Deck analysis\"]').textContent"),/1Baku-Gear Card/);
     assert.ok(!(await evaluate("document.querySelector('.deck-issues').textContent")).includes('shares no faction'));
     assert.equal(await rawInventory(),guestBefore);
     passed('Expanded G2 pool browses reviewed Armored Alliance toys and Gear, matches cores and shows role counts');
+    await createDeckUI('G2 later-season fixture','g2-all-seasons-single-faction-v1');await browseDeck('team');
+    for(const [query,count] of [['Warrior Whale',9],['Serpillious',6],['Tretorous',10]]){assert.match(await searchTeam(query),new RegExp(query));assert.equal(await evaluate("document.querySelectorAll('.deck-results [data-action=add-toy]').length"),count);}
+    for(const id of ['toy-1099','toy-1101','toy-1109'])await addDeckItem(id);
+    assert.deepEqual((await activeDeck()).team.map(entry=>entry.cardId),['wiki-304160','wiki-300559','wiki-305297']);
+    await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:2,'Flaming Fist':1,Shield:2,'Magic Shield':1,Helix:0});
+    await addDeckItem('toy-1096');assert.equal((await activeDeck()).team.at(-1).profileId,null);
+    await deckSave(()=>evaluate("(() => {const s=document.querySelector('[data-team-index=\"3\"]');s.value='profile-1090|wiki-302480';s.dispatchEvent(new Event('change',{bubbles:true}))})()"));assert.equal((await activeDeck()).team.at(-1).cardId,'wiki-302480');
+    assert.match(await evaluate("document.querySelector('[aria-label=Team]').textContent"),/400 B · 5 damage/);assert.equal(await rawInventory(),guestBefore);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    passed('All-season G2 profile finds all three reported Bakugan and supports explicit alternate package Character choices');
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {
