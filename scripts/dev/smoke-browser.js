@@ -815,6 +815,26 @@ try {
     await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
     passed('Support type filters, exact Gear factions, captured package evidence and collection handoff work at 320px');
 
+
+    await navigate('/baku/deckbuilder/');await until(()=>evaluate("document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('1,620 toy variants')"),'manual Character catalog loaded');
+    await createDeckUI('Manual Character browser fixture','g2-all-seasons-fusion-v1');await browseDeck('team');
+    for(const id of ['toy-0019','toy-0020','toy-0049'])await addDeckItem(id);
+    assert.equal((await activeDeck()).team[2].cardId,null);
+    const charSelect="document.querySelector('[data-team-index=\"2\"]')";
+    assert.equal(await evaluate(charSelect+'.disabled'),false);assert.match(await evaluate(charSelect+'.textContent'),/Manual review: Dragonoid/);
+    await deckSave(()=>evaluate("(() => {const s="+charSelect+";s.value='manual-wiki-279824|wiki-279824';s.dispatchEvent(new Event('change',{bubbles:true}))})()"));
+    assert.equal((await activeDeck()).team[2].profileId,'manual-wiki-279824');
+    assert.match(await evaluate("document.querySelector('[aria-label=Team]').textContent"),/Manually selected Character.*not archive-verified/);
+    await deckSave(()=>deckButton('auto-cores'));assert.equal((await activeDeck()).cores['Flaming Fist'],2);
+    assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/team.character-review/);
+    await call('Page.reload');await until(()=>evaluate(charSelect+"?.value==='manual-wiki-279824|wiki-279824'"),'manual Character restored on reload');
+    await browseDeck('team');await addDeckItem('toy-1103');
+    assert.equal(await evaluate("document.querySelector('[data-team-index=\"3\"]').disabled"),true);
+    assert.match(await evaluate("document.querySelector('[aria-label=Team]').textContent"),/No verified pairing or matching candidate/);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    assert.equal(await rawInventory(),guestBefore);await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    passed('Manual Character candidates require explicit selection, retain an unknown check, fill printed cores, restore on reload and explain absent candidates');
+
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {

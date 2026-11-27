@@ -9,7 +9,7 @@ import { sections } from '../scripts/site-config.js';
 import { prepareCatalog } from '../vendor/bakugan_toy_archive/public/scripts/lib/catalog.js';
 import { createPreviewServer } from '../scripts/dev/serve.js';
 import { prepareCatalogs } from '../vendor/bakugan_deckbuilder/public/scripts/lib/catalog.js';
-import { createDeck, addToy, setCardQuantity, validateDeck } from '../vendor/bakugan_deckbuilder/public/scripts/lib/decks.js';
+import { createDeck, addToy, setCardQuantity, setTeamChoice, validateDeck } from '../vendor/bakugan_deckbuilder/public/scripts/lib/decks.js';
 import { requiredCores, validateConstruction } from '../vendor/bakugan_deckbuilder/public/scripts/lib/validate.js';
 import { toyRecords } from '../vendor/bakugan_collection/public/scripts/lib/catalog.js';
 
@@ -97,6 +97,15 @@ test('the deckbuilder release resolves real pinned fixtures for all six G1 and G
     let noFusion=addToy(validateDeck({...f,team:f.team.slice(1)}),catalog.toys.get('toy-0019'));noFusion=validateDeck({...noFusion,cores:requiredCores(noFusion,catalog).cores});
     assert.ok(validateConstruction(noFusion,catalog).issues.some(i=>i.id==='synergy.fusion-team'&&i.severity==='warning'));
     assert.equal(validateConstruction(noFusion,catalog).state,'checks-passed');
+    const unlinked=[...catalog.toys.values()].filter(toy=>toy.generation==='G2'&&!toy.kind&&!toy.choices.length);
+    assert.equal(unlinked.length,157);assert.equal(unlinked.filter(toy=>toy.manualChoices.length).length,145);
+    const diamond=catalog.toys.get('toy-0049');assert.deepEqual(diamond.manualChoices.map(choice=>choice.cardId),['wiki-279824']);
+    assert.equal(catalog.toys.get('toy-1103').manualChoices.length,0);
+    let manual=addToy(validateDeck({...g2,team:g2.team.slice(1)}),diamond);assert.equal(manual.team[2].cardId,null);
+    manual=setTeamChoice(manual,2,diamond.manualChoices[0]);manual=validateDeck({...manual,cores:requiredCores(manual,catalog).cores});
+    assert.equal(validateConstruction(manual,catalog).state,'unverified');assert.ok(validateConstruction(manual,catalog).issues.some(issue=>issue.id==='team.character-review'));
+    assert.equal(requiredCores(manual,catalog).selected,3);assert.equal(requiredCores(manual,catalog).matched,2);
+
 
 });
 
