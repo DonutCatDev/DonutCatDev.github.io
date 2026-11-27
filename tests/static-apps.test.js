@@ -43,7 +43,7 @@ test('the collection manager has a pinned public release and canonical route', a
     assert.equal(config.schemaVersion, 1);
 });
 
-test('the deckbuilder release resolves real pinned G1 and Battle Planet card/toy fixtures',async()=>{
+test('the deckbuilder release resolves real pinned fixtures for all four G1 and G2 formats',async()=>{
     const apps=getStaticApps({}),app=apps.find(entry=>entry.page==='deckbuilder');assert.equal(app.path,'/baku/deckbuilder/');await validateStaticApp(app);
     const cards=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan_card_archive').source,'data/cards.json'),'utf8'));
     const toys=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan-archive').source,'data/toys.json'),'utf8'));
@@ -56,6 +56,18 @@ test('the deckbuilder release resolves real pinned G1 and Battle Planet card/toy
     const ids=['wiki-282358','wiki-282359','wiki-282397','wiki-279662','wiki-279663','wiki-282360','wiki-279622','wiki-279623','wiki-279624','wiki-279625','wiki-279626','wiki-282361','wiki-279366','wiki-282398'];for(const [index,id] of ids.entries())g2=setCardQuantity(g2,'deck',catalog.cards.get(id),index===13?1:3);
     g2=validateDeck({...g2,cores:requiredCores(g2,catalog).cores});assert.deepEqual(g2.cores,{Fist:2,'Flaming Fist':1,Shield:3,'Magic Shield':0,Helix:0});
     assert.equal(validateConstruction(g2,catalog).state,'checks-passed');
+    let big=validateDeck({...g1,formatId:'g1-nv-big-game-v1'});
+    for(const id of ['toy-0002','toy-0001','toy-0002'])big=addToy(big,catalog.toys.get(id));
+    for(const id of ['wiki-916','wiki-1614','wiki-8055'])big=setCardQuantity(big,'gate',catalog.cards.get(id),1);
+    for(const id of ['wiki-844','wiki-889','wiki-860'])big=setCardQuantity(big,'ability',catalog.cards.get(id),1);
+    assert.equal(validateConstruction(big,catalog).state,'checks-passed');
+    assert.ok(validateConstruction(setCardQuantity(big,'gate',catalog.cards.get('wiki-901'),2),catalog).issues.some(issue=>issue.id==='big-game.copies'&&issue.severity==='error'));
+    assert.equal([...catalog.toys.values()].filter(toy=>toy.series==='Armored Alliance'&&toy.choices.length).length,124);
+    let aa=validateDeck({...g2,formatId:'g2-bp-aa-tcg-v1',team:g2.team.slice(1)});aa=addToy(aa,catalog.toys.get('toy-0057'));
+    aa=setCardQuantity(aa,'deck',catalog.cards.get(ids.at(-1)),0);aa=setCardQuantity(aa,'deck',catalog.cards.get('wiki-291286'),1);
+    aa=validateDeck({...aa,cores:requiredCores(aa,catalog).cores});assert.deepEqual(aa.cores,{Fist:3,'Flaming Fist':0,Shield:3,'Magic Shield':0,Helix:0});
+    assert.equal(validateConstruction(aa,catalog).state,'checks-passed');
+    assert.equal(validateConstruction({...aa,formatId:'g2-bp-tcg-v1'},catalog).state,'incomplete');
 });
 
 test('snapshot validation rejects tampering, extra files, and missing required assets', async () => {

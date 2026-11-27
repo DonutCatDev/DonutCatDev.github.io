@@ -1,0 +1,12 @@
+# Deckbuilder format expansion
+
+Date: 2026-11-27. Deckbuilder static release `2026-11-27-deck.2`, dependency commit `d12c5fa`.
+
+The same standalone route and shared Card Archive theme now offer four saved format profiles. Existing draft formats, storage keys and collection records are unchanged.
+
+- `g1-nv-big-game-v1`: six physical Bakugan, six Gate cards (two each Gold, Silver, Copper) and six Ability cards (two each Red, Blue, Green). The [New Vestroia rules sheet](https://bakugan-wiki.nyc3.cdn.digitaloceanspaces.com/3/34/New_Vestroia_rulebook.pdf) also requires unique cards. Repeated exact printings are errors; separate same-name printings require identity review. The Gate boost comparison expands to all six team members. Optional Traps remain unsupported.
+- `g2-bp-aa-tcg-v1`: expands the baseline TCG profile to both Battle Planet and Armored Alliance for reviewed single-faction Character pairs and Action, Hero, Flip, Evo and Baku-Gear cards. The [official glossary](https://intl2.bakugan.com/sites/bakugan/files/2020-01/Glossary.pdf) establishes the baseline construction checks; the [official Armored Elite product description](https://api.bakugan.com/en/toys/778988303443/bakugan-pro-deluxe-armored-elite-card-collection-exclusive-jumbo-foil-trox-ultra-collector-card) identifies Gear cards as deck additions. Gear function grouping includes the recorded stat modifiers. All 124 additional reviewed AA toy/Character variants can be used with the 217 reviewed BP variants. The card archive includes 89 AA Gear printings, subject to faction and scope checks.
+
+The expanded profile is a limited construction pilot, not an official rotation or a certification that all Armored Alliance rules have been encoded. Dual-faction cards, Fusion Characters, Flip Heroes, subsequent series, and Gear attachment/activation rules are outside scope. Unmatched toys or incomplete card data remain unknown. The existing BP-only profile is still limited to Battle Planet and its original card roles. G2 analysis adds a card-type breakdown next to the energy curve, with out-of-scope or unidentified entries counted separately.
+
+Tests use synthetic cases plus complete decks made with the pinned card and toy catalogs. The browser checks cover adding Big Game and AA records, Big Game duplicate checks, Gear role totals and matching core symbols, collection isolation and mobile layout. Account provisioning is still independent of deckbuilding. No online services or deployment changes are required. Push the Deckbuilder dependency before the main site.

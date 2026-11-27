@@ -698,7 +698,7 @@ try {
     assert.equal(await deckState(),'checks-passed');assert.equal((await activeDeck()).team.length,3);assert.equal((await activeDeck()).cards.length,6);
     assert.match(await evaluate("document.querySelector('[aria-label=\"Deck analysis\"]').textContent"),/Gate card printed attribute bonuses/);assert.match(await evaluate("document.querySelector('[aria-label=\"Collection comparison\"]').textContent"),/Exact printing and variant quantities/);
     assert.equal(await rawInventory(),guestBefore);
-    await deckSave(()=>evaluate("document.querySelector('[data-action=increase-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'incomplete');assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/one Gold frame/);
+    await deckSave(()=>evaluate("document.querySelector('[data-action=increase-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'incomplete');assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/1 Gold frame/);
     await deckSave(()=>evaluate("document.querySelector('[data-action=decrease-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'checks-passed');
     await call('Page.reload');await until(()=>evaluate("document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('979 toy variants') && document.querySelector('.deck-check-status')"),'G1 saved reload');assert.equal(await deckState(),'checks-passed');
     passed('G1 draft saves exact physical variants and frame zones, checks Gate/Ability colors, restores on refresh and never writes inventory');
@@ -729,6 +729,23 @@ try {
     await deckSave(()=>deckButton('confirm-dialog'));assert.equal((await activeDeck()).formatId,'g1-nv-basic-v1');assert.deepEqual((await activeDeck()).cards,beforeSwitch.cards);assert.deepEqual((await activeDeck()).team,beforeSwitch.team);assert.deepEqual((await activeDeck()).cores,beforeSwitch.cores);assert.equal(await deckState(),'incomplete');
     assert.equal(await rawInventory(),guestBefore);
     passed('40-card G2 draft import checks pass, energy curve and 320px layout work, format switch preserves incompatible entries');
+    await createDeckUI('G1 Big Game browser fixture','g1-nv-big-game-v1');
+    await browseDeck('team');for(const id of ['toy-0001','toy-0002','toy-0001','toy-0002','toy-0001','toy-0002'])await addDeckItem(id);
+    await browseDeck('gate');for(const id of ['wiki-901','wiki-854','wiki-7905','wiki-916','wiki-1614','wiki-8055'])await addDeckItem(id);
+    await browseDeck('ability');for(const id of ['wiki-866','wiki-293938','wiki-307937','wiki-844','wiki-889','wiki-860'])await addDeckItem(id);
+    assert.equal(await deckState(),'checks-passed');assert.equal(await evaluate("document.querySelectorAll('.deck-boost-table thead th').length"),7);
+    await deckSave(()=>evaluate("document.querySelector('[data-action=increase-card][data-id=\"wiki-901\"]').click()"));assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/Big Game requires unique cards/);
+    await deckSave(()=>evaluate("document.querySelector('[data-action=decrease-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'checks-passed');
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await evaluate("document.querySelector('[aria-label=\"Deck analysis\"]').scrollIntoView({block:'start',behavior:'instant'})");const bigMobile=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile(join(output,'deckbuilder-big-game-mobile.png'),Buffer.from(bigMobile.data,'base64'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    passed('Big Game six-toy, twelve-card deck verifies frame counts and duplicate rules, with a scrollable mobile boost table');
+    await createDeckUI('G2 expanded browser fixture','g2-bp-aa-tcg-v1');await browseDeck('team');for(const id of ['toy-0057','toy-0020','toy-0043'])await addDeckItem(id);
+    await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:3,'Flaming Fist':0,Shield:3,'Magic Shield':0,Helix:0});
+    await browseDeck('deck');await addDeckItem('wiki-291286');assert.match(await evaluate("document.querySelector('[aria-label=\"Deck analysis\"]').textContent"),/1Baku-Gear Card/);
+    assert.ok(!(await evaluate("document.querySelector('.deck-issues').textContent")).includes('shares no faction'));
+    assert.equal(await rawInventory(),guestBefore);
+    passed('Expanded G2 pool browses reviewed Armored Alliance toys and Gear, matches cores and shows role counts');
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {
