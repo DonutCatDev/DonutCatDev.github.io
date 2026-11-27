@@ -278,7 +278,7 @@ try {
     passed('malformed catalog recovery');
     const empty = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
     empty.models = []; empty.variants = []; empty.profiles = []; empty.sources = [];
-    empty.cardPrintings = []; empty.cardCatalog = null; empty.releases = [];
+    empty.cardPrintings = []; empty.fusionProfiles = []; empty.cardCatalog = null; empty.releases = [];
     intercept = ({ requestId }) => call('Fetch.fulfillRequest', { requestId, responseCode: 200, body: Buffer.from(JSON.stringify(empty)).toString('base64') });
     await navigate('/baku/bakugan-archive/', "Boolean(document.querySelector('.empty-state'))");
     assert.equal(await evaluate("document.querySelector('.empty-state h2').textContent"), 'The catalog is empty.');
@@ -291,7 +291,7 @@ try {
     for (const variant of evidenceFixture.variants) variant.releaseIds = [];
     evidenceFixture.releases = [];
     for (const profile of evidenceFixture.profiles) { profile.compatibility = 'unverified'; profile.bakuCores = null; profile.cardPrintingIds = []; delete profile.linkEvidence; }
-    evidenceFixture.cardPrintings = []; evidenceFixture.cardCatalog = null;
+    evidenceFixture.cardPrintings = []; evidenceFixture.fusionProfiles = []; evidenceFixture.cardCatalog = null;
     const sourceFixture = evidenceFixture.sources.find((source) => source.id === evidenceFixture.variants[0].evidence.sourceId);
     Object.assign(sourceFixture, { revision: 202, pageId: 101, sourceTimestamp: '2026-11-20T12:00:00Z', capturedAt: '2026-11-22T12:00:00Z', captureMethod: 'browser-api', sourceSha256: 'a'.repeat(64) });
     Object.assign(evidenceFixture.variants[0].evidence, { reviewStatus: 'revision-reviewed', sourceRevision: 202, sourceSha256: 'a'.repeat(64), reviewer: 'Synthetic browser fixture', reviewedAt: '2026-11-22' });
@@ -768,7 +768,7 @@ try {
     for(const id of ['toy-1216','toy-1246','toy-1101'])await addDeckItem(id);
     assert.deepEqual((await activeDeck()).team.map(entry=>entry.cardId),['wiki-304622','wiki-305214','wiki-300559']);
     await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:0,'Flaming Fist':3,Shield:0,'Magic Shield':1,Helix:2});
-    const beforeFusionSearch=await savedLibrary();assert.match(await searchTeam('Dragonoid x Tretorous'),/7 matching Fusion variant\(s\).*two-sided Fusion Character rules are not yet supported/);
+    const beforeFusionSearch=await savedLibrary();assert.match(await searchTeam('Dragonoid x Tretorous'),/7 matching Fusion variant\(s\).*this format excludes Fusion/);
     assert.equal(await evaluate("document.querySelectorAll('.deck-results [data-action=add-toy]').length"),0);assert.deepEqual(await savedLibrary(),beforeFusionSearch);assert.equal(await rawInventory(),guestBefore);
     passed('Legends Character pairs and exact core symbols are usable; Fusion toys explain their unsupported deck scope without changing drafts');
 
@@ -777,8 +777,23 @@ try {
     assert.deepEqual(await savedLibrary(),beforeFusionSearch);assert.equal(await rawInventory(),guestBefore);
     passed('Physical Gear, Geogan and Nanogan are not ordinary team choices');
 
+
+    await createDeckUI('G2 Fusion browser fixture','g2-all-seasons-fusion-v1');await browseDeck('team');
+    for(const id of ['toy-1300','toy-0019','toy-0025'])await addDeckItem(id);
+    assert.equal((await activeDeck()).team[0].cardId,'wiki-293557');
+    assert.match(await evaluate("document.querySelector('[aria-label=Team]').textContent"),/Unfused starting faction: Pyrus.*Fused: Pyrus \/ Darkus.*1000 B/);
+    assert.ok(await evaluate("Array.from(document.querySelectorAll('[aria-label=Team] a')).some(a=>a.textContent==='View fused Character face'&&a.href.includes('wiki-293556'))"));
+    await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:1,'Flaming Fist':3,Shield:0,'Magic Shield':2,Helix:0});
+    await browseDeck('deck');await addDeckItem('wiki-303615');assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/requires starting team faction\(s\): Darkus/);
+    await deckSave(()=>evaluate("document.querySelector('[data-action=remove-team][data-index=\"2\"]').click()"));await browseDeck('team');await addDeckItem('toy-0023');
+    assert.doesNotMatch(await evaluate("document.querySelector('.deck-issues').textContent"),/requires starting team faction/);
+    await deckSave(()=>deckButton('auto-cores'));assert.equal((await activeDeck()).cores.Shield,1);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await call('Page.reload');await until(()=>evaluate("document.querySelector('[aria-label=Team]')?.textContent.includes('Unfused starting faction: Pyrus')"),'Fusion draft reload');
+    assert.equal(await rawInventory(),guestBefore);passed('Fusion profile saves front/back selection and starting cores, checks both factions, reloads and fits 320px');
+
     for(const faction of ['Pyrus','Darkus']){await navigate(`/baku/bakugan-archive/?series=Legends&faction=${faction}&q=Dragonoid+x+Tretorous&view=variants`);await readyCatalog();assert.ok(await evaluate("Boolean(document.querySelector('[data-item=toy-1351]'))"));}
-    await evaluate("document.querySelector('[data-item=toy-1351]').click()");assert.match(await evaluate("document.querySelector('dialog').textContent"),/Physical Fusion factionsPyrus \/ Darkus/);assert.match(await evaluate("document.querySelector('dialog').textContent"),/two-sided Character mapping and rules are not yet supported/);
+    await evaluate("document.querySelector('[data-item=toy-1351]').click()");assert.match(await evaluate("document.querySelector('dialog').textContent"),/Physical Fusion factionsPyrus \/ Darkus/);assert.match(await evaluate("document.querySelector('dialog').textContent"),/Both faces matched to the captured source row/);assert.match(await evaluate("document.querySelector('dialog').textContent"),/Starting factionPyrus/);assert.ok(await evaluate("Array.from(document.querySelectorAll('dialog a')).some(a=>a.href.includes('wiki-304074'))&&Array.from(document.querySelectorAll('dialog a')).some(a=>a.href.includes('wiki-304075'))"));
     await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));assert.ok(await evaluate("document.querySelector('dialog').scrollWidth<=document.querySelector('dialog').clientWidth+1"));
     await evaluate("document.querySelector('dialog a[href*=\"/baku/collection/\"]').click()");await readyCollection();assert.match(await evaluate("document.querySelector('.inventory-results article[data-key=\"toy:toy-1351\"]').textContent"),/Pyrus \/ Darkus.*Fusion/);assert.equal(await rawInventory(),guestBefore);
     await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
