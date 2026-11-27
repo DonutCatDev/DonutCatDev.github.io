@@ -9,8 +9,8 @@ import { sections } from '../scripts/site-config.js';
 import { prepareCatalog } from '../vendor/bakugan_toy_archive/public/scripts/lib/catalog.js';
 import { createPreviewServer } from '../scripts/dev/serve.js';
 import { prepareCatalogs } from '../vendor/bakugan_deckbuilder/public/scripts/lib/catalog.js';
-import { createDeck, addToy, setCardQuantity, setTeamChoice, validateDeck } from '../vendor/bakugan_deckbuilder/public/scripts/lib/decks.js';
-import { requiredCores, validateConstruction } from '../vendor/bakugan_deckbuilder/public/scripts/lib/validate.js';
+import { createDeck, addToy, setCardQuantity, setTeamChoice, setSupportToy, validateDeck } from '../vendor/bakugan_deckbuilder/public/scripts/lib/decks.js';
+import { requiredCores, validateConstruction, ownershipRequirements } from '../vendor/bakugan_deckbuilder/public/scripts/lib/validate.js';
 import { toyRecords } from '../vendor/bakugan_collection/public/scripts/lib/catalog.js';
 
 test('each standalone route has exactly one artifact contract', () => {
@@ -44,7 +44,7 @@ test('the collection manager has a pinned public release and canonical route', a
     assert.equal(config.schemaVersion, 1);
 });
 
-test('the deckbuilder release resolves real pinned fixtures for all six G1 and G2 formats',async()=>{
+test('the deckbuilder release resolves real pinned fixtures for all seven G1 and G2 formats',async()=>{
     const apps=getStaticApps({}),app=apps.find(entry=>entry.page==='deckbuilder');assert.equal(app.path,'/baku/deckbuilder/');await validateStaticApp(app);
     const cards=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan_card_archive').source,'data/cards.json'),'utf8'));
     const toys=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan-archive').source,'data/toys.json'),'utf8'));
@@ -105,6 +105,24 @@ test('the deckbuilder release resolves real pinned fixtures for all six G1 and G
     manual=setTeamChoice(manual,2,diamond.manualChoices[0]);manual=validateDeck({...manual,cores:requiredCores(manual,catalog).cores});
     assert.equal(validateConstruction(manual,catalog).state,'unverified');assert.ok(validateConstruction(manual,catalog).issues.some(issue=>issue.id==='team.character-review'));
     assert.equal(requiredCores(manual,catalog).selected,3);assert.equal(requiredCores(manual,catalog).matched,2);
+    assert.equal(toys.supportCardLinks.length,149);
+    for(const [type,total,verified] of [['Geogan Card',98,97],['Nanogan Card',58,52]]){
+      const rows=[...catalog.cards.values()].filter(card=>card.type===type);
+      assert.equal(rows.length,total);assert.equal(rows.filter(card=>card.supportChoices.some(choice=>choice.verified)).length,verified);
+    }
+    const geo=catalog.cards.get('wiki-294853'),nano=catalog.cards.get('wiki-305258');
+    let support=validateDeck({...g2,formatId:'g2-all-seasons-support-v1'});
+    support=setCardQuantity(setCardQuantity(support,'deck',catalog.cards.get(ids.at(-1)),0),'deck',geo,1);
+    assert.equal(support.cards.find(x=>x.id===geo.id).supportToyId,'toy-1480');assert.equal(validateConstruction(support,catalog).state,'checks-passed');
+    support=setCardQuantity(support,'nanogan',nano,1);let checked=validateConstruction(support,catalog);
+    assert.equal(checked.state,'checks-passed');assert.equal(checked.counts.deck,40);assert.equal(checked.counts.nanogan,1);
+    assert.ok(checked.issues.some(x=>x.id==='synergy.nanogan-cores'));
+    support=setSupportToy(support,'nanogan',nano.id,'toy-1577');
+    const own=ownershipRequirements(support,{items:[]},catalog);assert.equal(own.find(x=>x.id==='toy-1480').required,1);assert.ok(!own.some(x=>x.id==='toy-1577'));
+    assert.ok(validateConstruction(setCardQuantity(support,'nanogan',nano,4),catalog).issues.some(x=>x.id==='zone.nanogan.count'));
+    assert.ok(validateConstruction(setSupportToy(support,'deck',geo.id,'toy-1615'),catalog).issues.some(x=>x.id==='support.toy-review'));
+    assert.deepEqual(catalog.cards.get('wiki-304209').supportChoices,[]);
+
 
 
 });

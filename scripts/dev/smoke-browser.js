@@ -278,7 +278,7 @@ try {
     passed('malformed catalog recovery');
     const empty = JSON.parse(await readFile(join(root, 'baku/bakugan-archive/data/toys.json'), 'utf8'));
     empty.models = []; empty.variants = []; empty.profiles = []; empty.sources = [];
-    empty.cardPrintings = []; empty.fusionProfiles = []; empty.cardCatalog = null; empty.releases = [];
+    empty.cardPrintings = []; empty.fusionProfiles = []; empty.supportCardLinks = []; empty.cardCatalog = null; empty.releases = [];
     intercept = ({ requestId }) => call('Fetch.fulfillRequest', { requestId, responseCode: 200, body: Buffer.from(JSON.stringify(empty)).toString('base64') });
     await navigate('/baku/bakugan-archive/', "Boolean(document.querySelector('.empty-state'))");
     assert.equal(await evaluate("document.querySelector('.empty-state h2').textContent"), 'The catalog is empty.');
@@ -291,7 +291,7 @@ try {
     for (const variant of evidenceFixture.variants) variant.releaseIds = [];
     evidenceFixture.releases = [];
     for (const profile of evidenceFixture.profiles) { profile.compatibility = 'unverified'; profile.bakuCores = null; profile.cardPrintingIds = []; delete profile.linkEvidence; }
-    evidenceFixture.cardPrintings = []; evidenceFixture.fusionProfiles = []; evidenceFixture.cardCatalog = null;
+    evidenceFixture.cardPrintings = []; evidenceFixture.fusionProfiles = []; evidenceFixture.supportCardLinks = []; evidenceFixture.cardCatalog = null;
     const sourceFixture = evidenceFixture.sources.find((source) => source.id === evidenceFixture.variants[0].evidence.sourceId);
     Object.assign(sourceFixture, { revision: 202, pageId: 101, sourceTimestamp: '2026-11-20T12:00:00Z', capturedAt: '2026-11-22T12:00:00Z', captureMethod: 'browser-api', sourceSha256: 'a'.repeat(64) });
     Object.assign(evidenceFixture.variants[0].evidence, { reviewStatus: 'revision-reviewed', sourceRevision: 202, sourceSha256: 'a'.repeat(64), reviewer: 'Synthetic browser fixture', reviewedAt: '2026-11-22' });
@@ -834,6 +834,36 @@ try {
     await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
     assert.equal(await rawInventory(),guestBefore);await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
     passed('Manual Character candidates require explicit selection, retain an unknown check, fill printed cores, restore on reload and explain absent candidates');
+
+
+    await createDeckUI('G2 support browser fixture','g2-all-seasons-support-v1');await browseDeck('team');
+    for(const id of ['toy-0019','toy-0020','toy-0043'])await addDeckItem(id);await deckSave(()=>deckButton('auto-cores'));
+    await browseDeck('deck');await addDeckItem('wiki-294853');
+    assert.equal((await activeDeck()).cards.find(x=>x.id==='wiki-294853').supportToyId,'toy-1480');
+    const geoSelect="document.querySelector('[data-support-id=wiki-294853]')";
+    assert.match(await evaluate(geoSelect+'.textContent'),/Package linked:.*Arcleon.*Manual review:/);
+    assert.match(await evaluate("document.querySelector('[aria-label=\"Collection comparison\"]').textContent"),/Arcleon/);
+    await deckSave(()=>evaluate("(() => {const s="+geoSelect+";s.value='toy-1615';s.dispatchEvent(new Event('change',{bubbles:true}))})()"));
+    assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/support.toy-review/);
+    await deckSave(()=>evaluate("(() => {const s="+geoSelect+";s.value='toy-1480';s.dispatchEvent(new Event('change',{bubbles:true}))})()"));
+    await browseDeck('nanogan');await addDeckItem('wiki-305258');assert.equal((await activeDeck()).cards.find(x=>x.id==='wiki-305258').zone,'nanogan');
+    assert.equal((await activeDeck()).cards.find(x=>x.id==='wiki-305258').supportToyId,undefined);
+    assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/synergy.nanogan-cores/);
+    await deckSave(()=>evaluate("(() => {const s=document.querySelector('[data-support-id=wiki-305258]');s.value='toy-1577';s.dispatchEvent(new Event('change',{bubbles:true}))})()"));
+    await deckSave(()=>evaluate("(() => {const f=document.querySelector('form[data-form=quantity][data-id=wiki-305258]');f.elements.quantity.value='4';f.requestSubmit()})()"));
+    assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/Nanogan zone allows up to 3 cards; currently 4/);
+    assert.equal((await activeDeck()).cards.filter(x=>x.zone==='deck').reduce((n,x)=>n+x.quantity,0),1);
+    await deckSave(()=>evaluate("(() => {const f=document.querySelector('form[data-form=quantity][data-id=wiki-305258]');f.elements.quantity.value='1';f.requestSubmit()})()"));
+    assert.doesNotMatch(await evaluate("document.querySelector('.deck-issues').textContent"),/zone.nanogan.count/);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    await call('Page.reload');await until(()=>evaluate("document.querySelector('[data-support-id=wiki-305258]')?.value==='toy-1577'"),'support selection restored');
+    assert.equal(await rawInventory(),guestBefore);
+    passed('Geogan main-deck pairing, optional Nanogan zone and physical choice, core advisory, count limit and reload work at 320px');
+    await navigate('/baku/bakugan-archive/?item=toy-1480',"Boolean(document.querySelector('dialog')?.open)");
+    assert.match(await evaluate("document.querySelector('dialog').textContent"),/Package-listed Geogan Card/);
+    assert.ok(await evaluate("Array.from(document.querySelectorAll('dialog a')).some(a=>a.href.includes('wiki-294853'))"));
+    passed('Toy Archive exposes exact package-listed support card printing');
 
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
