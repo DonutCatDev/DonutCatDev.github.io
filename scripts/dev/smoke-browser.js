@@ -677,6 +677,58 @@ try {
     await accountButton('sign-out');await until(()=>evaluate("document.querySelector('.collection-account-panel').textContent.includes('Sign in with Discord')"),'signed out');
     passed('account switching and stale-session mutation assertions clear the prior private workspace without altering guest data');
     await call('Fetch.disable');intercept=null;
+
+    // Deckbuilder uses the actual pinned catalogs and the same isolated guest
+    // inventory. The saved library is synthetic and exists only in this profile.
+    await navigate('/baku');await evaluate("document.querySelector('.project-grid a[href=\"/baku/deckbuilder\"]').click()");
+    await until(()=>evaluate("location.pathname==='/baku/deckbuilder/' && document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('979 toy variants')"),'deckbuilder catalog loaded');
+    assert.equal(await evaluate("document.querySelector('h1').textContent"),'Bakugan Deckbuilder');assert.equal(await evaluate("document.querySelector('meta[name=robots]').content"),'noindex,follow');
+    const deckKey='bakugan-suite.decks.v1';const savedLibrary=()=>evaluate(`JSON.parse(localStorage.getItem(${JSON.stringify(deckKey)}))`);
+    const activeDeck=async()=>{const lib=await savedLibrary();return lib?.decks.find(deck=>deck.id===lib.activeId);};
+    const deckState=()=>evaluate("document.querySelector('.deck-check-status')?.dataset.state");
+    const deckButton=action=>evaluate(`document.querySelector('#deckbuilder [data-action=${JSON.stringify(action)}]')?.click()`);
+    const deckSave=async action=>{const before=(await savedLibrary())?.revision||0;await action();await until(async()=>((await savedLibrary())?.revision||0)>before,'deck autosave');await until(()=>evaluate("!document.querySelector('[data-form=create] button').disabled"),'deck save controls ready');};
+    const createDeckUI=(title,profile)=>deckSave(()=>evaluate(`(() => {const f=document.querySelector('form[data-form=create]');f.elements.title.value=${JSON.stringify(title)};f.elements.format.value=${JSON.stringify(profile)};f.requestSubmit()})()`));
+    const browseDeck=async zone=>evaluate(`(() => {const s=document.getElementById('deck-add-zone');s.value=${JSON.stringify(zone)};s.dispatchEvent(new Event('change',{bubbles:true}))})()`);
+    async function addDeckItem(id){await evaluate(`(() => {const q=document.getElementById('deck-search');q.value=${JSON.stringify(id)};q.dispatchEvent(new Event('input',{bubbles:true}))})()`);await deckSave(()=>evaluate(`document.querySelector('.deck-results button[data-id=${JSON.stringify(id)}]').click()`));}
+    await createDeckUI('G1 browser fixture','g1-nv-basic-v1');assert.deepEqual(await archiveTheme(),cardTheme);
+    await browseDeck('team');for(const id of ['toy-0001','toy-0002','toy-0001'])await addDeckItem(id);
+    await browseDeck('gate');for(const id of ['wiki-901','wiki-854','wiki-7905'])await addDeckItem(id);
+    await browseDeck('ability');for(const id of ['wiki-866','wiki-293938','wiki-307937'])await addDeckItem(id);
+    assert.equal(await deckState(),'checks-passed');assert.equal((await activeDeck()).team.length,3);assert.equal((await activeDeck()).cards.length,6);
+    assert.match(await evaluate("document.querySelector('[aria-label=\"Deck analysis\"]').textContent"),/Gate card printed attribute bonuses/);assert.match(await evaluate("document.querySelector('[aria-label=\"Collection comparison\"]').textContent"),/Exact printing and variant quantities/);
+    assert.equal(await rawInventory(),guestBefore);
+    await deckSave(()=>evaluate("document.querySelector('[data-action=increase-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'incomplete');assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/one Gold frame/);
+    await deckSave(()=>evaluate("document.querySelector('[data-action=decrease-card][data-id=\"wiki-901\"]').click()"));assert.equal(await deckState(),'checks-passed');
+    await call('Page.reload');await until(()=>evaluate("document.querySelector('[aria-label=\"Catalog status\"]')?.textContent.includes('979 toy variants') && document.querySelector('.deck-check-status')"),'G1 saved reload');assert.equal(await deckState(),'checks-passed');
+    passed('G1 draft saves exact physical variants and frame zones, checks Gate/Ability colors, restores on refresh and never writes inventory');
+
+    await createDeckUI('G2 browser fixture','g2-bp-tcg-v1');await browseDeck('team');for(const id of ['toy-0019','toy-0020','toy-0043'])await addDeckItem(id);
+    assert.match(await evaluate("document.querySelector('[aria-label=Team]').textContent"),/Shield \+ Shield/);
+    await deckSave(()=>deckButton('auto-cores'));assert.deepEqual((await activeDeck()).cores,{Fist:2,'Flaming Fist':1,Shield:3,'Magic Shield':0,Helix:0});
+    await browseDeck('deck');await addDeckItem('wiki-279263');
+    await deckSave(()=>evaluate("(() => {const f=document.querySelector('form[data-form=quantity][data-id=\"wiki-279263\"]');f.elements.quantity.value='4';f.requestSubmit()})()"));assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/above the three-copy limit/);
+    await addDeckItem('wiki-286601');assert.match(await evaluate("document.querySelector('.deck-issues').textContent"),/shares no faction with the selected team/);
+    assert.equal(await rawInventory(),guestBefore);
+    passed('G2 exact Character profiles preserve repeated cores, auto-fill the matching multiset and flag copy/faction violations');
+
+    const validG2=await activeDeck();validG2.id='deck-import-fixture';validG2.title='G2 imported 40-card fixture';
+    const ids=['wiki-282358','wiki-282359','wiki-282397','wiki-279662','wiki-279663','wiki-282360','wiki-279622','wiki-279623','wiki-279624','wiki-279625','wiki-279626','wiki-282361','wiki-279366','wiki-282398'];
+    const sourceCards=JSON.parse(await readFile(join(root,'baku','bakugan_card_archive','data','cards.json'),'utf8')).cards;
+    validG2.cards=ids.map((id,index)=>({zone:'deck',id,name:sourceCards.find(card=>card.id===id).name,quantity:index===13?1:3}));
+    const beforeDeckImport=await savedLibrary();await evaluate(`(() => {const t=new DataTransfer();t.items.add(new File([${JSON.stringify(JSON.stringify({schemaVersion:1,deck:validG2}))}],'fixture.json',{type:'application/json'}));const input=document.getElementById('deck-import-file');input.files=t.files;input.dispatchEvent(new Event('change',{bubbles:true}))})()`);
+    await until(()=>evaluate("document.querySelector('dialog[open] #deck-dialog-title')?.textContent==='Preview deck import'"),'deck import preview');assert.deepEqual(await savedLibrary(),beforeDeckImport);
+    await deckSave(()=>deckButton('confirm-dialog'));await until(()=>evaluate("!document.querySelector('dialog[open]')"),'import closed');assert.equal(await deckState(),'checks-passed');assert.equal((await activeDeck()).cards.reduce((n,c)=>n+c.quantity,0),40);assert.equal((await savedLibrary()).decks.length,3);
+    assert.match(await evaluate("document.querySelector('[aria-label=\"Deck analysis\"]').textContent"),/Energy curve/);
+    await evaluate("document.querySelector('[aria-label=\"Team\"]').scrollIntoView({block:'start',behavior:'instant'})");
+    const deckDesktop=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile(join(output,'deckbuilder-g2-desktop.png'),Buffer.from(deckDesktop.data,'base64'));
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await evaluate("document.querySelector('[aria-label=\"BakuCores\"]').scrollIntoView({block:'start',behavior:'instant'})");const deckMobile=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile(join(output,'deckbuilder-g2-mobile.png'),Buffer.from(deckMobile.data,'base64'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    const beforeSwitch=await activeDeck();await evaluate("(() => {const f=document.querySelector('form[data-form=format]');f.elements.format.value='g1-nv-basic-v1';f.requestSubmit()})()");assert.match(await evaluate("document.querySelector('dialog[open]').textContent"),/All team members, cards and core selections are retained/);
+    await deckSave(()=>deckButton('confirm-dialog'));assert.equal((await activeDeck()).formatId,'g1-nv-basic-v1');assert.deepEqual((await activeDeck()).cards,beforeSwitch.cards);assert.deepEqual((await activeDeck()).team,beforeSwitch.team);assert.deepEqual((await activeDeck()).cores,beforeSwitch.cores);assert.equal(await deckState(),'incomplete');
+    assert.equal(await rawInventory(),guestBefore);
+    passed('40-card G2 draft import checks pass, energy curve and 320px layout work, format switch preserves incompatible entries');
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {

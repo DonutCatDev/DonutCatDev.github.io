@@ -115,6 +115,12 @@ export const sections = {
                 type: 'static',
                 indexable: false
             },
+            deckbuilder: {
+                title: 'Bakugan Deckbuilder',
+                description: 'Build G1 and G2 teams and decks, check format construction, compare cores and exact owned items, and save local drafts.',
+                type: 'static',
+                indexable: false
+            },
             bakugan_card_archive: {
                 title: 'Bakugan Card Archive',
                 description: 'Search and filter Bakugan cards across generations, sets, card types, factions, stats, effects, and source details.',

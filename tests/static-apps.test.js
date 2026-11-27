@@ -8,6 +8,9 @@ import { getStaticApps, validateStaticApp } from '../scripts/dev/static-apps.js'
 import { sections } from '../scripts/site-config.js';
 import { prepareCatalog } from '../vendor/bakugan_toy_archive/public/scripts/lib/catalog.js';
 import { createPreviewServer } from '../scripts/dev/serve.js';
+import { prepareCatalogs } from '../vendor/bakugan_deckbuilder/public/scripts/lib/catalog.js';
+import { createDeck, addToy, setCardQuantity, validateDeck } from '../vendor/bakugan_deckbuilder/public/scripts/lib/decks.js';
+import { requiredCores, validateConstruction } from '../vendor/bakugan_deckbuilder/public/scripts/lib/validate.js';
 
 test('each standalone route has exactly one artifact contract', () => {
     const apps = getStaticApps({});
@@ -38,6 +41,21 @@ test('the collection manager has a pinned public release and canonical route', a
     await validateStaticApp(shared);
     const config = JSON.parse(await readFile(join(app.source, 'data/service-config.json'), 'utf8'));
     assert.equal(config.schemaVersion, 1);
+});
+
+test('the deckbuilder release resolves real pinned G1 and Battle Planet card/toy fixtures',async()=>{
+    const apps=getStaticApps({}),app=apps.find(entry=>entry.page==='deckbuilder');assert.equal(app.path,'/baku/deckbuilder/');await validateStaticApp(app);
+    const cards=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan_card_archive').source,'data/cards.json'),'utf8'));
+    const toys=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan-archive').source,'data/toys.json'),'utf8'));
+    const catalog=prepareCatalogs(cards,toys);assert.ok(catalog.cards.size>=5516);assert.ok(catalog.toys.size>=979);
+    assert.deepEqual(catalog.toys.get('toy-0043').choices[0].cores,['Shield','Shield']);
+    let g1=createDeck('deck-fixture-g1','g1-nv-basic-v1');for(const id of ['toy-0001','toy-0002','toy-0001'])g1=addToy(g1,catalog.toys.get(id));
+    for(const id of ['wiki-901','wiki-854','wiki-7905'])g1=setCardQuantity(g1,'gate',catalog.cards.get(id),1);for(const id of ['wiki-866','wiki-293938','wiki-307937'])g1=setCardQuantity(g1,'ability',catalog.cards.get(id),1);
+    assert.equal(validateConstruction(g1,catalog).state,'checks-passed');
+    let g2=createDeck('deck-fixture-g2','g2-bp-tcg-v1');for(const id of ['toy-0019','toy-0020','toy-0043'])g2=addToy(g2,catalog.toys.get(id));
+    const ids=['wiki-282358','wiki-282359','wiki-282397','wiki-279662','wiki-279663','wiki-282360','wiki-279622','wiki-279623','wiki-279624','wiki-279625','wiki-279626','wiki-282361','wiki-279366','wiki-282398'];for(const [index,id] of ids.entries())g2=setCardQuantity(g2,'deck',catalog.cards.get(id),index===13?1:3);
+    g2=validateDeck({...g2,cores:requiredCores(g2,catalog).cores});assert.deepEqual(g2.cores,{Fist:2,'Flaming Fist':1,Shield:3,'Magic Shield':0,Helix:0});
+    assert.equal(validateConstruction(g2,catalog).state,'checks-passed');
 });
 
 test('snapshot validation rejects tampering, extra files, and missing required assets', async () => {

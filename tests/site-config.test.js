@@ -41,4 +41,6 @@ test('the sitemap includes every indexable canonical route and omits the pilot',
     assert.doesNotMatch(sitemap, /<loc>https:\/\/donutcat\.org\/baku\/collection\/?<\/loc>/);
     assert.equal(getRouteDetails('/baku/shared').indexable, false);
     assert.doesNotMatch(sitemap, /<loc>https:\/\/donutcat\.org\/baku\/shared\/?<\/loc>/);
+    assert.equal(getRouteDetails('/baku/deckbuilder').indexable, false);
+    assert.doesNotMatch(sitemap, /<loc>https:\/\/donutcat\.org\/baku\/deckbuilder\/?<\/loc>/);
 });
