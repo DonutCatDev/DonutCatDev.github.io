@@ -25,7 +25,7 @@ test('the pinned toy archive matches its release and catalog contract', async ()
     const app = getStaticApps({}).find((entry) => entry.page === 'bakugan-archive');
     await validateStaticApp(app);
     const data = JSON.parse(await readFile(join(app.source, 'data/toys.json'), 'utf8'));
-    assert.equal(prepareCatalog(data).length, 1405);
+    assert.equal(prepareCatalog(data).length, 1620);
     assert.equal(data.coverage.complete, false);
 });
 
@@ -48,7 +48,7 @@ test('the deckbuilder release resolves real pinned fixtures for all five G1 and 
     const apps=getStaticApps({}),app=apps.find(entry=>entry.page==='deckbuilder');assert.equal(app.path,'/baku/deckbuilder/');await validateStaticApp(app);
     const cards=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan_card_archive').source,'data/cards.json'),'utf8'));
     const toys=JSON.parse(await readFile(join(apps.find(entry=>entry.page==='bakugan-archive').source,'data/toys.json'),'utf8'));
-    const catalog=prepareCatalogs(cards,toys);assert.ok(catalog.cards.size>=5516);assert.equal(catalog.toys.size,1405);
+    const catalog=prepareCatalogs(cards,toys);assert.ok(catalog.cards.size>=5516);assert.equal(catalog.toys.size,1620);
     assert.deepEqual(catalog.toys.get('toy-0043').choices[0].cores,['Shield','Shield']);
     let g1=createDeck('deck-fixture-g1','g1-nv-basic-v1');for(const id of ['toy-0001','toy-0002','toy-0001'])g1=addToy(g1,catalog.toys.get(id));
     for(const id of ['wiki-901','wiki-854','wiki-7905'])g1=setCardQuantity(g1,'gate',catalog.cards.get(id),1);for(const id of ['wiki-866','wiki-293938','wiki-307937'])g1=setCardQuantity(g1,'ability',catalog.cards.get(id),1);
@@ -63,13 +63,13 @@ test('the deckbuilder release resolves real pinned fixtures for all five G1 and 
     for(const id of ['wiki-844','wiki-889','wiki-860'])big=setCardQuantity(big,'ability',catalog.cards.get(id),1);
     assert.equal(validateConstruction(big,catalog).state,'checks-passed');
     assert.ok(validateConstruction(setCardQuantity(big,'gate',catalog.cards.get('wiki-901'),2),catalog).issues.some(issue=>issue.id==='big-game.copies'&&issue.severity==='error'));
-    assert.equal([...catalog.toys.values()].filter(toy=>toy.series==='Armored Alliance'&&toy.choices.length).length,127);
+    assert.equal([...catalog.toys.values()].filter(toy=>toy.series==='Armored Alliance'&&toy.choices.length).length,135);
     let aa=validateDeck({...g2,formatId:'g2-bp-aa-tcg-v1',team:g2.team.slice(1)});aa=addToy(aa,catalog.toys.get('toy-0057'));
     aa=setCardQuantity(aa,'deck',catalog.cards.get(ids.at(-1)),0);aa=setCardQuantity(aa,'deck',catalog.cards.get('wiki-291286'),1);
     aa=validateDeck({...aa,cores:requiredCores(aa,catalog).cores});assert.deepEqual(aa.cores,{Fist:3,'Flaming Fist':0,Shield:3,'Magic Shield':0,Helix:0});
     assert.equal(validateConstruction(aa,catalog).state,'checks-passed');
     assert.equal(validateConstruction({...aa,formatId:'g2-bp-tcg-v1'},catalog).state,'incomplete');
-    assert.equal([...catalog.toys.values()].filter(toy=>toy.choices.length).length,614);
+    assert.equal([...catalog.toys.values()].filter(toy=>toy.choices.length).length,626);
     assert.deepEqual(catalog.toys.get('toy-1096').choices.map(choice=>choice.cardId),['wiki-300520','wiki-302480']);
     let later=validateDeck({...g2,formatId:'g2-all-seasons-single-faction-v1',team:[]});
     for(const id of ['toy-1099','toy-1101','toy-1109'])later=addToy(later,catalog.toys.get(id));
@@ -80,6 +80,11 @@ test('the deckbuilder release resolves real pinned fixtures for all five G1 and 
     const fusion=catalog.toys.get('toy-1300');assert.deepEqual(fusion.factions,['Pyrus','Darkus']);assert.equal(fusion.kind,'Fusion');assert.deepEqual(fusion.choices,[]);
     assert.ok(validateConstruction(addToy(legends,fusion),catalog).issues.some(issue=>issue.id==='team.kind'&&issue.severity==='error'));
     const collected=toyRecords(toys).find(row=>row.id==='toy-1300');assert.equal(collected.snapshot.faction,'Pyrus / Darkus');assert.match(collected.snapshot.name,/Fusion/);
+    for(const [id,kind] of [['toy-1441','Baku-Gear'],['toy-1483','Geogan'],['toy-1524','Nanogan']]){const piece=catalog.toys.get(id);assert.equal(piece.kind,kind);assert.deepEqual(piece.choices,[]);assert.ok(validateConstruction(addToy(legends,piece),catalog).issues.some(i=>i.id==='team.kind'));}
+    assert.equal(toyRecords(toys).find(row=>row.id==='toy-1441').snapshot.faction,'Pyrus / Aurelus');
+    assert.equal(catalog.toys.get('toy-1620').choices[0].cardId,'wiki-298461');
+    assert.equal(catalog.toys.get('toy-0441').choices[0].cardId,catalog.toys.get('toy-0410').choices[0].cardId);
+    assert.equal(toys.releases.find(r=>r.id==='release-0746').packageEvidence.memberIds.length,7);
 });
 
 test('snapshot validation rejects tampering, extra files, and missing required assets', async () => {
