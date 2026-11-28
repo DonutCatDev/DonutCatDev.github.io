@@ -606,9 +606,13 @@ try {
     assert.equal(writes.length,0); await accountButton('confirm-account-dialog'); await readyAccount();
     assert.match(await accountText(),/Unsynced account draft/); assert.equal(await evaluate("document.querySelector('form[data-form=quantities] input[name=owned]').value"),'2');
     assert.equal(await rawInventory(),guestBefore); assert.equal(writes.length,0);
+    await evaluate("(() => {window.inventoryMessages=[];window.inventoryMessageChannel=new BroadcastChannel('bakugan-suite.account.v1');window.inventoryMessageChannel.onmessage=e=>window.inventoryMessages.push(e.data)})()");
     await accountButton('sync'); await until(()=>evaluate("document.querySelector('.collection-account-panel').textContent.includes('save result is uncertain')"),'uncertain account receipt');
     assert.equal(writes.length,1); assert.equal(heads.get(alice).revision,1);
+    assert.deepEqual(await evaluate('window.inventoryMessages'),[]);
     await accountButton('sync'); await until(()=>evaluate("document.querySelector('.account-sync-state')?.textContent.includes('server revision 1')"),'replayed account receipt');
+    await until(()=>evaluate("window.inventoryMessages.includes('inventory-saved')"),'confirmed inventory notification');
+    await evaluate('window.inventoryMessageChannel.close()');
     assert.deepEqual(writes[0],writes[1]); assert.equal(await rawInventory(),guestBefore);
     passed('sign-in never uploads guest data; explicit adoption and exact sync retry preserve the independent guest inventory');
 
@@ -867,6 +871,8 @@ try {
 
     const deckGuestBefore=await savedLibrary(),deckShareId='44444444-4444-4444-8444-444444444444';
     let deckOwner=alice,deckHead={revision:0,library:null},deckPublication=null,deckWrites=[],deckPublishes=[],deckReceiptLost=true,deckShareReceiptLost=true;
+    const inventoryRow=(kind,id,owned)=>({kind,id,key:kind+':'+id,snapshot:{name:'Account-only fixture'},owned,wanted:0,offered:0,notes:'PRIVATE NOTE NEVER RENDERED'});
+    let deckInventory={revision:8,inventory:{schemaVersion:2,revision:1,items:[inventoryRow('toy','toy-1480',6),inventoryRow('card','wiki-294853',7)],binders:[]}},inventoryReads=0,inventoryFailure=false;
     const projection=body=>{const {id,...deck}=deckHead.library.decks.find(d=>d.id===body.deckId);return deck;};
     intercept=async({requestId,request})=>{
         const path=new URL(request.url).pathname;
@@ -877,6 +883,7 @@ try {
         const asserted=Object.entries(request.headers).find(([key])=>key.toLowerCase()==='x-bakugan-account')?.[1];
         if(asserted!==deckOwner)return respond({error:'ACCOUNT_CHANGED'},409);
         const body=request.postData?JSON.parse(request.postData):null;
+        if(path==='/v1/inventory'&&request.method==='GET'){inventoryReads++;return inventoryFailure?respond({error:'UNAVAILABLE'},503):respond(deckOwner===alice?deckInventory:{revision:0,inventory:null});}
         if(path==='/v1/decks'&&request.method==='GET')return respond(deckOwner===alice?deckHead:{revision:0,library:null});
         if(path==='/v1/decks'){
             deckWrites.push(body);
@@ -902,9 +909,30 @@ try {
     const deckAccountButton=action=>evaluate(`document.querySelector('.deck-account-panel [data-action=${JSON.stringify(action)}]')?.click()`);
     const waitDeckAccountButton=action=>until(()=>evaluate(`Boolean(document.querySelector('.deck-account-panel [data-action=${JSON.stringify(action)}]:not([disabled])'))`),'deck account '+action);
     await navigate('/baku/deckbuilder/');await waitDeckAccountButton('account-open');assert.equal(deckWrites.length,0);
+    assert.equal(inventoryReads,0);
     await deckAccountButton('account-open');await waitDeckAccountButton('account-copy');
     await deckAccountButton('account-copy');await waitDeckAccountButton('account-confirm');await deckAccountButton('account-confirm');
     await waitDeckAccountButton('account-sync');assert.equal(deckWrites.length,0);assert.deepEqual(await savedLibrary(),deckGuestBefore);
+    const comparison=()=>evaluate("document.querySelector('[aria-label=\"Collection comparison\"]').textContent");
+    const badge=(kind,id)=>evaluate(`document.querySelector('[data-owned-kind=${kind}][data-owned-id=${id}]')?.textContent`);
+    await until(async()=>/server revision 8/.test(await comparison())&&/7$/.test(await badge('card','wiki-294853')),'account collection badge and revision');
+    assert.match(await badge('toy','toy-1480'),/6$/);
+    assert.match(await comparison(),/Unsynced Collection Manager changes are not included/);
+    assert.equal(await evaluate("document.body.textContent.includes('PRIVATE NOTE NEVER RENDERED')"),false);
+    assert.match(await evaluate("document.querySelector('label:has(#deck-owned)').textContent"),/saved account collection/);
+    const notifyInventory=()=>evaluate("(() => {const c=new BroadcastChannel('bakugan-suite.account.v1');c.postMessage('inventory-saved');c.close()})()");
+    deckInventory={...deckInventory,revision:9,inventory:{...deckInventory.inventory,items:[inventoryRow('card','wiki-294853',2)]}};
+    await notifyInventory();await until(async()=>/server revision 9/.test(await comparison())&&/2$/.test(await badge('card','wiki-294853')),'collection sync updates deck ownership');
+    assert.match(await badge('toy','toy-1480'),/0$/);
+    inventoryFailure=true;await evaluate("document.querySelector('[data-action=refresh-ownership]').click()");
+    await until(async()=>/could not be loaded/.test(await comparison()),'account collection failure');
+    assert.equal(await badge('card','wiki-294853'),'');assert.equal(await badge('toy','toy-1480'),'');
+    assert.equal(await evaluate("document.querySelector('#deck-owned').disabled"),true);assert.equal(await evaluate("Boolean(document.querySelector('[data-action=export-missing]'))"),false);
+    inventoryFailure=false;deckInventory={revision:0,inventory:null};await evaluate("document.querySelector('[data-action=refresh-ownership]').click()");
+    await until(async()=>/no saved inventory yet/.test(await comparison()),'confirmed empty account has zero ownership');
+    assert.match(await badge('card','wiki-294853'),/0$/);assert.equal(await evaluate("document.querySelector('#deck-owned').disabled"),false);
+    assert.equal(await rawInventory(),guestBefore);assert.deepEqual(await savedLibrary(),deckGuestBefore);
+    passed('account deck ownership uses only saved account quantities, updates after confirmed collection sync, and distinguishes unavailable from empty inventory');
     await deckAccountButton('account-sync');await until(()=>evaluate("document.querySelector('.deck-account-state')?.textContent.includes('uncertain')"),'uncertain deck save');
     await deckAccountButton('account-sync');await until(()=>evaluate("document.querySelector('.deck-account-state')?.textContent.includes('Synced account revision 1')"),'deck receipt replay');
     assert.deepEqual(deckWrites[0],deckWrites[1]);assert.deepEqual(await savedLibrary(),deckGuestBefore);
@@ -924,6 +952,8 @@ try {
     deckOwner=bob;await evaluate("(() => {const c=new BroadcastChannel('bakugan-suite.account.v1');c.postMessage('session-changed');c.close()})()");
     await waitDeckAccountButton('account-open');await deckAccountButton('account-open');await until(()=>evaluate("document.querySelector('.deck-account-state')?.textContent.includes('No saved account deck library')"),'new account empty');
     assert.equal(await evaluate("Boolean(document.querySelector('#deck-library-select'))"),false);assert.deepEqual(await savedLibrary(),deckGuestBefore);
+    await until(()=>evaluate("document.querySelector('[aria-label=\"Catalog status\"]').textContent.includes('no saved inventory yet')"),'new account inventory isolated');
+    assert.equal(await rawInventory(),guestBefore);
     await navigate('/baku/deckbuilder/?share='+deckShareId);await until(()=>evaluate("document.querySelector('#deckbuilder').textContent.includes('Shared deck is unavailable')"),'revoked deck unavailable');
     await call('Fetch.disable');intercept=null;
     passed('deck accounts preserve guest data, retry exact mutations, publish only selected snapshots, revoke and isolate account switches at mobile and desktop widths');

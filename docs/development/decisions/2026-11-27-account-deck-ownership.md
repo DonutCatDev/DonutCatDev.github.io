@@ -1,0 +1,11 @@
+# Account-aware deck ownership comparison
+
+Deckbuilder release `2026-11-27-deck.11` and Collection Manager `2026-11-27-account.5` connect existing signed-in deck and collection workspaces without changing either storage schema, backend contract, or service configuration.
+
+- Guest deck libraries compare with the browser-local guest inventory, even when Discord is signed in. Opening the private deck workspace explicitly triggers a read of the saved account inventory with the verified expected-account assertion. A separate server revision is visible; unsynced collection drafts and want/trade quantities do not count as owned.
+- The deckbuilder retains only exact item keys and owned counts in memory. It uses the same exact-printing and variant requirements, including reviewed Fusion and Geogan rules, across the team badges, selected card/support badges, search owned-only filter, and missing-item list. No inventory mutations occur in Deckbuilder. The public deck share never loads private ownership data.
+- A confirmed revision zero is an empty inventory; an unavailable or unverified inventory is unknown, never zero. On failure filters and missing-list export are disabled, quantity badges are cleared, and the user can refresh. Late or canceled responses are ignored after an account switch, logout, tab suspension, or superseding refresh.
+- Confirmed Collection Manager saves (including receipt replays) publish an origin-local, non-identifying `inventory-saved` notification. An open verified account deck workspace refetches saved quantities. Revalidating the session on return to a tab also refetches; a manual refresh is available. No inventory payload or owner identifier travels over the channel.
+- Missing-item links include the exact key and direct the user to Collection Manager's account controls. Opening its account workspace remains an explicit choice; neither link navigation nor sign-in copies guest quantities or changes account ownership.
+
+This release reuses the existing Worker and D1 API, avoiding additional hosted resources or migrations. The production API origin remains disabled until real hosted staging passes. Remaining account work includes testing OAuth and cross-device behavior on the owner's staging deployment, and expanding account-aware collection actions to the archive pages with explicit source selection.
