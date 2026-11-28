@@ -958,6 +958,64 @@ try {
     await call('Fetch.disable');intercept=null;
     passed('deck accounts preserve guest data, retry exact mutations, publish only selected snapshots, revoke and isolate account switches at mobile and desktop widths');
 
+    // Account-aware archive controls use the same inventory contract, never the guest key.
+    let archiveOwner=alice,archiveReads=0,archiveWrites=[],archiveLoseReceipt=true,archiveLastMutation=null;
+    let archiveHead={revision:10,inventory:{schemaVersion:2,revision:4,items:[{...inventoryRow('card','wiki-279791',8),wanted:2,offered:2},{...inventoryRow('toy','toy-0001',4),wanted:3,offered:2}],binders:[{id:'binder-archive',name:'Account-only binder',entries:['card:wiki-279791','toy:toy-0001']}]}};
+    intercept=async({requestId,request})=>{
+        const path=new URL(request.url).pathname;
+        const respond=(value,responseCode=200)=>call('Fetch.fulfillRequest',{requestId,responseCode,responseHeaders:[{name:'Content-Type',value:'application/json'},{name:'Cache-Control',value:'no-store'}],body:Buffer.from(JSON.stringify(value)).toString('base64')});
+        if(path.endsWith('/data/service-config.json'))return respond({schemaVersion:1,apiOrigin:origin});
+        if(path==='/v1/session')return respond(archiveOwner?{signedIn:true,accountId:archiveOwner}:{signedIn:false});
+        const asserted=Object.entries(request.headers).find(([key])=>key.toLowerCase()==='x-bakugan-account')?.[1];
+        if(asserted!==archiveOwner)return respond({error:'ACCOUNT_CHANGED'},409);
+        if(path==='/v1/inventory'&&request.method==='GET'){archiveReads++;return respond(archiveOwner===alice?archiveHead:{revision:0,inventory:null});}
+        if(path==='/v1/inventory'&&request.method==='POST'){
+            const body=JSON.parse(request.postData);archiveWrites.push(body);
+            if(archiveLastMutation===body.mutationId)return respond({status:'replayed',revision:archiveHead.revision});
+            if(body.expectedRevision!==archiveHead.revision)return respond({status:'conflict',revision:archiveHead.revision});
+            archiveHead={revision:archiveHead.revision+1,inventory:body.inventory};archiveLastMutation=body.mutationId;
+            if(archiveLoseReceipt){archiveLoseReceipt=false;return respond({error:'UNAVAILABLE'},503);}
+            return respond({status:'saved',revision:archiveHead.revision});
+        }
+        return respond({error:'NOT_FOUND'},404);
+    };
+    await call('Fetch.enable',{patterns:[{urlPattern:'*data/service-config.json*',requestStage:'Request'},{urlPattern:`${origin}/v1/*`,requestStage:'Request'}]});
+    const archiveButton=action=>evaluate(`document.querySelector('dialog[open] .archive-account-record [data-action=${JSON.stringify(action)}]')?.click()`);
+    const archiveReady=()=>until(()=>evaluate("Boolean(document.querySelector('dialog[open] form[data-archive-account-form]'))"),'archive account form');
+    const waitArchiveAction=action=>until(()=>evaluate(`Boolean(document.querySelector('dialog[open] .archive-account-record [data-action=${JSON.stringify(action)}]:not([disabled])'))`),'archive account '+action);
+    const archiveValues=()=>evaluate("Array.from(document.querySelector('dialog[open] form[data-archive-account-form]').querySelectorAll('input')).map(i=>i.value)");
+    const archiveSubmit=(owned,wanted,offered)=>evaluate(`(() => {const f=document.querySelector('dialog[open] form[data-archive-account-form]');for(const [key,value] of Object.entries(${JSON.stringify({owned,wanted,offered})})){f.elements[key].value=value;f.elements[key].dispatchEvent(new Event('input',{bubbles:true}));}f.requestSubmit()})()`);
+    await navigate('/baku/bakugan_card_archive/?q=wiki-279791');await until(()=>evaluate("document.querySelectorAll('#card-grid .card-result').length===1"),'archive exact card');
+    await evaluate("document.querySelector('#card-grid .card-result').click()");await waitArchiveAction('archive-open');
+    assert.equal(archiveReads,0);assert.equal(archiveWrites.length,0);
+    await archiveButton('archive-open');await archiveReady();assert.deepEqual(await archiveValues(),['8','2','2']);
+    assert.match(await evaluate("document.querySelector('[data-archive-account-item=wiki-279791]').textContent"),/Account owned: 8/);
+    const guestCardQuantity=await evaluate("document.querySelector('#card-dialog .collection-edit input').value");assert.notEqual(guestCardQuantity,'8');
+    await archiveSubmit(9,5,3);await waitArchiveAction('archive-retry');assert.equal(archiveHead.revision,11);
+    await archiveButton('archive-retry');await archiveReady();assert.deepEqual(archiveWrites[0],archiveWrites[1]);assert.deepEqual(await archiveValues(),['9','5','3']);
+    assert.equal(await evaluate("document.querySelector('#card-dialog .collection-edit input').value"),guestCardQuantity);
+    assert.equal(archiveHead.inventory.items[0].notes,'PRIVATE NOTE NEVER RENDERED');assert.equal(archiveHead.inventory.items[1].owned,4);
+    assert.equal(await rawInventory(),guestBefore);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await navigate('/baku/bakugan-archive/?item=toy-0001&q=toy-0001&view=variants',"Boolean(document.querySelector('dialog')?.open)");await waitArchiveAction('archive-open');
+    await archiveButton('archive-open');await archiveReady();assert.deepEqual(await archiveValues(),['4','3','2']);
+    assert.match(await evaluate("document.querySelector('[data-archive-account-item=toy-0001]').textContent"),/Account owned: 4/);
+    await archiveSubmit(1,3,2);await until(()=>evaluate("document.querySelector('dialog[open] .archive-account-record').textContent.includes('Offered quantity cannot exceed owned')"),'archive invalid offer');assert.equal(archiveWrites.length,2);
+    // Another device modifies the saved toy while the archive is open.
+    archiveHead.revision++;archiveHead.inventory.items[1].owned=6;
+    await archiveSubmit(5,3,2);await waitArchiveAction('archive-discard');assert.equal(archiveHead.inventory.items[1].owned,6);
+    await archiveButton('archive-discard');await archiveReady();assert.deepEqual(await archiveValues(),['6','3','2']);
+    await archiveSubmit(7,1,2);await archiveReady();await until(()=>evaluate("document.querySelector('dialog[open] .archive-account-record').textContent.includes('Account quantities saved at revision 13')"),'toy account save');
+    assert.equal(archiveHead.inventory.items[0].owned,9);assert.equal(archiveHead.inventory.items[1].owned,7);assert.equal(archiveHead.inventory.binders[0].entries.length,2);
+    assert.equal(await rawInventory(),guestBefore);assert.equal(await evaluate("document.body.textContent.includes('PRIVATE NOTE NEVER RENDERED')"),false);
+    assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    archiveOwner=bob;await evaluate("(() => {const c=new BroadcastChannel('bakugan-suite.account.v1');c.postMessage('session-changed');c.close()})()");await waitArchiveAction('archive-open');
+    assert.equal(await evaluate("document.querySelector('[data-archive-account-item=toy-0001]').textContent"),'');
+    await archiveButton('archive-open');await archiveReady();assert.deepEqual(await archiveValues(),['0','0','0']);assert.equal(await rawInventory(),guestBefore);
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    await call('Fetch.disable');intercept=null;
+    passed('Card and Toy Archive online quantity edits preserve guest data and unrelated records, retry exact writes, recover conflicts, validate trade counts and isolate switched accounts');
+
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {

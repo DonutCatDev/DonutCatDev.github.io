@@ -1,0 +1,12 @@
+# Signed-in exact item controls in both archives
+
+The Card Archive and Toy Archive now share Collection Manager release `2026-11-27-account.6`'s account editor. The archived card JSON, toy catalog release, physical IDs, evidence, storage schemas and Worker API remain unchanged. The new styles live in the Card Archive baseline and are copied into the suite's shared stylesheet during the existing assembly.
+
+## Workflow
+
+- Guest Card Archive bulk add, ownership-only filtering, import/export and individual edits are explicitly labelled as browser-local. Toy Archive guest inventory continues to be managed using its exact Collection Manager handoff. No guest records are automatically adopted by an account.
+- The online account section checks the deployment-owned configuration and the shared session. Opening the private account collection is an explicit action, available from the archive page or an exact item detail. Result badges then display the last confirmed account-owned quantity. The editor shows owned, wanted and offered counts for that exact printing or variant. Toy Archive searches now also accept exact variant IDs, matching Card Archive printing-ID searches. Sign-in and account management continue through Collection Manager.
+- A submitted item edit uses the existing full-document revision-checked inventory API. It changes only that item's three quantity fields; other card/toy records, private notes, binder membership, unmatched records and saved snapshots are preserved. Offers cannot exceed ownership. A confirmed receipt broadcasts a non-identifying inventory-saved message so an open Deckbuilder account workspace can refresh.
+- A lost receipt keeps the exact mutation available for retry. Conflicts block further edits; the user may export the private draft or explicitly discard it and reload the saved quantities before reapplying their change. There is no blind overwrite or automatic conflict merge. Account switches, failed verification and page cleanup hide private quantities; late responses cannot restore another account's records.
+
+No backend provisioning is implied. The checked-in API origin remains disabled; the existing guest collection tools work independently. Archive-wide online bulk operations, account-owned-only filtering, and direct editing of notes and binder membership remain in Collection Manager for now. Hosted OAuth staging and real-device verification are still pending.

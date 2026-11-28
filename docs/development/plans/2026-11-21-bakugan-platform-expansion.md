@@ -249,3 +249,5 @@ Owner testing of Aquos Diamond Platinum Warrior Whale revealed incorrect late-G2
 Deckbuilder release 2026-11-27-deck.10 introduces private account deck libraries and immutable unlisted deck snapshots using the same Cloudflare Worker and D1 database as Collection Manager. Local decks stay independent; explicit sync and conflict recovery preserve drafts. Hosted activation remains disabled until staging succeeds. [Account deck libraries decision](../decisions/2026-11-27-account-deck-libraries.md).
 
 Deckbuilder release 2026-11-27-deck.11 and Collection Manager release 2026-11-27-account.5 integrate saved account ownership comparison, non-identifying sync notifications, and unknown-state recovery. Guest ownership stays local. [Account deck ownership decision](../decisions/2026-11-27-account-deck-ownership.md).
+
+Collection Manager release 2026-11-27-account.6 integrates exact signed-in owned, wanted and offered quantity controls and saved-ownership badges into both archives; guest Card Archive tools remain isolated. [Archive account controls decision](../decisions/2026-11-27-archive-account-controls.md).

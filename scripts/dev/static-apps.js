@@ -7,9 +7,9 @@ import { validateCardLinks, validateCatalog } from '../../vendor/bakugan_toy_arc
 const root = resolve(import.meta.dirname, '..', '..');
 // Route names come from site-config; this manifest declares source/output contracts only.
 const manifest = [
-    { section: 'baku', page: 'bakugan_card_archive', directory: 'vendor/bakugan_card_archive/public', override: 'BAKUGAN_ARCHIVE_PUBLIC', required: ['index.html', 'data/cards.json', 'styles/main.css'] },
+    { section: 'baku', page: 'bakugan_card_archive', directory: 'vendor/bakugan_card_archive/public', override: 'BAKUGAN_ARCHIVE_PUBLIC', required: ['index.html', 'data/cards.json', 'scripts/app.js', 'styles/main.css'] },
     { section: 'baku', page: 'bakugan-archive', directory: 'vendor/bakugan_toy_archive/public', release: 'vendor/bakugan_toy_archive/release.json', contract: 'toy-catalog', required: ['index.html', 'data/toys.json', 'scripts/app.js'] },
-    { section: 'baku', page: 'collection', directory: 'vendor/bakugan_collection/public', release: 'vendor/bakugan_collection/release.json', contract: 'collection-app', required: ['index.html', 'scripts/app.js', 'scripts/lib/inventory.js', 'scripts/lib/service-api.js', 'data/service-config.json', 'shared/index.html', 'styles/main.css'], separateDirectories: ['shared'] },
+    { section: 'baku', page: 'collection', directory: 'vendor/bakugan_collection/public', release: 'vendor/bakugan_collection/release.json', contract: 'collection-app', required: ['index.html', 'scripts/app.js', 'scripts/lib/inventory.js', 'scripts/lib/service-api.js', 'scripts/lib/archive-account.js', 'data/service-config.json', 'shared/index.html', 'styles/main.css'], separateDirectories: ['shared'] },
     // The enclosing collection release checksums this subtree. Copy it only
     // to its own canonical static route, not a nested duplicate.
     { section: 'baku', page: 'shared', directory: 'vendor/bakugan_collection/public/shared', required: ['index.html'] },
