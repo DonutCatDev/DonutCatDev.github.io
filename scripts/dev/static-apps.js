@@ -13,7 +13,7 @@ const manifest = [
     // The enclosing collection release checksums this subtree. Copy it only
     // to its own canonical static route, not a nested duplicate.
     { section: 'baku', page: 'shared', directory: 'vendor/bakugan_collection/public/shared', required: ['index.html'] },
-    { section: 'baku', page: 'deckbuilder', directory: 'vendor/bakugan_deckbuilder/public', release: 'vendor/bakugan_deckbuilder/release.json', contract: 'deckbuilder-app', required: ['index.html', 'scripts/app.js', 'scripts/lib/formats.js', 'scripts/lib/validate.js', 'styles/main.css'] }
+    { section: 'baku', page: 'deckbuilder', directory: 'vendor/bakugan_deckbuilder/public', release: 'vendor/bakugan_deckbuilder/release.json', contract: 'deckbuilder-app', required: ['index.html', 'scripts/app.js', 'scripts/account-shell.js', 'scripts/shared-deck.js', 'scripts/deck-snapshot.js', 'scripts/lib/account-workspace.js', 'scripts/lib/deck-service-api.js', 'scripts/lib/formats.js', 'scripts/lib/validate.js', 'styles/main.css'] }
 ];
 
 export function getStaticApps(environment = process.env) {

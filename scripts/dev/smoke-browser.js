@@ -865,6 +865,69 @@ try {
     assert.ok(await evaluate("Array.from(document.querySelectorAll('dialog a')).some(a=>a.href.includes('wiki-294853'))"));
     passed('Toy Archive exposes exact package-listed support card printing');
 
+    const deckGuestBefore=await savedLibrary(),deckShareId='44444444-4444-4444-8444-444444444444';
+    let deckOwner=alice,deckHead={revision:0,library:null},deckPublication=null,deckWrites=[],deckPublishes=[],deckReceiptLost=true,deckShareReceiptLost=true;
+    const projection=body=>{const {id,...deck}=deckHead.library.decks.find(d=>d.id===body.deckId);return deck;};
+    intercept=async({requestId,request})=>{
+        const path=new URL(request.url).pathname;
+        const respond=(value,responseCode=200)=>call('Fetch.fulfillRequest',{requestId,responseCode,responseHeaders:[{name:'Content-Type',value:'application/json'},{name:'Cache-Control',value:'no-store'}],body:Buffer.from(JSON.stringify(value)).toString('base64')});
+        if(path.endsWith('/data/service-config.json'))return respond({schemaVersion:1,apiOrigin:origin});
+        if(path==='/v1/session')return respond(deckOwner?{signedIn:true,accountId:deckOwner}:{signedIn:false});
+        if(path==='/v1/shared-decks/'+deckShareId)return respond(deckPublication&&!deckPublication.revoked?deckPublication.view:null);
+        const asserted=Object.entries(request.headers).find(([key])=>key.toLowerCase()==='x-bakugan-account')?.[1];
+        if(asserted!==deckOwner)return respond({error:'ACCOUNT_CHANGED'},409);
+        const body=request.postData?JSON.parse(request.postData):null;
+        if(path==='/v1/decks'&&request.method==='GET')return respond(deckOwner===alice?deckHead:{revision:0,library:null});
+        if(path==='/v1/decks'){
+            deckWrites.push(body);
+            if(deckWrites.length>1&&body.mutationId===deckWrites[0].mutationId)return respond({status:'replayed',revision:deckHead.revision});
+            if(body.expectedRevision!==deckHead.revision)return respond({status:'conflict',revision:deckHead.revision});
+            deckHead={revision:deckHead.revision+1,library:body.library};
+            if(deckReceiptLost){deckReceiptLost=false;return respond({error:'UNAVAILABLE'},503);}
+            return respond({status:'saved',revision:deckHead.revision});
+        }
+        if(path==='/v1/deck-shares/preview')return respond({status:'preview',revision:deckHead.revision,deck:projection(body)});
+        if(path==='/v1/deck-shares'&&request.method==='POST'){
+            deckPublishes.push(body);
+            if(deckPublication?.requestId===body.requestId)return respond({status:'replayed',id:deckShareId});
+            deckPublication={requestId:body.requestId,view:{id:deckShareId,createdAt:'2026-11-27T00:00:00Z',deck:projection(body)},revoked:false};
+            if(deckShareReceiptLost){deckShareReceiptLost=false;return respond({error:'UNAVAILABLE'},503);}
+            return respond({status:'created',id:deckShareId});
+        }
+        if(path==='/v1/deck-shares')return respond(deckOwner===alice&&deckPublication&&!deckPublication.revoked?[{id:deckShareId,title:deckPublication.view.deck.title,formatId:deckPublication.view.deck.formatId,createdAt:deckPublication.view.createdAt,sourceRevision:deckHead.revision}]:[]);
+        if(path==='/v1/deck-shares/'+deckShareId+'/revoke'){deckPublication.revoked=true;return respond(true);}
+        return respond({error:'NOT_FOUND'},404);
+    };
+    await call('Fetch.enable',{patterns:[{urlPattern:'*data/service-config.json*',requestStage:'Request'},{urlPattern:`${origin}/v1/*`,requestStage:'Request'}]});
+    const deckAccountButton=action=>evaluate(`document.querySelector('.deck-account-panel [data-action=${JSON.stringify(action)}]')?.click()`);
+    const waitDeckAccountButton=action=>until(()=>evaluate(`Boolean(document.querySelector('.deck-account-panel [data-action=${JSON.stringify(action)}]:not([disabled])'))`),'deck account '+action);
+    await navigate('/baku/deckbuilder/');await waitDeckAccountButton('account-open');assert.equal(deckWrites.length,0);
+    await deckAccountButton('account-open');await waitDeckAccountButton('account-copy');
+    await deckAccountButton('account-copy');await waitDeckAccountButton('account-confirm');await deckAccountButton('account-confirm');
+    await waitDeckAccountButton('account-sync');assert.equal(deckWrites.length,0);assert.deepEqual(await savedLibrary(),deckGuestBefore);
+    await deckAccountButton('account-sync');await until(()=>evaluate("document.querySelector('.deck-account-state')?.textContent.includes('uncertain')"),'uncertain deck save');
+    await deckAccountButton('account-sync');await until(()=>evaluate("document.querySelector('.deck-account-state')?.textContent.includes('Synced account revision 1')"),'deck receipt replay');
+    assert.deepEqual(deckWrites[0],deckWrites[1]);assert.deepEqual(await savedLibrary(),deckGuestBefore);
+    assert.equal(deckHead.library.decks.length,deckGuestBefore.decks.length);assert.ok(deckHead.library.decks.every(d=>!deckGuestBefore.decks.some(g=>g.id===d.id)));
+    await evaluate("document.querySelector('form[data-account-form=share]').requestSubmit()");
+    await until(()=>evaluate("Boolean(document.querySelector('dialog[open] [aria-label=\"Published deck snapshot\"]'))"),'deck publication preview');
+    await deckAccountButton('account-confirm');await waitDeckAccountButton('account-retry-publish');await deckAccountButton('account-retry-publish');await waitDeckAccountButton('account-confirm');await deckAccountButton('account-confirm');
+    await waitDeckAccountButton('account-revoke');assert.deepEqual(deckPublishes[0],deckPublishes[1]);
+    await call('Emulation.setDeviceMetricsOverride',{width:320,height:800,deviceScaleFactor:1,mobile:true});assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await navigate('/baku/deckbuilder/?share='+deckShareId);await until(()=>evaluate("Boolean(document.querySelector('[aria-label=\"Published deck snapshot\"]'))"),'anonymous deck snapshot');
+    assert.equal(await evaluate("document.querySelector('[aria-label=\"Published deck snapshot\"] h2').textContent"),deckPublication.view.deck.title);
+    assert.equal(await evaluate("Boolean(document.querySelector('.deck-account-panel,form[data-form=create]'))"),false);
+    assert.equal(await evaluate("document.querySelector('meta[name=robots]').content"),'noindex,follow');assert.ok(await evaluate('document.documentElement.scrollWidth<=innerWidth'));
+    await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+    await navigate('/baku/deckbuilder/');await waitDeckAccountButton('account-open');await deckAccountButton('account-open');await waitDeckAccountButton('account-shares');await deckAccountButton('account-shares');await waitDeckAccountButton('account-revoke');await deckAccountButton('account-revoke');await waitDeckAccountButton('account-confirm');await deckAccountButton('account-confirm');
+    await until(()=>deckPublication.revoked,'revoked deck');await until(()=>evaluate("!document.querySelector('dialog[open]')"),'revocation complete');
+    deckOwner=bob;await evaluate("(() => {const c=new BroadcastChannel('bakugan-suite.account.v1');c.postMessage('session-changed');c.close()})()");
+    await waitDeckAccountButton('account-open');await deckAccountButton('account-open');await until(()=>evaluate("document.querySelector('.deck-account-state')?.textContent.includes('No saved account deck library')"),'new account empty');
+    assert.equal(await evaluate("Boolean(document.querySelector('#deck-library-select'))"),false);assert.deepEqual(await savedLibrary(),deckGuestBefore);
+    await navigate('/baku/deckbuilder/?share='+deckShareId);await until(()=>evaluate("document.querySelector('#deckbuilder').textContent.includes('Shared deck is unavailable')"),'revoked deck unavailable');
+    await call('Fetch.disable');intercept=null;
+    passed('deck accounts preserve guest data, retry exact mutations, publish only selected snapshots, revoke and isolate account switches at mobile and desktop widths');
+
     assert.deepEqual(errors, [], 'No unhandled browser exceptions');
     console.log(`Browser smoke passed: ${checks} checks. Screenshots: test-results/toy-pilot-{mobile,desktop}.png`);
 } finally {
