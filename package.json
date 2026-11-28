@@ -8,6 +8,7 @@
     "lint": "node scripts/dev/check-project.js",
     "test:browser": "node scripts/dev/smoke-browser.js",
     "build:pages": "node scripts/dev/build-pages.js",
+    "build:staging": "node scripts/dev/build-pages.js --staging",
     "preview": "node scripts/dev/serve.js"
   },
   "engines": {

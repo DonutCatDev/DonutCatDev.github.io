@@ -251,3 +251,5 @@ Deckbuilder release 2026-11-27-deck.10 introduces private account deck libraries
 Deckbuilder release 2026-11-27-deck.11 and Collection Manager release 2026-11-27-account.5 integrate saved account ownership comparison, non-identifying sync notifications, and unknown-state recovery. Guest ownership stays local. [Account deck ownership decision](../decisions/2026-11-27-account-deck-ownership.md).
 
 Collection Manager release 2026-11-27-account.6 integrates exact signed-in owned, wanted and offered quantity controls and saved-ownership badges into both archives; guest Card Archive tools remain isolated. [Archive account controls decision](../decisions/2026-11-27-archive-account-controls.md).
+
+The isolated Cloudflare staging release is prepared: a separate staging Pages artifact, Worker/D1 targets, Discord tester allowlist, and read-only hosted readiness check. Production stays disabled; the owner provisions the dedicated resources before the hosted acceptance checklist. [Staging release decision](../decisions/2026-11-28-cloudflare-staging-release.md).

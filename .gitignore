@@ -3,6 +3,7 @@ coverage/
 playwright-report/
 test-results/
 _site/
+_site-staging/
 *.log
 .DS_Store
 Thumbs.db
