@@ -63,13 +63,13 @@ test('the deckbuilder release resolves real pinned fixtures for all seven G1 and
     for(const id of ['wiki-844','wiki-889','wiki-860'])big=setCardQuantity(big,'ability',catalog.cards.get(id),1);
     assert.equal(validateConstruction(big,catalog).state,'checks-passed');
     assert.ok(validateConstruction(setCardQuantity(big,'gate',catalog.cards.get('wiki-901'),2),catalog).issues.some(issue=>issue.id==='big-game.copies'&&issue.severity==='error'));
-    assert.equal([...catalog.toys.values()].filter(toy=>toy.series==='Armored Alliance'&&!toy.kind&&toy.choices.length).length,135);
+    assert.equal([...catalog.toys.values()].filter(toy=>toy.series==='Armored Alliance'&&!toy.kind&&toy.choices.length).length,136);
     let aa=validateDeck({...g2,formatId:'g2-bp-aa-tcg-v1',team:g2.team.slice(1)});aa=addToy(aa,catalog.toys.get('toy-0057'));
     aa=setCardQuantity(aa,'deck',catalog.cards.get(ids.at(-1)),0);aa=setCardQuantity(aa,'deck',catalog.cards.get('wiki-291286'),1);
     aa=validateDeck({...aa,cores:requiredCores(aa,catalog).cores});assert.deepEqual(aa.cores,{Fist:3,'Flaming Fist':0,Shield:3,'Magic Shield':0,Helix:0});
     assert.equal(validateConstruction(aa,catalog).state,'checks-passed');
     assert.equal(validateConstruction({...aa,formatId:'g2-bp-tcg-v1'},catalog).state,'incomplete');
-    assert.equal([...catalog.toys.values()].filter(toy=>!toy.kind&&toy.choices.length).length,626);
+    assert.equal([...catalog.toys.values()].filter(toy=>!toy.kind&&toy.choices.length).length,631);
     assert.deepEqual(catalog.toys.get('toy-1096').choices.map(choice=>choice.cardId),['wiki-300520','wiki-302480']);
     let later=validateDeck({...g2,formatId:'g2-all-seasons-single-faction-v1',team:[]});
     for(const id of ['toy-1099','toy-1101','toy-1109'])later=addToy(later,catalog.toys.get(id));
@@ -98,9 +98,21 @@ test('the deckbuilder release resolves real pinned fixtures for all seven G1 and
     assert.ok(validateConstruction(noFusion,catalog).issues.some(i=>i.id==='synergy.fusion-team'&&i.severity==='warning'));
     assert.equal(validateConstruction(noFusion,catalog).state,'checks-passed');
     const unlinked=[...catalog.toys.values()].filter(toy=>toy.generation==='G2'&&!toy.kind&&!toy.choices.length);
-    assert.equal(unlinked.length,157);assert.equal(unlinked.filter(toy=>toy.manualChoices.length).length,145);
+    assert.equal(unlinked.length,152);assert.equal(unlinked.filter(toy=>toy.manualChoices.length).length,146);
     const diamond=catalog.toys.get('toy-0049');assert.deepEqual(diamond.manualChoices.map(choice=>choice.cardId),['wiki-279824']);
-    assert.equal(catalog.toys.get('toy-1103').manualChoices.length,0);
+    // Regression: the three reported Diamond treatments use their ordinary
+    // Character rather than the included Diamond Evo; the series metadata is fixed.
+    const whale=catalog.toys.get('toy-1206');
+    assert.deepEqual(whale.manualChoices.map(choice=>choice.cardId),['wiki-301882']);
+    assert.deepEqual(whale.manualChoices[0].cores,['Flaming Fist','Shield']);
+    assert.equal(whale.manualChoices[0].bPower,1000);assert.equal(whale.manualChoices[0].damage,1);
+    assert.equal(catalog.cards.get('wiki-301882').series,'Evolutions');assert.equal(catalog.cards.get('wiki-302730').type,'Evo');
+    assert.deepEqual(catalog.toys.get('toy-0347').manualChoices.map(choice=>choice.cardId),['wiki-282620']);
+    assert.deepEqual(catalog.toys.get('toy-0412').manualChoices.map(choice=>choice.cardId),['wiki-289932']);
+    assert.deepEqual(catalog.toys.get('toy-1252').manualChoices.map(choice=>choice.cardId),['wiki-305214']);
+    for(const [toyId,cardId] of [['toy-1103','wiki-301882'],['toy-1261','wiki-304172'],['toy-0432','wiki-289929'],['toy-1186','wiki-306611'],['toy-1278','wiki-304179']])assert.equal(catalog.toys.get(toyId).choices[0].cardId,cardId);
+
+    assert.equal(catalog.toys.get('toy-1016').manualChoices.length,0);
     let manual=addToy(validateDeck({...g2,team:g2.team.slice(1)}),diamond);assert.equal(manual.team[2].cardId,null);
     manual=setTeamChoice(manual,2,diamond.manualChoices[0]);manual=validateDeck({...manual,cores:requiredCores(manual,catalog).cores});
     assert.equal(validateConstruction(manual,catalog).state,'unverified');assert.ok(validateConstruction(manual,catalog).issues.some(issue=>issue.id==='team.character-review'));
